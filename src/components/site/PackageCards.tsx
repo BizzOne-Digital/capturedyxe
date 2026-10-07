@@ -28,14 +28,14 @@ export function PackageCards({
   showPrices: boolean;
 }) {
   return (
-    <div className="grid gap-6 md:grid-cols-3">
+    <div className="grid w-full min-w-0 grid-cols-1 gap-6 md:grid-cols-3">
       {packages.map((pkg, i) => {
         const visibleInclusions =
           pkg.inclusions?.filter((inc) => inc.publiclyVisible !== false) ?? [];
         return (
           <Reveal key={pkg._id} delay={i * 0.08}>
             <article
-              className="flex h-full flex-col rounded-3xl border border-ink/10 bg-porcelain p-6 shadow-sm transition-shadow hover:shadow-md"
+              className="flex h-full min-w-0 flex-col rounded-3xl border border-ink/10 bg-porcelain p-6 shadow-sm transition-shadow hover:shadow-md"
             >
               <p className="text-xs uppercase tracking-[0.2em] text-champagne">
                 {pkg.durationHours} hours

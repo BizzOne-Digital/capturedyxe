@@ -66,7 +66,7 @@ export function GalleryGrid({ items }: { items: Item[] }) {
         ))}
       </div>
 
-      <div className="mt-8 columns-1 gap-4 sm:columns-2 lg:columns-3">
+      <div className="mt-8 w-full min-w-0 columns-1 gap-4 sm:columns-2 lg:columns-3">
         {filtered.map((item, index) => (
           <motion.button
             key={item._id}

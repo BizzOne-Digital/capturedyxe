@@ -54,7 +54,7 @@ export function ContactForm({ sourcePage = "/contact" }: { sourcePage?: string }
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
+    <form onSubmit={onSubmit} className="min-w-0 w-full max-w-full space-y-4">
       <input
         type="text"
         name="website"
@@ -63,7 +63,7 @@ export function ContactForm({ sourcePage = "/contact" }: { sourcePage?: string }
         className="hidden"
         aria-hidden
       />
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-2">
         <label className="block text-sm">
           <span className="text-taupe">Name *</span>
           <input
@@ -90,7 +90,7 @@ export function ContactForm({ sourcePage = "/contact" }: { sourcePage?: string }
           className="mt-1 w-full rounded-xl border border-ink/15 bg-porcelain px-4 py-3"
         />
       </label>
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-2">
         <label className="block text-sm">
           <span className="text-taupe">Event type *</span>
           <select

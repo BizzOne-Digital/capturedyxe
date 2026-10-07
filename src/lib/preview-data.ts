@@ -1,3 +1,5 @@
+import { galleryImages, siteImages } from "@/lib/site-images";
+
 /** Read-only fallback when MONGODB_URI is not configured (local preview only). */
 
 export const PREVIEW_MODE = !process.env.MONGODB_URI;
@@ -21,8 +23,7 @@ export const previewSettings = {
   headline: "Capture Moments into Memories.",
   subheadline:
     "Saskatoon's go-to photo booth experience for weddings, corporate events, and celebrations.",
-  heroImageUrl:
-    "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1600&q=80",
+  heroImageUrl: "/hero-booth.jpg",
   ctaPrimaryLabel: "Check Availability",
   ctaSecondaryLabel: "Explore the Experience",
 };
@@ -136,8 +137,8 @@ export const previewServices = [
       "From elegant templates to guest-friendly flow, our booth complements your venue styling while guests leave with keepsakes.",
     features: ["Custom overlays", "Styled backdrops", "Prints & digital sharing"],
     audience: "wedding",
-    imageUrl: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=1200&q=80",
-    imageAlt: "Wedding reception table styling inspiration",
+    imageUrl: siteImages.weddingBanquet,
+    imageAlt: "Wooden photo booth at an elegant wedding reception",
     order: 0,
     featured: true,
     status: "published",
@@ -151,8 +152,8 @@ export const previewServices = [
       "Product launches, galas, and team celebrations with professional on-site support and clean aesthetic setups.",
     features: ["Brand templates", "Guest engagement", "Technical support"],
     audience: "corporate",
-    imageUrl: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80",
-    imageAlt: "Corporate event space inspiration",
+    imageUrl: siteImages.corporateGala,
+    imageAlt: "Photo booth at a corporate gala with warm lighting",
     order: 1,
     featured: true,
     status: "published",
@@ -166,8 +167,8 @@ export const previewServices = [
       "Curated props and personalized templates help your celebration feel unmistakably yours.",
     features: ["Custom props", "Personalized templates", "Instant memories"],
     audience: "milestone",
-    imageUrl: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1200&q=80",
-    imageAlt: "Celebration decor inspiration",
+    imageUrl: siteImages.weddingBalloons,
+    imageAlt: "Photo booth beside balloon arch and florals",
     order: 2,
     featured: false,
     status: "published",
@@ -181,8 +182,8 @@ export const previewServices = [
       "Highlight your brand with tailored photo strip designs and a setup that photographs beautifully.",
     features: ["Launch templates", "Styled setup", "Digital copies"],
     audience: "product-launch",
-    imageUrl: "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1200&q=80",
-    imageAlt: "Product launch event inspiration",
+    imageUrl: siteImages.corporateGala,
+    imageAlt: "Photo booth at a product launch celebration",
     order: 3,
     featured: false,
     status: "published",
@@ -196,8 +197,8 @@ export const previewServices = [
       "High-energy guest flow with durable props and templates suited to school spirit.",
     features: ["Fast guest flow", "School-themed templates", "On-site support"],
     audience: "school",
-    imageUrl: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&q=80",
-    imageAlt: "School celebration inspiration",
+    imageUrl: siteImages.schoolGraduation,
+    imageAlt: "Graduation celebration photo booth setup",
     order: 4,
     featured: false,
     status: "published",
@@ -211,10 +212,93 @@ export const previewServices = [
       "Robust setups built for festivals and public events across the YXE region.",
     features: ["Festival-ready setup", "High throughput", "Custom branding"],
     audience: "festival",
-    imageUrl: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1200&q=80",
-    imageAlt: "Outdoor festival atmosphere inspiration",
+    imageUrl: siteImages.outdoorGazebo,
+    imageAlt: "Outdoor photo booth under a garden gazebo",
     order: 5,
     featured: false,
+    status: "published",
+  },
+];
+
+export const previewTestimonials = [
+  {
+    _id: "tm-wedding-1",
+    reviewerName: "Sarah & Michael T.",
+    quote:
+      "Our guests could not stay away from the booth — the wooden setup looked beautiful beside our florals, and the custom strip with our names felt so personal. Prints were ready in seconds and we still have a pile on our coffee table months later.",
+    rating: 5,
+    eventCategory: "wedding",
+    order: 0,
+    status: "published",
+  },
+  {
+    _id: "tm-wedding-2",
+    reviewerName: "Priya K.",
+    quote:
+      "Captured.YXE handled our reception timeline perfectly. The lighting was flattering in a dim ballroom, the host kept the line moving, and our families loved having something tangible to take home instead of another phone photo lost in the cloud.",
+    rating: 5,
+    eventCategory: "wedding",
+    order: 1,
+    status: "published",
+  },
+  {
+    _id: "tm-corporate-1",
+    reviewerName: "Jordan M., Event Lead — Prairie Tech Co.",
+    quote:
+      "We needed on-brand strips for a product launch in Saskatoon and they delivered. Logo placement was crisp, setup was discreet but polished, and our team used the digital gallery for social posts the next morning.",
+    rating: 5,
+    eventCategory: "corporate",
+    order: 2,
+    status: "published",
+  },
+  {
+    _id: "tm-corporate-2",
+    reviewerName: "Linda H., Office Manager",
+    quote:
+      "Our holiday party booth was the highlight of the night. Props were tasteful, not cheesy, and the attendant was professional with executives and plus-ones alike. Booking again for our summer staff event.",
+    rating: 5,
+    eventCategory: "corporate",
+    order: 3,
+    status: "published",
+  },
+  {
+    _id: "tm-milestone-1",
+    reviewerName: "The Okoye Family",
+    quote:
+      "For my parents’ 40th anniversary we wanted something interactive that every generation would enjoy. The booth delivered — grandparents, teens, and little cousins all posed together and left with strips they still talk about.",
+    rating: 5,
+    eventCategory: "milestone",
+    order: 4,
+    status: "published",
+  },
+  {
+    _id: "tm-school-1",
+    reviewerName: "Mr. Daniels, Grad Committee",
+    quote:
+      "Grad night was hectic and they made it easy — fast flow, durable props, and a template that matched our school colours. Lines stayed short even when everyone rushed the booth after the ceremony.",
+    rating: 5,
+    eventCategory: "school",
+    order: 5,
+    status: "published",
+  },
+  {
+    _id: "tm-festival-1",
+    reviewerName: "Riverbank Community Association",
+    quote:
+      "Outdoor festival conditions can be tricky, but the setup held up through an afternoon of wind and foot traffic. Families lined up all day and the strips became little souvenirs people carried around the grounds.",
+    rating: 5,
+    eventCategory: "festival",
+    order: 6,
+    status: "published",
+  },
+  {
+    _id: "tm-general-1",
+    reviewerName: "Amanda & Chris L.",
+    quote:
+      "From the first email to teardown, communication was clear and the experience felt premium. The modern-retro booth matched our venue aesthetic and every guest commented on how good the photos looked.",
+    rating: 5,
+    eventCategory: "general",
+    order: 7,
     status: "published",
   },
 ];
@@ -267,68 +351,16 @@ export const previewFaqs = [
   },
 ];
 
-export const previewGallery = [
-  {
-    _id: "gal-1",
-    imageUrl: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1200&q=80",
-    alt: "Hands holding wedding photo strips — event inspiration",
-    caption: "Photo strip keepsakes",
-    category: "wedding",
-    designation: "inspiration",
-    order: 0,
-    status: "published",
-  },
-  {
-    _id: "gal-2",
-    imageUrl: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1200&q=80",
-    alt: "Celebration with warm lighting — event inspiration",
-    caption: "Celebration atmosphere",
-    category: "corporate",
-    designation: "inspiration",
-    order: 1,
-    status: "published",
-  },
-  {
-    _id: "gal-3",
-    imageUrl: "https://images.unsplash.com/photo-1452860606245-08befc4ff4db?w=1200&q=80",
-    alt: "Wooden texture detail — styling inspiration",
-    caption: "Modern-retro styling",
-    category: "general",
-    designation: "inspiration",
-    order: 2,
-    status: "published",
-  },
-  {
-    _id: "gal-4",
-    imageUrl: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=1200&q=80",
-    alt: "DSLR camera detail — equipment inspiration",
-    caption: "Professional capture",
-    category: "general",
-    designation: "inspiration",
-    order: 3,
-    status: "published",
-  },
-  {
-    _id: "gal-5",
-    imageUrl: "https://images.unsplash.com/photo-1520854221256-17451b3c279c?w=1200&q=80",
-    alt: "Elegant venue decor — wedding inspiration",
-    caption: "Venue styling",
-    category: "wedding",
-    designation: "inspiration",
-    order: 4,
-    status: "published",
-  },
-  {
-    _id: "gal-6",
-    imageUrl: "https://images.unsplash.com/photo-1505236858219-8359eb4e4d0f?w=1200&q=80",
-    alt: "Festival crowd energy — inspiration",
-    caption: "Festival energy",
-    category: "festival",
-    designation: "inspiration",
-    order: 5,
-    status: "published",
-  },
-];
+export const previewGallery = galleryImages.map((item, index) => ({
+  _id: `gal-${index + 1}`,
+  imageUrl: item.imageUrl,
+  alt: item.alt,
+  caption: item.caption,
+  category: item.category,
+  designation: "inspiration" as const,
+  order: index,
+  status: "published" as const,
+}));
 
 export const previewOffer = {
   _id: "offer-christmas",

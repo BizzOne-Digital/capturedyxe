@@ -32,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en-CA" className={`${cormorant.variable} ${manrope.variable}`}>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased overflow-x-clip">{children}</body>
     </html>
   );
 }

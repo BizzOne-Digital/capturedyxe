@@ -1,4 +1,4 @@
-import mongoose, { Schema, models, model } from "mongoose";
+import { Schema, models, model } from "mongoose";
 
 const SiteSettingsSchema = new Schema(
   {
@@ -35,8 +35,7 @@ const SiteSettingsSchema = new Schema(
     },
     heroImageUrl: {
       type: String,
-      default:
-        "https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=80",
+      default: "/hero-booth.jpg",
     },
     ctaPrimaryLabel: { type: String, default: "Check Availability" },
     ctaSecondaryLabel: { type: String, default: "Explore the Experience" },

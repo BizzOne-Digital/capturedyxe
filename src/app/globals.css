@@ -5,6 +5,7 @@
   --porcelain: #fffcf7;
   --ink: #191919;
   --champagne: #b59670;
+  --hero-gold: #a68b67;
   --sand: #e7dacc;
   --taupe: #5f5a53;
 }
@@ -14,6 +15,7 @@
   --color-porcelain: var(--porcelain);
   --color-ink: var(--ink);
   --color-champagne: var(--champagne);
+  --color-hero-gold: var(--hero-gold);
   --color-sand: var(--sand);
   --color-taupe: var(--taupe);
   --font-display: var(--font-cormorant);
@@ -22,6 +24,14 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
+  width: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -34,10 +44,46 @@ body {
   background: var(--ivory);
   color: var(--ink);
   font-family: var(--font-manrope), system-ui, sans-serif;
+  overflow-x: clip;
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
 }
 
 .font-display {
   font-family: var(--font-cormorant), Georgia, serif;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+.site-container {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .site-container {
+    padding-inline: 2rem;
+  }
+}
+
+/* Prevent iOS zoom on inputs while keeping readable fields */
+@media (max-width: 767px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
 }
 
 .film-frame {

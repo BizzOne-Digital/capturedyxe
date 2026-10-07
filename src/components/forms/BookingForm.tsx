@@ -86,7 +86,7 @@ export function BookingForm({
   }
 
   return (
-    <div>
+    <div className="min-w-0 w-full max-w-full">
       <ol className="mb-8 flex flex-wrap gap-2" aria-label="Booking steps">
         {steps.map((label, i) => (
           <li
@@ -121,7 +121,7 @@ export function BookingForm({
               <option>Other</option>
             </select>
           </label>
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid min-w-0 grid-cols-1 gap-4 md:grid-cols-2">
             <label className="block text-sm">
               <span className="text-taupe">Event date *</span>
               <input

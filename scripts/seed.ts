@@ -1,0 +1,105 @@
+import "dotenv/config";
+import mongoose from "mongoose";
+import {
+  previewAddOns,
+  previewFaqs,
+  previewGallery,
+  previewOffer,
+  previewPackages,
+  previewServices,
+  previewSettings,
+  previewTestimonials,
+} from "../src/lib/preview-data";
+import { Testimonial } from "../src/models/Testimonial";
+import { SiteSettings } from "../src/models/SiteSettings";
+import { Service } from "../src/models/Service";
+import { Package } from "../src/models/Package";
+import { AddOn } from "../src/models/AddOn";
+import { FAQ } from "../src/models/FAQ";
+import { GalleryItem } from "../src/models/GalleryItem";
+import { Offer } from "../src/models/Offer";
+
+function withoutId<T extends { _id?: string }>(row: T) {
+  const { _id, ...rest } = row;
+  void _id;
+  return rest;
+}
+
+async function main() {
+  const uri = process.env.MONGODB_URI;
+  const dbName = process.env.MONGODB_DB_NAME;
+  if (!uri || !dbName) {
+    console.error("Set MONGODB_URI and MONGODB_DB_NAME in .env");
+    process.exit(1);
+  }
+
+  await mongoose.connect(uri, { dbName });
+
+  await SiteSettings.findOneAndUpdate(
+    { singletonKey: "main" },
+    { $setOnInsert: withoutId(previewSettings) },
+    { upsert: true, new: true }
+  );
+
+  for (const svc of previewServices) {
+    await Service.findOneAndUpdate(
+      { slug: svc.slug },
+      { $setOnInsert: withoutId(svc) },
+      { upsert: true }
+    );
+  }
+
+  for (const pkg of previewPackages) {
+    await Package.findOneAndUpdate(
+      { slug: pkg.slug },
+      { $setOnInsert: withoutId(pkg) },
+      { upsert: true }
+    );
+  }
+
+  for (const addon of previewAddOns) {
+    await AddOn.findOneAndUpdate(
+      { slug: addon.slug },
+      { $setOnInsert: withoutId(addon) },
+      { upsert: true }
+    );
+  }
+
+  for (const faq of previewFaqs) {
+    await FAQ.findOneAndUpdate(
+      { question: faq.question },
+      { $setOnInsert: withoutId(faq) },
+      { upsert: true }
+    );
+  }
+
+  for (const item of previewGallery) {
+    await GalleryItem.findOneAndUpdate(
+      { imageUrl: item.imageUrl },
+      { $setOnInsert: withoutId(item) },
+      { upsert: true }
+    );
+  }
+
+  await Offer.findOneAndUpdate(
+    { slug: previewOffer.slug },
+    { $setOnInsert: withoutId(previewOffer) },
+    { upsert: true }
+  );
+
+  for (const testimonial of previewTestimonials) {
+    await Testimonial.findOneAndUpdate(
+      { reviewerName: testimonial.reviewerName },
+      { $set: withoutId(testimonial) },
+      { upsert: true }
+    );
+  }
+
+  console.log("Seed complete (idempotent — existing records were not overwritten).");
+  await mongoose.disconnect();
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

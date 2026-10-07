@@ -78,11 +78,11 @@ export async function requireAdmin(): Promise<{ id: string; email: string }> {
 
   await connectDB();
   const admin = await AdminUser.findById(adminId).select("email").lean();
-  if (!admin) {
+  if (!admin || Array.isArray(admin) || !admin.email) {
     throw new AdminAuthError("Unauthorized");
   }
 
-  return { id: adminId, email: admin.email };
+  return { id: adminId, email: String(admin.email) };
 }
 
 export class AdminAuthError extends Error {
