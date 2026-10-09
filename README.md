@@ -59,6 +59,20 @@ Set `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET`. 
 
 Gallery and media records store Cloudinary URLs and public IDs in MongoDB.
 
+## Google reviews (optional)
+
+The `/testimonials` page shows a **Google reviews** block when configured:
+
+1. In [Google Cloud Console](https://console.cloud.google.com/), enable **Places API (New)**.
+2. Create an API key restricted to Places API.
+3. Find your **Place ID** (Google Maps → your business → share link, or [Place ID finder](https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder)).
+4. Set in `.env`:
+   - `GOOGLE_PLACE_ID`
+   - `GOOGLE_PLACES_API_KEY`
+   - `GOOGLE_REVIEWS_URL` — public “read reviews” link (used in footer if API is off)
+
+Reviews refresh about once per hour. Without API keys, the site still links out to Google and shows CMS testimonials.
+
 ## Optional SMTP
 
 When `SMTP_*` and `ADMIN_NOTIFY_EMAIL` are set, new enquiries and booking requests trigger a notification. Records are always saved even if email fails; `notificationSent` reflects delivery.
@@ -74,6 +88,7 @@ When `SMTP_*` and `ADMIN_NOTIFY_EMAIL` are set, new enquiries and booking reques
 | `npm run seed` | Seed default content (idempotent) |
 | `npm run create-admin` | Create/update admin user |
 | `npm run sync-images` | Update MongoDB services & gallery with brand photos in `public/images` |
+| `npm run restore-brand-assets` | Copy client reference booth/logo files into `public/` |
 
 ## Public pages (12)
 
@@ -134,7 +149,8 @@ Set the same variables as `.env.example`. **Required:**
 
 - Allow your host’s egress IPs in **MongoDB Atlas → Network Access**.
 - Do **not** commit `.env` or real `ADMIN_PASSWORD` values.
-- Brand logo lives in `public/logo.png` (header/footer); replace that file to change branding without DB changes.
+- Brand logos live in `public/logo/` (`Captured-yxe-dark.svg` header, `Captured-yxe-white.svg` footer).
+- **Event gallery:** drop client folders under `public/` locally, run `npm run stage-event-gallery` (skips videos/originals &gt;8MB), then add paths in `src/lib/event-gallery.ts`. Only `public/gallery/events/` is meant for git — raw event zips/folders are gitignored.
 
 ### Smoke test
 

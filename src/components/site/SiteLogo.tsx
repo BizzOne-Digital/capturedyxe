@@ -1,14 +1,15 @@
 import Image from "next/image";
+import {
+  BRAND_LOGO_HEIGHT,
+  BRAND_LOGO_PATH,
+  BRAND_LOGO_WIDTH,
+  getBrandLogoSrc,
+} from "@/lib/brand-logo";
 
-/** Header & footer always use this file — update `public/logo.png` to change the brand mark. */
-export const BRAND_LOGO_PATH = "/logo.png";
+export { BRAND_LOGO_PATH };
 
-const LOGO_WIDTH = 1024;
-const LOGO_HEIGHT = 341;
-
-/** Full lockup: Captured.yxe + camera + “VINTAGE SOUL, INSTANT ROLL” */
 const logoImageClass =
-  "block h-11 w-auto max-w-[min(100%,260px)] object-contain object-left sm:h-12 sm:max-w-[280px] md:h-14 md:max-w-[300px]";
+  "block h-10 w-auto max-w-full object-contain object-left sm:h-11 sm:max-w-[260px] md:h-12 md:max-w-[300px]";
 
 type SiteLogoProps = {
   siteName: string;
@@ -17,25 +18,17 @@ type SiteLogoProps = {
 };
 
 export function SiteLogo({ siteName, variant, priority }: SiteLogoProps) {
-  const image = (
+  const src = getBrandLogoSrc(variant);
+
+  return (
     <Image
-      src={BRAND_LOGO_PATH}
+      src={src}
       alt={siteName}
-      width={LOGO_WIDTH}
-      height={LOGO_HEIGHT}
+      width={BRAND_LOGO_WIDTH}
+      height={BRAND_LOGO_HEIGHT}
       className={logoImageClass}
-      priority={priority}
-      sizes="(max-width: 640px) 240px, 300px"
+      priority={priority ?? variant === "header"}
+      sizes="(max-width: 640px) 220px, 300px"
     />
   );
-
-  if (variant === "footer") {
-    return (
-      <span className="inline-block rounded-sm bg-porcelain px-2.5 py-2 sm:px-3 sm:py-2.5">
-        {image}
-      </span>
-    );
-  }
-
-  return image;
 }

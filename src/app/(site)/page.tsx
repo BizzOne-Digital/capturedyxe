@@ -111,7 +111,7 @@ export default async function HomePage() {
           <Reveal delay={0.1}>
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl film-frame">
               <Image
-                src={siteImages.boothGalleryArch}
+                src={siteImages.boothPrimary}
                 alt="Modern wooden photo booth in an elegant venue"
                 fill
                 className="object-cover"

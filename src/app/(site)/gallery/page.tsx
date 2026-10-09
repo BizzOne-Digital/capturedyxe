@@ -1,19 +1,26 @@
 import Image from "next/image";
+import { EventGallerySections } from "@/components/site/EventGallerySections";
 import { GalleryGrid } from "@/components/site/GalleryGrid";
 import { Reveal } from "@/components/motion/Reveal";
 import { getPublishedGallery } from "@/lib/data/public";
+import { getPublishedEventAlbums } from "@/lib/event-gallery";
 import { siteImages } from "@/lib/site-images";
 
 export const metadata = { title: "Gallery" };
 
 export default async function GalleryPage() {
-  const items = await getPublishedGallery();
+  const [items, eventAlbums] = await Promise.all([
+    getPublishedGallery(),
+    Promise.resolve(getPublishedEventAlbums()),
+  ]);
+
+  const inspirationItems = items.filter((i) => i.designation !== "event");
 
   return (
     <>
       <section className="relative min-h-[40vh] w-full max-w-full overflow-hidden">
         <Image
-          src={siteImages.boothGalleryArch}
+          src={siteImages.boothPrimary}
           alt="Captured.YXE photo booth styling"
           fill
           className="object-cover"
@@ -30,9 +37,24 @@ export default async function GalleryPage() {
           </Reveal>
         </div>
       </section>
-      <section className="py-16">
+      <section className="border-b border-ink/8 bg-ivory py-16 md:py-20">
         <div className="mx-auto w-full min-w-0 max-w-7xl px-4 md:px-8">
-          <GalleryGrid items={items} />
+          <EventGallerySections albums={eventAlbums} />
+        </div>
+      </section>
+
+      <section className="py-16 md:py-20">
+        <div className="mx-auto w-full min-w-0 max-w-7xl px-4 md:px-8">
+          <Reveal>
+            <h2 className="font-display text-3xl md:text-4xl">Setups & styling</h2>
+            <p className="mt-3 max-w-2xl text-sm text-taupe">
+              Booth details, backdrops, and inspiration from across weddings, corporate events, and
+              celebrations.
+            </p>
+          </Reveal>
+          <div className="mt-10">
+            <GalleryGrid items={inspirationItems.length > 0 ? inspirationItems : items} />
+          </div>
         </div>
       </section>
     </>

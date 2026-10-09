@@ -1,9 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { SiteLogo } from "@/components/site/SiteLogo";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -36,8 +36,8 @@ export default function AdminLoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-ivory px-4">
       <div className="w-full max-w-md rounded-3xl border border-ink/10 bg-porcelain p-8 shadow-sm">
-        <div className="flex justify-center rounded-xl bg-ivory p-4">
-          <Image src="/logo.png" alt="Captured.YXE" width={200} height={56} className="h-12 w-auto" />
+        <div className="flex justify-center">
+          <SiteLogo siteName="Captured.YXE" variant="header" priority />
         </div>
         <h1 className="mt-6 text-center font-display text-2xl">Admin sign in</h1>
         <form onSubmit={onSubmit} className="mt-8 space-y-4">

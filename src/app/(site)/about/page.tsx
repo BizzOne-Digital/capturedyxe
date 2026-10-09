@@ -83,7 +83,7 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="relative flex min-h-[72vh] w-full max-w-full items-end overflow-hidden">
         <Image
-          src={siteImages.boothGalleryArch}
+          src={siteImages.boothPrimary}
           alt="Captured.YXE modern wooden photo booth in an elegant venue"
           fill
           className="object-cover"

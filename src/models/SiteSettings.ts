@@ -3,7 +3,7 @@ import { Schema, models, model } from "mongoose";
 const SiteSettingsSchema = new Schema(
   {
     singletonKey: { type: String, default: "main", unique: true },
-    email: { type: String, default: "ilustrecharles@gmail.com" },
+    email: { type: String, default: "capturedyxe@outlook.com" },
     phone: { type: String, default: "+1 639 480 6206" },
     phoneTel: { type: String, default: "tel:+16394806206" },
     serviceArea: {
@@ -13,7 +13,7 @@ const SiteSettingsSchema = new Schema(
     },
     instagramUrl: { type: String, default: "" },
     facebookUrl: { type: String, default: "" },
-    logoUrl: { type: String, default: "/logo.png" },
+    logoUrl: { type: String, default: "/logo/Captured-yxe-dark.svg" },
     tagline: { type: String, default: "VINTAGE SOUL, INSTANT ROLL" },
     startingPriceCents: { type: Number, default: 40000 },
     showPublicPackagePrices: { type: Boolean, default: false },

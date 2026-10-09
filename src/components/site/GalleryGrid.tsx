@@ -129,8 +129,7 @@ export function GalleryGrid({ items }: { items: Item[] }) {
             {filtered[lightbox].caption && (
               <p className="mt-3 text-center text-sm text-porcelain/80">
                 {filtered[lightbox].caption}
-                {filtered[lightbox].designation === "inspiration" &&
-                  " — inspiration"}
+                {filtered[lightbox].designation === "inspiration" && " — inspiration"}
               </p>
             )}
           </div>

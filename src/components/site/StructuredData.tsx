@@ -1,11 +1,13 @@
 import { getSiteSettings } from "@/lib/data/public";
+import { fetchGooglePlaceReviews, getGoogleReviewsPageUrl } from "@/lib/google-place";
 import { getSiteUrl } from "@/lib/site-url";
 
 export async function StructuredData() {
   const settings = await getSiteSettings();
+  const google = await fetchGooglePlaceReviews();
   const url = getSiteUrl();
 
-  const organization = {
+  const organization: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: settings.siteName,
@@ -13,6 +15,7 @@ export async function StructuredData() {
     url,
     email: settings.email,
     telephone: settings.phone,
+    sameAs: [getGoogleReviewsPageUrl()],
     areaServed: {
       "@type": "City",
       name: "Saskatoon",
@@ -24,6 +27,15 @@ export async function StructuredData() {
       addressCountry: "CA",
     },
   };
+
+  if (google && google.rating > 0 && google.userRatingCount > 0) {
+    organization.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: google.rating,
+      reviewCount: google.userRatingCount,
+      bestRating: 5,
+    };
+  }
 
   const service = {
     "@context": "https://schema.org",

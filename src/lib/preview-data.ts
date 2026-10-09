@@ -1,3 +1,5 @@
+import { BRAND_EMAIL } from "@/lib/brand";
+import { eventGalleryToPreviewItems } from "@/lib/event-gallery";
 import { galleryImages, siteImages } from "@/lib/site-images";
 
 /** Read-only fallback when MONGODB_URI is not configured (local preview only). */
@@ -6,16 +8,16 @@ export const PREVIEW_MODE = !process.env.MONGODB_URI;
 
 export const previewSettings = {
   _id: "preview",
-  email: "ilustrecharles@gmail.com",
+  email: BRAND_EMAIL,
   phone: "+1 639 480 6206",
   phoneTel: "tel:+16394806206",
   serviceArea: "Saskatoon, Saskatchewan and surrounding areas by arrangement.",
   instagramUrl: "",
   facebookUrl: "",
-  logoUrl: "/logo.png",
+  logoUrl: "/logo/Captured-yxe-dark.svg",
   tagline: "VINTAGE SOUL, INSTANT ROLL",
   startingPriceCents: 40000,
-  showPublicPackagePrices: false,
+  showPublicPackagePrices: true,
   siteName: "Captured.YXE",
   defaultSeoTitle: "Captured.YXE | Saskatoon Photo Booth Rentals",
   defaultSeoDescription:
@@ -36,22 +38,18 @@ export const previewPackages = [
     tier: "standard",
     priceCents: 40000,
     durationHours: 2,
-    shortDescription: "A polished two-hour booth experience for intimate celebrations.",
+    shortDescription: "Digital copies, backdrops, props, and customized templates for two hours.",
     order: 0,
     active: true,
-    showPricePublicly: false,
+    showPricePublicly: true,
+    confirmationNotes: "",
     inclusions: [
-      { label: "2 hours of booth time", publiclyVisible: true },
-      { label: "Backdrops and props", publiclyVisible: true },
-      { label: "2×6 or 4×6 print size options", publiclyVisible: true },
-      { label: "On-site technical support", publiclyVisible: true },
+      { label: "Digital photo copies for 2 hours", publiclyVisible: true },
+      { label: "Backdrops", publiclyVisible: true },
+      { label: "Props", publiclyVisible: true },
+      { label: "2×6 or 4×6 print sizes", publiclyVisible: true },
+      { label: "On-site tech support", publiclyVisible: true },
       { label: "2 customized templates", publiclyVisible: true },
-      { label: "Digital photo copies", publiclyVisible: true },
-      {
-        label: "Instant physical prints",
-        needsClientConfirmation: true,
-        publiclyVisible: false,
-      },
     ],
   },
   {
@@ -61,19 +59,19 @@ export const previewPackages = [
     tier: "signature",
     priceCents: 60000,
     durationHours: 3,
-    shortDescription: "Extended coverage with instant prints and magnetic keepsakes.",
+    shortDescription: "Three hours with instant prints and magnetic adhesive keepsakes.",
     order: 1,
     active: true,
-    showPricePublicly: false,
-    confirmationNotes: "Signature mapping proposed — confirm inclusions before publishing.",
+    showPricePublicly: true,
+    confirmationNotes: "",
     inclusions: [
-      { label: "3 hours of booth time", publiclyVisible: true },
-      { label: "Instant prints", publiclyVisible: true, needsClientConfirmation: true },
-      { label: "Backdrops and props", publiclyVisible: true },
+      { label: "Instant prints for 3 hours", publiclyVisible: true },
+      { label: "Backdrops", publiclyVisible: true },
+      { label: "Props", publiclyVisible: true },
       { label: "2×6 or 4×6 print sizes", publiclyVisible: true },
-      { label: "On-site technical support", publiclyVisible: true },
+      { label: "On-site tech support", publiclyVisible: true },
       { label: "3 customized templates", publiclyVisible: true },
-      { label: "Magnetic adhesive sheets", publiclyVisible: true, needsClientConfirmation: true },
+      { label: "Magnetic adhesive sheets (2×6 or 4×6)", publiclyVisible: true },
     ],
   },
   {
@@ -83,21 +81,21 @@ export const previewPackages = [
     tier: "elite",
     priceCents: 80000,
     durationHours: 4,
-    shortDescription: "Our most complete experience with album and dedication template.",
+    shortDescription: "Four hours with dedication template, magnetic sheets, and photo album.",
     order: 2,
     active: true,
-    showPricePublicly: false,
-    confirmationNotes: "Elite mapping proposed — confirm inclusions before publishing.",
+    showPricePublicly: true,
+    confirmationNotes: "",
     inclusions: [
-      { label: "4 hours of booth time", publiclyVisible: true },
-      { label: "Instant prints", publiclyVisible: true, needsClientConfirmation: true },
-      { label: "Backdrops and props", publiclyVisible: true },
+      { label: "Instant prints for 4 hours", publiclyVisible: true },
+      { label: "Backdrops", publiclyVisible: true },
+      { label: "Props", publiclyVisible: true },
       { label: "2×6 or 4×6 print sizes", publiclyVisible: true },
-      { label: "On-site technical support", publiclyVisible: true },
+      { label: "On-site tech support", publiclyVisible: true },
       { label: "4 customized templates", publiclyVisible: true },
-      { label: "Magnetic adhesive sheets", publiclyVisible: true, needsClientConfirmation: true },
-      { label: "Photo album", publiclyVisible: true, needsClientConfirmation: true },
-      { label: "Dedication template", publiclyVisible: true, needsClientConfirmation: true },
+      { label: "Dedication template", publiclyVisible: true },
+      { label: "Magnetic adhesive sheets (2×6 or 4×6)", publiclyVisible: true },
+      { label: "Photo album (2×6 or 4×6)", publiclyVisible: true },
     ],
   },
 ];
@@ -105,24 +103,24 @@ export const previewPackages = [
 export const previewAddOns = [
   {
     _id: "addon-frame",
-    name: "Acrylic Magnetic Photo Frame Upgrade",
+    name: "Acrylic magnetic photo frame upgrade",
     slug: "acrylic-magnetic-frame",
     priceCents: 30000,
-    description: "2×6 or 4×6 sizing — eligibility and quantities require confirmation.",
-    needsClientConfirmation: true,
+    description: "Upgrade to an acrylic magnetic photo frame — 2×6 or 4×6 sizing.",
+    needsClientConfirmation: false,
     active: true,
-    showPricePublicly: false,
+    showPricePublicly: true,
     order: 0,
   },
   {
     _id: "addon-keychain",
-    name: "Keychain Station",
+    name: "Keychain station",
     slug: "keychain-station",
     priceCents: 30000,
-    description: "1×3 keychains — pricing units require confirmation.",
-    needsClientConfirmation: true,
+    description: "Keychain station — 1×3 keepsakes for guests.",
+    needsClientConfirmation: false,
     active: true,
-    showPricePublicly: false,
+    showPricePublicly: true,
     order: 1,
   },
 ];
@@ -351,8 +349,8 @@ export const previewFaqs = [
   },
 ];
 
-export const previewGallery = galleryImages.map((item, index) => ({
-  _id: `gal-${index + 1}`,
+const inspirationGallery = galleryImages.map((item, index) => ({
+  _id: `gal-insp-${index + 1}`,
   imageUrl: item.imageUrl,
   alt: item.alt,
   caption: item.caption,
@@ -361,6 +359,19 @@ export const previewGallery = galleryImages.map((item, index) => ({
   order: index,
   status: "published" as const,
 }));
+
+const eventGallery = eventGalleryToPreviewItems().map((item, index) => ({
+  _id: `gal-event-${index + 1}`,
+  imageUrl: item.imageUrl,
+  alt: item.alt,
+  caption: item.caption,
+  category: item.category,
+  designation: item.designation,
+  order: inspirationGallery.length + index,
+  status: "published" as const,
+}));
+
+export const previewGallery = [...eventGallery, ...inspirationGallery];
 
 export const previewOffer = {
   _id: "offer-christmas",

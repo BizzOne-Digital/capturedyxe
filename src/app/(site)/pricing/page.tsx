@@ -1,7 +1,8 @@
 import { PackageCards } from "@/components/site/PackageCards";
 import { Reveal } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
-import { getActivePackages, getSiteSettings } from "@/lib/data/public";
+import { AddOnCards } from "@/components/site/AddOnCards";
+import { getActiveAddOns, getActivePackages, getSiteSettings } from "@/lib/data/public";
 import { formatCadWithTaxNote } from "@/lib/money";
 import Image from "next/image";
 import { siteImages } from "@/lib/site-images";
@@ -11,6 +12,7 @@ export const metadata = { title: "Pricing" };
 export default async function PricingPage() {
   const settings = await getSiteSettings();
   const packages = await getActivePackages();
+  const addOns = await getActiveAddOns();
 
   return (
     <>
@@ -26,9 +28,12 @@ export default async function PricingPage() {
         <div className="absolute inset-0 bg-ink/70" aria-hidden />
         <div className="relative mx-auto max-w-7xl px-4 text-center md:px-8">
           <Reveal>
-            <h1 className="font-display text-5xl md:text-6xl">Pricing</h1>
+            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-champagne">
+              Service and pricing
+            </p>
+            <h1 className="mt-3 font-display text-5xl md:text-6xl">Packages</h1>
             <p className="mt-6 text-xl text-porcelain/85">
-              Photo booth experiences starting from {formatCadWithTaxNote(settings.startingPriceCents)}.
+              Standard, Signature, and Elite — from {formatCadWithTaxNote(settings.startingPriceCents)}.
             </p>
           </Reveal>
         </div>
@@ -49,20 +54,37 @@ export default async function PricingPage() {
               showPrices={settings.showPublicPackagePrices}
             />
           </div>
+          <Reveal className="mt-20">
+            <h2 className="font-display text-3xl md:text-4xl">Optional upgrades</h2>
+            <p className="mt-2 max-w-2xl text-sm text-taupe">
+              Add these to any package when you book — sizing noted below matches our service sheet.
+            </p>
+          </Reveal>
+          <div className="mt-10">
+            <AddOnCards
+              addOns={addOns.map((a) => ({
+                _id: String(a._id),
+                name: a.name,
+                description: a.description,
+                priceCents: a.priceCents,
+                showPricePublicly: a.showPricePublicly,
+              }))}
+              showPrices={settings.showPublicPackagePrices}
+            />
+          </div>
           <div className="mt-16 grid gap-8 lg:grid-cols-2">
             <div className="relative min-h-[220px] overflow-hidden rounded-3xl film-frame">
-              <Image src={siteImages.acrylicFrames} alt="Acrylic magnetic photo frame upgrade" fill className="object-cover" />
+              <Image src={siteImages.acrylicFrames} alt="Acrylic magnetic photo frame upgrade" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
             </div>
             <div className="relative min-h-[220px] overflow-hidden rounded-3xl film-frame">
-              <Image src={siteImages.keychainStation} alt="Keychain station keepsakes" fill className="object-cover" />
+              <Image src={siteImages.keychainStation} alt="Keychain station keepsakes" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
             </div>
           </div>
           <div className="mt-10 rounded-3xl bg-sand/40 p-8 text-center">
-            <p className="text-taupe text-sm">
-              Optional add-ons such as acrylic magnetic frame upgrades and keychain stations may be available.
-              Eligibility, quantities, and pricing units are confirmed on enquiry.
+            <p className="text-sm text-taupe">
+              All prices are in CAD and shown before tax. Final quotes are confirmed when you book.
             </p>
-            <ButtonLink href="/booking" className="mt-6">Request a Quote</ButtonLink>
+            <ButtonLink href="/booking" className="mt-6">Check availability</ButtonLink>
           </div>
         </div>
       </section>

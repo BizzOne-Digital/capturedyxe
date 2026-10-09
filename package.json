@@ -12,7 +12,11 @@
     "lint": "eslint",
     "seed": "tsx scripts/seed.ts",
     "create-admin": "tsx scripts/create-admin.ts",
-    "sync-images": "tsx scripts/sync-brand-images.ts"
+    "sync-images": "tsx scripts/sync-brand-images.ts",
+    "restore-brand-assets": "tsx scripts/restore-client-brand-assets.ts",
+    "fetch-google-reviews": "tsx scripts/fetch-google-reviews.ts",
+    "import-google-reviews": "tsx scripts/import-google-reviews-cache.ts",
+    "stage-event-gallery": "tsx scripts/stage-event-gallery.ts"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SiteLogo } from "@/components/site/SiteLogo";
+import { getGoogleReviewsPageUrl } from "@/lib/google-place";
 import { ArrowRight, Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
 
 type FooterProps = {
@@ -12,7 +13,9 @@ type FooterProps = {
   facebook: string | null;
 };
 
-const linkGroups = [
+type FooterLink = { href: string; label: string; external?: boolean };
+
+const linkGroups: { title: string; links: FooterLink[] }[] = [
   {
     title: "Experiences",
     links: [
@@ -29,6 +32,7 @@ const linkGroups = [
       { href: "/about", label: "About" },
       { href: "/our-team", label: "Our team" },
       { href: "/testimonials", label: "Testimonials" },
+      { href: getGoogleReviewsPageUrl(), label: "Google reviews", external: true },
       { href: "/faq", label: "FAQ" },
     ],
   },
@@ -143,13 +147,24 @@ export function Footer({
                   </h2>
                   <ul className="mt-4 space-y-2.5">
                     {group.links.map((link) => (
-                      <li key={link.href}>
-                        <Link
-                          href={link.href}
-                          className="text-sm text-porcelain/80 transition-colors hover:text-porcelain"
-                        >
-                          {link.label}
-                        </Link>
+                      <li key={link.href + link.label}>
+                        {link.external ? (
+                          <a
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm text-porcelain/80 transition-colors hover:text-porcelain"
+                          >
+                            {link.label}
+                          </a>
+                        ) : (
+                          <Link
+                            href={link.href}
+                            className="text-sm text-porcelain/80 transition-colors hover:text-porcelain"
+                          >
+                            {link.label}
+                          </Link>
+                        )}
                       </li>
                     ))}
                   </ul>

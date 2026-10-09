@@ -7,6 +7,8 @@ export const siteImages = {
   boothDetail: img("booth-detail.jpg"),
   boothGalleryArch: img("booth-gallery-arch.jpg"),
   woodenTripod: img("booth-gallery-arch.jpg"),
+  /** Client reference — wooden tripod booth in venue */
+  boothPrimary: img("booth-gallery-arch.jpg"),
   weddingBanquet: img("wedding-banquet.jpg"),
   weddingBalloons: img("wedding-balloons.jpg"),
   corporateGala: img("corporate-gala.jpg"),
@@ -46,8 +48,8 @@ export const galleryImages = [
   },
   {
     imageUrl: siteImages.boothGalleryArch,
-    alt: "Modern wooden booth in a gallery-style space",
-    caption: "Modern-retro booth",
+    alt: "Captured.YXE wooden tripod photo booth setup",
+    caption: "Our wooden-tripod booth",
     category: "general",
   },
   {
@@ -112,8 +114,8 @@ export const galleryImages = [
   },
   {
     imageUrl: siteImages.boothDetail,
-    alt: "Close-up of wooden photo booth camera and screen",
-    caption: "Professional capture",
+    alt: "Captured.YXE photo booth — camera and guest screen detail",
+    caption: "Booth detail",
     category: "general",
   },
 ];

@@ -35,9 +35,28 @@ async function main() {
 
   await mongoose.connect(uri, { dbName });
 
+  const settingsInsert = withoutId(previewSettings);
+  const {
+    email: _e,
+    startingPriceCents: _p,
+    showPublicPackagePrices: _s,
+    heroImageUrl: _h,
+    logoUrl: _l,
+    ...settingsOnInsertOnly
+  } = settingsInsert;
+
   await SiteSettings.findOneAndUpdate(
     { singletonKey: "main" },
-    { $setOnInsert: withoutId(previewSettings) },
+    {
+      $setOnInsert: settingsOnInsertOnly,
+      $set: {
+        email: previewSettings.email,
+        startingPriceCents: previewSettings.startingPriceCents,
+        showPublicPackagePrices: previewSettings.showPublicPackagePrices,
+        heroImageUrl: previewSettings.heroImageUrl,
+        logoUrl: previewSettings.logoUrl,
+      },
+    },
     { upsert: true, new: true }
   );
 
@@ -52,7 +71,7 @@ async function main() {
   for (const pkg of previewPackages) {
     await Package.findOneAndUpdate(
       { slug: pkg.slug },
-      { $setOnInsert: withoutId(pkg) },
+      { $set: withoutId(pkg) },
       { upsert: true }
     );
   }
@@ -60,7 +79,7 @@ async function main() {
   for (const addon of previewAddOns) {
     await AddOn.findOneAndUpdate(
       { slug: addon.slug },
-      { $setOnInsert: withoutId(addon) },
+      { $set: withoutId(addon) },
       { upsert: true }
     );
   }
@@ -76,7 +95,7 @@ async function main() {
   for (const item of previewGallery) {
     await GalleryItem.findOneAndUpdate(
       { imageUrl: item.imageUrl },
-      { $setOnInsert: withoutId(item) },
+      { $set: withoutId(item) },
       { upsert: true }
     );
   }

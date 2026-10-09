@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Client event drops (large zips, videos, originals) — use public/gallery/events/ only
+/public/*-20261009T214701Z-1-001/
+/public/*-20261009T214714Z-1-001/
+/public/*.zip
+.tmp-amber/
+.tmp-rhythm/
