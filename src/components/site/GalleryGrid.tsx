@@ -66,12 +66,12 @@ export function GalleryGrid({ items }: { items: Item[] }) {
         ))}
       </div>
 
-      <div className="mt-8 w-full min-w-0 columns-1 gap-4 sm:columns-2 lg:columns-3">
+      <div className="mt-8 grid w-full min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((item, index) => (
           <motion.button
             key={item._id}
             type="button"
-            className="mb-4 block w-full break-inside-avoid overflow-hidden rounded-2xl film-frame focus-visible:outline focus-visible:outline-2 focus-visible:outline-champagne"
+            className="group relative aspect-[4/3] w-full overflow-hidden rounded-2xl film-frame focus-visible:outline focus-visible:outline-2 focus-visible:outline-champagne"
             onClick={() => setLightbox(index)}
             initial={reduce ? false : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -81,9 +81,9 @@ export function GalleryGrid({ items }: { items: Item[] }) {
             <Image
               src={item.imageUrl}
               alt={item.alt}
-              width={800}
-              height={1000}
-              className="h-auto w-full object-cover"
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
             {item.designation === "inspiration" && (
               <span className="sr-only">Event inspiration imagery</span>

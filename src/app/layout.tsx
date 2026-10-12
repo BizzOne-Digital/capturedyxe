@@ -23,6 +23,15 @@ export const metadata: Metadata = {
   },
   description:
     "Saskatoon's go-to photo booth experience for weddings, corporate events, and celebrations.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+      { url: "/logo/camera-mark.png", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    shortcut: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

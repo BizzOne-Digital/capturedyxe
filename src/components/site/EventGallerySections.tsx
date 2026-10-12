@@ -31,14 +31,15 @@ export function EventGallerySections({ albums }: { albums: EventGalleryAlbum[] }
             {album.images.map((img, i) => (
               <Reveal key={img.imageUrl} delay={0.04 * i}>
                 <li className="overflow-hidden rounded-2xl border border-ink/10 bg-porcelain film-frame">
-                  <Image
-                    src={img.imageUrl}
-                    alt={img.alt}
-                    width={900}
-                    height={1200}
-                    className="h-auto w-full object-cover"
-                    sizes="(max-width: 640px) 100vw, 33vw"
-                  />
+                  <div className="relative aspect-[4/3] w-full">
+                    <Image
+                      src={img.imageUrl}
+                      alt={img.alt}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 100vw, 33vw"
+                    />
+                  </div>
                   {img.caption && (
                     <p className="px-4 py-3 text-xs text-taupe">{img.caption}</p>
                   )}
