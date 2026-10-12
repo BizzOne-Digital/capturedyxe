@@ -95,7 +95,15 @@ async function main() {
   }
 
   await GalleryItem.updateMany(
-    { imageUrl: /\/gallery\/events\/rhythm-and-roots\// },
+    {
+      $or: [
+        { imageUrl: /\/gallery\/events\/rhythm-and-roots\// },
+        { imageUrl: /\/gallery\/events\/celebrations\/booth-setup\.jpg/ },
+        { imageUrl: /\/gallery\/events\/celebrations\/booth-detail\.jpg/ },
+        { imageUrl: "/images/booth-detail.jpg" },
+        { imageUrl: "/images/booth-gallery-arch.jpg" },
+      ],
+    },
     { $set: { status: "archived" } }
   );
 

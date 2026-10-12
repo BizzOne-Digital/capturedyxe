@@ -47,8 +47,8 @@ export const galleryImages = [
     category: "wedding",
   },
   {
-    imageUrl: siteImages.boothGalleryArch,
-    alt: "Captured.YXE wooden tripod photo booth setup",
+    imageUrl: "/gallery/events/celebrations/booth-venue.jpg",
+    alt: "Captured.YXE wooden tripod photo booth with ring light in a styled venue",
     caption: "Our wooden-tripod booth",
     category: "general",
   },
@@ -111,11 +111,5 @@ export const galleryImages = [
     alt: "Curated photo booth props on a table",
     caption: "Curated props",
     category: "corporate",
-  },
-  {
-    imageUrl: siteImages.boothDetail,
-    alt: "Captured.YXE photo booth — camera and guest screen detail",
-    caption: "Booth detail",
-    category: "general",
   },
 ];

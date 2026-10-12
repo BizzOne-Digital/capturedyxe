@@ -40,8 +40,8 @@ const albumMeta: Record<
 
 const imageMeta: Record<string, Record<string, { alt: string; caption: string }>> = {
   celebrations: {
-    "booth-setup.jpg": {
-      alt: "Captured.YXE wooden tripod photo booth in a styled venue",
+    "booth-venue.jpg": {
+      alt: "Captured.YXE wooden tripod photo booth with ring light in a styled venue",
       caption: "Signature booth setup",
     },
     "wedding-reception.jpg": {
@@ -51,10 +51,6 @@ const imageMeta: Record<string, Record<string, { alt: string; caption: string }>
     "outdoor-festival.jpg": {
       alt: "Outdoor photo booth under a garden gazebo at a community event",
       caption: "Outdoor & festival events",
-    },
-    "booth-detail.jpg": {
-      alt: "Close-up of Captured.YXE booth camera and guest screen",
-      caption: "Booth detail",
     },
   },
 };

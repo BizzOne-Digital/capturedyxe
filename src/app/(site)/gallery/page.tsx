@@ -4,8 +4,6 @@ import { GalleryGrid } from "@/components/site/GalleryGrid";
 import { Reveal } from "@/components/motion/Reveal";
 import { getPublishedGallery } from "@/lib/data/public";
 import { getPublishedEventAlbums } from "@/lib/event-gallery";
-import { siteImages } from "@/lib/site-images";
-
 export const metadata = { title: "Gallery" };
 
 export default async function GalleryPage() {
@@ -20,7 +18,7 @@ export default async function GalleryPage() {
     <>
       <section className="relative min-h-[28vh] w-full max-w-full overflow-hidden md:min-h-[40vh]">
         <Image
-          src={siteImages.boothPrimary}
+          src="/hero-booth.jpg"
           alt="Captured.YXE photo booth styling"
           fill
           className="object-cover"
