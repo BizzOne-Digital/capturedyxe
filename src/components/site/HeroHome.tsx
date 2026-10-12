@@ -45,7 +45,7 @@ export function HeroHome({
     .replace(/^\w/, (c) => c.toUpperCase());
 
   return (
-    <section className="relative flex min-h-[min(92vh,880px)] w-full max-w-full flex-col overflow-hidden bg-ivory">
+    <section className="relative flex w-full max-w-full flex-col overflow-hidden bg-ivory md:min-h-[min(88vh,880px)]">
       <div className="pointer-events-none absolute inset-0">
         <Image
           src={imageSrc}
@@ -65,7 +65,7 @@ export function HeroHome({
         />
       </div>
 
-      <div className="relative mx-auto flex w-full min-w-0 max-w-7xl flex-1 flex-col justify-center px-4 pb-28 pt-10 md:px-8 md:pb-32 md:pt-16">
+      <div className="relative mx-auto flex w-full min-w-0 max-w-7xl flex-col justify-start px-4 pb-8 pt-5 md:flex-1 md:justify-center md:px-8 md:pb-32 md:pt-16">
         <motion.p
           className="max-w-full text-[10px] font-medium uppercase tracking-[0.2em] text-ink/75 sm:text-[11px] sm:tracking-[0.28em] md:tracking-[0.32em]"
           initial={reduce ? false : { opacity: 0, y: 10 }}
@@ -76,7 +76,7 @@ export function HeroHome({
         </motion.p>
 
         <motion.h1
-          className="mt-5 max-w-full font-display text-[clamp(1.85rem,7.5vw,4.25rem)] leading-[1.08] text-ink md:mt-6 md:max-w-2xl"
+          className="mt-3 max-w-full font-display text-[clamp(1.85rem,7.5vw,4.25rem)] leading-[1.08] text-ink md:mt-6 md:max-w-2xl"
           initial={reduce ? false : { opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.06 }}

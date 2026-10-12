@@ -106,3 +106,20 @@ svg {
   outline: 2px solid var(--champagne);
   outline-offset: 3px;
 }
+
+/* Tighter vertical rhythm on small screens */
+@utility section-y {
+  padding-block: 3rem;
+
+  @media (width >= 48rem) {
+    padding-block: 5rem;
+  }
+}
+
+@utility section-y-lg {
+  padding-block: 3.5rem;
+
+  @media (width >= 48rem) {
+    padding-block: 6rem;
+  }
+}

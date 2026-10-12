@@ -11,7 +11,7 @@ export default async function FaqPage() {
   const faqs = await getPublishedFaqs();
 
   return (
-    <section className="py-20">
+    <section className="section-y">
       <div className="mx-auto max-w-7xl px-4 md:px-8">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start">
           <div>

@@ -24,7 +24,7 @@ export function GoogleReviewsSection({ data }: { data: GooglePlaceReviewsData | 
   const reviews = data?.reviews ?? [];
 
   return (
-    <section className="border-b border-ink/10 bg-porcelain py-14 md:py-16">
+    <section className="border-b border-ink/10 bg-porcelain py-10 md:py-14">
       <div className="mx-auto w-full min-w-0 max-w-4xl px-4 md:px-8">
         <Reveal>
           <div className="flex flex-col items-center text-center sm:flex-row sm:items-start sm:justify-between sm:text-left">

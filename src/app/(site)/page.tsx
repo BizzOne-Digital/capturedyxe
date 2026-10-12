@@ -74,7 +74,7 @@ export default async function HomePage() {
         tagline={settings.tagline}
       />
 
-      <section className="bg-ink py-20 text-porcelain">
+      <section className="bg-ink section-y text-porcelain">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <Reveal>
             <p className="text-xs uppercase tracking-[0.25em] text-champagne">For every celebration</p>
@@ -92,7 +92,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="section-y">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 md:px-8 lg:grid-cols-2">
           <Reveal>
             <h2 className="font-display text-4xl md:text-5xl">Signature wooden-tripod presence</h2>
@@ -122,7 +122,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="py-12 md:py-16">
+      <section className="section-y">
         <div className="mx-auto grid w-full min-w-0 max-w-7xl grid-cols-2 gap-3 px-4 md:grid-cols-4 md:gap-4 md:px-8">
           {[
             { src: siteImages.photoStrips, alt: "Printed photo strips" },
@@ -137,7 +137,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-sand/40 py-20">
+      <section className="bg-sand/40 section-y">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <Reveal>
             <h2 className="font-display text-center text-4xl md:text-5xl">The Captured.YXE difference</h2>
@@ -155,7 +155,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="section-y">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
             <Reveal>
@@ -177,7 +177,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-ink py-20 text-porcelain">
+      <section className="bg-ink section-y text-porcelain">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <Reveal>
             <h2 className="font-display text-4xl">Gallery</h2>
@@ -192,7 +192,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="section-y">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <Reveal>
             <h2 className="font-display text-center text-4xl">How it works</h2>
@@ -215,7 +215,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="bg-porcelain py-20 border-y border-ink/5">
+      <section className="bg-porcelain section-y border-y border-ink/5">
         <div className="mx-auto max-w-3xl px-4 text-center md:px-8">
           <Reveal>
             <h2 className="font-display text-4xl">Kind words</h2>
@@ -240,7 +240,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="section-y">
         <div className="mx-auto max-w-3xl px-4 md:px-8">
           <Reveal>
             <h2 className="font-display text-4xl">Questions</h2>
@@ -255,7 +255,7 @@ export default async function HomePage() {
       </section>
 
       {offer && (
-        <section className="relative w-full max-w-full overflow-hidden py-16">
+        <section className="relative w-full max-w-full overflow-hidden py-12 md:py-16">
           <Image
             src={siteImages.christmasParty}
             alt=""

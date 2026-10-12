@@ -54,7 +54,7 @@ export function TestimonialsClient({ initialItems }: { initialItems: PublicTesti
   };
 
   return (
-    <section className="w-full overflow-x-clip py-20">
+    <section className="w-full overflow-x-clip section-y">
       <div className="mx-auto w-full min-w-0 max-w-4xl px-4 md:px-8">
         <Reveal>
           <h2 className="font-display text-3xl text-center md:text-4xl">Featured testimonials</h2>

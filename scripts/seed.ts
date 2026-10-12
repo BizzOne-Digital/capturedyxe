@@ -36,14 +36,16 @@ async function main() {
   await mongoose.connect(uri, { dbName });
 
   const settingsInsert = withoutId(previewSettings);
-  const {
-    email: _e,
-    startingPriceCents: _p,
-    showPublicPackagePrices: _s,
-    heroImageUrl: _h,
-    logoUrl: _l,
-    ...settingsOnInsertOnly
-  } = settingsInsert;
+  const settingsSyncKeys = new Set([
+    "email",
+    "startingPriceCents",
+    "showPublicPackagePrices",
+    "heroImageUrl",
+    "logoUrl",
+  ]);
+  const settingsOnInsertOnly = Object.fromEntries(
+    Object.entries(settingsInsert).filter(([key]) => !settingsSyncKeys.has(key))
+  );
 
   await SiteSettings.findOneAndUpdate(
     { singletonKey: "main" },

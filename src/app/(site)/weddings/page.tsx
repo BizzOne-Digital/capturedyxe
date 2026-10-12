@@ -8,7 +8,7 @@ export const metadata = { title: "Weddings" };
 export default function WeddingsPage() {
   return (
     <>
-      <section className="relative flex min-h-[70vh] w-full max-w-full items-end overflow-hidden">
+      <section className="relative flex min-h-[45vh] w-full max-w-full items-end overflow-hidden md:min-h-[70vh]">
         <Image
           src={siteImages.weddingBanquet}
           alt="Photo booth at an elegant wedding reception"
@@ -28,8 +28,8 @@ export default function WeddingsPage() {
         </div>
       </section>
 
-      <section className="py-20">
-        <div className="mx-auto max-w-7xl px-4 md:px-8 grid lg:grid-cols-2 gap-16 items-center">
+      <section className="section-y">
+        <div className="mx-auto max-w-7xl px-4 md:px-8 grid lg:grid-cols-2 gap-10 items-center md:gap-16">
           <Reveal>
             <h2 className="font-display text-4xl">Designed for your day</h2>
             <ul className="mt-6 space-y-4 text-taupe">
@@ -50,7 +50,7 @@ export default function WeddingsPage() {
         </div>
       </section>
 
-      <section className="bg-sand/40 py-20 text-center">
+      <section className="bg-sand/40 section-y text-center">
         <Reveal>
           <h2 className="font-display text-4xl">Begin your wedding enquiry</h2>
           <ButtonLink

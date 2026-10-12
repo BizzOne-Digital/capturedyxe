@@ -30,7 +30,7 @@ export default async function OurTeamPage() {
 
   return (
     <>
-      <section className="relative overflow-hidden border-b border-ink/5 bg-porcelain py-20">
+      <section className="relative overflow-hidden border-b border-ink/5 bg-porcelain section-y">
         <Image
           src={siteImages.outdoorGazebo}
           alt=""
@@ -49,7 +49,7 @@ export default async function OurTeamPage() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="section-y">
         <div className="mx-auto max-w-7xl px-4 md:px-8 grid md:grid-cols-2 gap-8">
           {approach.map((a, i) => (
             <Reveal key={a.title} delay={i * 0.06}>
@@ -63,7 +63,7 @@ export default async function OurTeamPage() {
       </section>
 
       {team.length > 0 ? (
-        <section className="bg-ink py-20 text-porcelain">
+        <section className="bg-ink section-y text-porcelain">
           <div className="mx-auto max-w-7xl px-4 md:px-8 grid gap-8 md:grid-cols-3">
             {team.map((member) => (
               <article key={member._id} className="rounded-2xl bg-porcelain/5 p-6">
@@ -80,14 +80,14 @@ export default async function OurTeamPage() {
           </div>
         </section>
       ) : (
-        <section className="py-16 border-t border-ink/10">
+        <section className="section-y border-t border-ink/10">
           <div className="mx-auto max-w-xl px-4 text-center text-sm text-taupe">
             Team profiles will be published here once approved names, photos, and biographies are provided.
           </div>
         </section>
       )}
 
-      <section className="py-20 text-center">
+      <section className="section-y text-center">
         <ButtonLink href="/booking">Work with us</ButtonLink>
       </section>
     </>

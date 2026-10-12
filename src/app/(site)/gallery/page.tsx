@@ -18,7 +18,7 @@ export default async function GalleryPage() {
 
   return (
     <>
-      <section className="relative min-h-[40vh] w-full max-w-full overflow-hidden">
+      <section className="relative min-h-[28vh] w-full max-w-full overflow-hidden md:min-h-[40vh]">
         <Image
           src={siteImages.boothPrimary}
           alt="Captured.YXE photo booth styling"
@@ -28,7 +28,7 @@ export default async function GalleryPage() {
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ivory via-ivory/60 to-transparent" />
-        <div className="relative mx-auto flex min-h-[40vh] max-w-7xl items-end px-4 pb-12 md:px-8">
+        <div className="relative mx-auto flex min-h-[28vh] max-w-7xl items-end px-4 pb-8 md:min-h-[40vh] md:pb-12 md:px-8">
           <Reveal>
             <h1 className="font-display text-5xl md:text-6xl">Gallery</h1>
             <p className="mt-4 max-w-2xl text-taupe">
@@ -37,13 +37,13 @@ export default async function GalleryPage() {
           </Reveal>
         </div>
       </section>
-      <section className="border-b border-ink/8 bg-ivory py-16 md:py-20">
+      <section className="border-b border-ink/8 bg-ivory section-y">
         <div className="mx-auto w-full min-w-0 max-w-7xl px-4 md:px-8">
           <EventGallerySections albums={eventAlbums} />
         </div>
       </section>
 
-      <section className="py-16 md:py-20">
+      <section className="section-y">
         <div className="mx-auto w-full min-w-0 max-w-7xl px-4 md:px-8">
           <Reveal>
             <h2 className="font-display text-3xl md:text-4xl">Setups & styling</h2>

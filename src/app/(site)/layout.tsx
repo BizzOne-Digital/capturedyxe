@@ -20,7 +20,7 @@ export default async function SiteLayout({
       <StructuredData />
       <PreviewBanner />
       <Header siteName={settings.siteName} experienceLinks={experienceLinks} />
-      <main className="min-h-[60vh] w-full min-w-0 flex-1 overflow-x-clip">{children}</main>
+      <main className="w-full min-w-0 flex-1 overflow-x-clip">{children}</main>
       <Footer
         siteName={settings.siteName}
         email={settings.email}

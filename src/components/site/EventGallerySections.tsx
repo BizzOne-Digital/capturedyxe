@@ -6,7 +6,7 @@ export function EventGallerySections({ albums }: { albums: EventGalleryAlbum[] }
   if (albums.length === 0) return null;
 
   return (
-    <div className="space-y-20">
+    <div className="space-y-12 md:space-y-16">
       {albums.map((album, albumIndex) => (
         <section key={album.slug} aria-labelledby={`event-gallery-${album.slug}`}>
           <Reveal delay={albumIndex * 0.05}>

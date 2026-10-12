@@ -12,8 +12,8 @@ export default async function ContactPage() {
   const social = getPublicSocialLinks(settings);
 
   return (
-    <section className="py-20">
-      <div className="mx-auto grid w-full min-w-0 max-w-7xl grid-cols-1 gap-16 px-4 md:px-8 lg:grid-cols-2">
+    <section className="section-y">
+      <div className="mx-auto grid w-full min-w-0 max-w-7xl grid-cols-1 gap-10 px-4 md:gap-16 md:px-8 lg:grid-cols-2">
         <Reveal>
           <h1 className="font-display text-5xl">Contact</h1>
           <p className="mt-4 text-taupe">We would love to hear about your celebration.</p>

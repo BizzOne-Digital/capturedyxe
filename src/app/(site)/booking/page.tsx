@@ -15,7 +15,7 @@ export default async function BookingPage({ searchParams }: Props) {
   const defaultEventType = params.eventType ?? "";
 
   return (
-    <section className="py-20">
+    <section className="section-y">
       <div className="mx-auto grid w-full min-w-0 max-w-7xl grid-cols-1 gap-12 px-4 md:px-8 lg:grid-cols-[1fr_1.1fr] lg:items-start">
         <Reveal>
           <h1 className="font-display text-5xl">Check availability</h1>

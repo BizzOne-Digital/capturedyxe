@@ -18,7 +18,7 @@ export default async function TestimonialsPage() {
 
   return (
     <>
-      <section className="border-b border-ink/8 bg-ivory py-14 md:py-16">
+      <section className="border-b border-ink/8 bg-ivory py-10 md:py-14">
         <div className="mx-auto max-w-4xl px-4 text-center md:px-8">
           <Reveal>
             <h1 className="font-display text-5xl">Testimonials</h1>

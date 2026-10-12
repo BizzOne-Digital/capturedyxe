@@ -16,7 +16,7 @@ export default async function PricingPage() {
 
   return (
     <>
-      <section className="relative w-full max-w-full overflow-hidden bg-ink py-16 text-porcelain md:py-24">
+      <section className="relative w-full max-w-full overflow-hidden bg-ink section-y-lg text-porcelain">
         <Image
           src={siteImages.boothDetail}
           alt=""
@@ -39,7 +39,7 @@ export default async function PricingPage() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="section-y">
         <div className="mx-auto w-full min-w-0 max-w-7xl px-4 md:px-8">
           <Reveal>
             <p className="max-w-2xl text-taupe">

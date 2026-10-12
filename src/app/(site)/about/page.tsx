@@ -81,7 +81,7 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative flex min-h-[72vh] w-full max-w-full items-end overflow-hidden">
+      <section className="relative flex min-h-[48vh] w-full max-w-full items-end overflow-hidden md:min-h-[72vh]">
         <Image
           src={siteImages.boothPrimary}
           alt="Captured.YXE modern wooden photo booth in an elegant venue"
@@ -91,7 +91,7 @@ export default function AboutPage() {
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/20" />
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-16 pt-32 md:px-8 md:pb-20">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-10 pt-20 md:px-8 md:pb-20 md:pt-32">
           <Reveal>
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-champagne">
               About Captured.YXE
@@ -110,7 +110,7 @@ export default function AboutPage() {
       </section>
 
       {/* Story */}
-      <section className="border-b border-ink/8 bg-porcelain py-20 md:py-24">
+      <section className="border-b border-ink/8 bg-porcelain section-y-lg">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
             <Reveal className="lg:col-span-5">
@@ -181,7 +181,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="py-20 md:py-24">
+      <section className="section-y-lg">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <Reveal className="max-w-2xl">
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-champagne">What we stand for</p>
@@ -209,7 +209,7 @@ export default function AboutPage() {
       </section>
 
       {/* Experience */}
-      <section className="bg-ink py-20 text-porcelain md:py-24">
+      <section className="bg-ink section-y-lg text-porcelain">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
             <Reveal>
@@ -248,7 +248,7 @@ export default function AboutPage() {
       </section>
 
       {/* Craft */}
-      <section className="py-20 md:py-24">
+      <section className="section-y-lg">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 md:px-8 lg:grid-cols-2">
           <Reveal>
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-champagne">The setup</p>
@@ -292,7 +292,7 @@ export default function AboutPage() {
       </section>
 
       {/* Keepsakes */}
-      <section className="border-y border-ink/8 bg-sand/35 py-20 md:py-24">
+      <section className="border-y border-ink/8 bg-sand/35 section-y-lg">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <div className="grid grid-cols-2 gap-4">
@@ -353,7 +353,7 @@ export default function AboutPage() {
       </section>
 
       {/* Audiences */}
-      <section className="bg-porcelain py-20 md:py-24">
+      <section className="bg-porcelain section-y-lg">
         <div className="mx-auto max-w-7xl px-4 text-center md:px-8">
           <Reveal>
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-champagne">Where we show up</p>
@@ -381,7 +381,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-ink py-20 text-porcelain md:py-24">
+      <section className="bg-ink section-y-lg text-porcelain">
         <div className="mx-auto max-w-3xl px-4 text-center md:px-8">
           <Reveal>
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-champagne">Next step</p>

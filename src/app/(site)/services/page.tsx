@@ -22,7 +22,7 @@ export default async function ServicesPage() {
 
   return (
     <>
-      <section className="py-20 bg-porcelain border-b border-ink/5">
+      <section className="section-y bg-porcelain border-b border-ink/5">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <Reveal>
             <h1 className="font-display text-5xl md:text-6xl">The experience</h1>
@@ -42,8 +42,8 @@ export default async function ServicesPage() {
         </div>
       </section>
 
-      <section className="py-20">
-        <div className="mx-auto max-w-7xl px-4 md:px-8 space-y-20">
+      <section className="section-y">
+        <div className="mx-auto max-w-7xl px-4 md:px-8 space-y-12 md:space-y-20">
           {services.map((svc, i) => (
             <Reveal key={String(svc._id)}>
               <article

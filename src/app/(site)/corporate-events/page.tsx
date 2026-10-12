@@ -8,7 +8,7 @@ export const metadata = { title: "Corporate Events" };
 export default function CorporateEventsPage() {
   return (
     <>
-      <section className="w-full overflow-x-clip bg-ink py-16 text-porcelain md:py-24">
+      <section className="w-full overflow-x-clip bg-ink section-y-lg text-porcelain">
         <div className="mx-auto grid w-full min-w-0 max-w-7xl grid-cols-1 items-center gap-12 px-4 md:px-8 lg:grid-cols-2">
           <Reveal>
             <h1 className="max-w-full font-display text-[clamp(2rem,6.5vw,3.75rem)]">
@@ -33,7 +33,7 @@ export default function CorporateEventsPage() {
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="section-y">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="grid md:grid-cols-3 gap-8">
             {[
