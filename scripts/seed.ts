@@ -94,6 +94,11 @@ async function main() {
     );
   }
 
+  await GalleryItem.updateMany(
+    { imageUrl: /\/gallery\/events\/rhythm-and-roots\// },
+    { $set: { status: "archived" } }
+  );
+
   for (const item of previewGallery) {
     await GalleryItem.findOneAndUpdate(
       { imageUrl: item.imageUrl },

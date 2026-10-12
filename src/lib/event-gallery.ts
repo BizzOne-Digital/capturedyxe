@@ -30,19 +30,52 @@ const albumMeta: Record<
     category: "wedding",
     description: "Wedding celebration — guest prints and booth moments from Captured.YXE.",
   },
-  "rhythm-and-roots": {
-    title: "Rhythm & Roots",
-    category: "festival",
-    description: "Festival energy — strips and keepsakes from a live music weekend.",
+  celebrations: {
+    title: "On the floor",
+    category: "general",
+    description:
+      "Setups and guest moments from weddings, festivals, and celebrations across Saskatoon.",
+  },
+};
+
+const imageMeta: Record<string, Record<string, { alt: string; caption: string }>> = {
+  celebrations: {
+    "booth-setup.jpg": {
+      alt: "Captured.YXE wooden tripod photo booth in a styled venue",
+      caption: "Signature booth setup",
+    },
+    "wedding-reception.jpg": {
+      alt: "Photo booth beside an elegant wedding reception",
+      caption: "Wedding reception",
+    },
+    "outdoor-festival.jpg": {
+      alt: "Outdoor photo booth under a garden gazebo at a community event",
+      caption: "Outdoor & festival events",
+    },
+    "booth-detail.jpg": {
+      alt: "Close-up of Captured.YXE booth camera and guest screen",
+      caption: "Booth detail",
+    },
   },
 };
 
 function buildImages(slug: string, title: string, files: string[]): EventGalleryImage[] {
-  return files.map((file, index) => ({
-    imageUrl: `/gallery/events/${slug}/${file}`,
-    alt: `${title} — photo booth keepsake ${index + 1}`,
-    caption: files.length > 1 ? `Keepsake ${index + 1}` : undefined,
-  }));
+  const meta = imageMeta[slug] ?? {};
+  return files.map((file, index) => {
+    const custom = meta[file];
+    if (custom) {
+      return {
+        imageUrl: `/gallery/events/${slug}/${file}`,
+        alt: custom.alt,
+        caption: custom.caption,
+      };
+    }
+    return {
+      imageUrl: `/gallery/events/${slug}/${file}`,
+      alt: `${title} — photo booth moment ${index + 1}`,
+      caption: files.length > 1 ? `Moment ${index + 1}` : undefined,
+    };
+  });
 }
 
 export const eventGalleryAlbums: EventGalleryAlbum[] = Object.entries(albumMeta).map(

@@ -19,10 +19,6 @@ const EVENT_SOURCES: { slug: string; sourceDir: string }[] = [
       "Amber and Yehya 09.27.2026-20261009T214701Z-1-001"
     ),
   },
-  {
-    slug: "rhythm-and-roots",
-    sourceDir: join(process.cwd(), "public", "Rhythm and Roots-20261009T214714Z-1-001"),
-  },
 ];
 
 function walkPrints(dir: string, out: string[]) {

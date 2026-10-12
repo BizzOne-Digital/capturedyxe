@@ -149,7 +149,7 @@ Set the same variables as `.env.example`. **Required:**
 
 - Allow your host’s egress IPs in **MongoDB Atlas → Network Access**.
 - Do **not** commit `.env` or real `ADMIN_PASSWORD` values.
-- Brand logos live in `public/logo/` (`Captured-yxe-dark.svg` header, `Captured-yxe-white.svg` footer).
+- Brand logo: `public/logo/Captured-yxe-lockup.png` (full lockup + tagline). Legacy SVGs remain in `public/logo/` as backups.
 - **Event gallery:** drop client folders under `public/` locally, run `npm run stage-event-gallery` (skips videos/originals &gt;8MB), then add paths in `src/lib/event-gallery.ts`. Only `public/gallery/events/` is meant for git — raw event zips/folders are gitignored.
 
 ### Smoke test

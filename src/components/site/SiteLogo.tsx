@@ -9,7 +9,7 @@ import {
 export { BRAND_LOGO_PATH };
 
 const logoImageClass =
-  "block h-10 w-auto max-w-full object-contain object-left sm:h-11 sm:max-w-[260px] md:h-12 md:max-w-[300px]";
+  "block h-11 w-auto max-w-full object-contain object-left sm:h-12 sm:max-w-[280px] md:h-[3.25rem] md:max-w-[320px]";
 
 type SiteLogoProps = {
   siteName: string;
@@ -19,16 +19,27 @@ type SiteLogoProps = {
 
 export function SiteLogo({ siteName, variant, priority }: SiteLogoProps) {
   const src = getBrandLogoSrc(variant);
+  const onDarkFooter = variant === "footer";
 
-  return (
+  const image = (
     <Image
       src={src}
       alt={siteName}
       width={BRAND_LOGO_WIDTH}
       height={BRAND_LOGO_HEIGHT}
-      className={logoImageClass}
+      className={`${logoImageClass} ${onDarkFooter ? "" : "mix-blend-multiply"}`}
       priority={priority ?? variant === "header"}
-      sizes="(max-width: 640px) 220px, 300px"
+      sizes="(max-width: 640px) 240px, 320px"
     />
   );
+
+  if (onDarkFooter) {
+    return (
+      <span className="inline-flex items-center rounded-sm bg-ivory px-2.5 py-1.5 sm:px-3 sm:py-2">
+        {image}
+      </span>
+    );
+  }
+
+  return image;
 }

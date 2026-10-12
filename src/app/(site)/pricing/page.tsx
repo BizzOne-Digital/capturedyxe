@@ -57,7 +57,9 @@ export default async function PricingPage() {
           <Reveal className="mt-20">
             <h2 className="font-display text-3xl md:text-4xl">Optional upgrades</h2>
             <p className="mt-2 max-w-2xl text-sm text-taupe">
-              Add these to any package when you book — sizing noted below matches our service sheet.
+              Acrylic magnetic frame upgrade pairs with Standard; keychain station pairs with Signature.
+              Elite includes dedication template, magnetic sheets, and photo album (2×6 or 4×6) in the
+              package price.
             </p>
           </Reveal>
           <div className="mt-10">

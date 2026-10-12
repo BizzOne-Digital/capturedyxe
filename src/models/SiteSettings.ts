@@ -13,7 +13,7 @@ const SiteSettingsSchema = new Schema(
     },
     instagramUrl: { type: String, default: "" },
     facebookUrl: { type: String, default: "" },
-    logoUrl: { type: String, default: "/logo/Captured-yxe-dark.svg" },
+    logoUrl: { type: String, default: "/logo/Captured-yxe-lockup.png" },
     tagline: { type: String, default: "VINTAGE SOUL, INSTANT ROLL" },
     startingPriceCents: { type: Number, default: 40000 },
     showPublicPackagePrices: { type: Boolean, default: false },

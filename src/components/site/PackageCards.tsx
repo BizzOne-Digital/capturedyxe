@@ -50,9 +50,9 @@ export function PackageCards({
                 </p>
               )}
               <ul className="mt-6 flex-1 space-y-2 text-sm text-taupe">
-                {visibleInclusions.slice(0, 6).map((inc) => (
+                {visibleInclusions.map((inc) => (
                   <li key={inc.label} className="flex gap-2">
-                    <span className="text-champagne">—</span>
+                    <span className="shrink-0 text-champagne">—</span>
                     <span>{inc.label}</span>
                   </li>
                 ))}
