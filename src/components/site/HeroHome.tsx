@@ -51,7 +51,7 @@ export function HeroHome({
           src={imageSrc}
           alt="Captured.YXE modern wooden photo booth setup"
           fill
-          className="object-cover object-[75%_center] md:object-right"
+          className="object-cover object-[72%_42%] md:object-[88%_center]"
           sizes="100vw"
           priority
         />

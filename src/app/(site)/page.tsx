@@ -67,7 +67,7 @@ export default async function HomePage() {
       <HeroHome
         headline={settings.headline}
         subheadline={settings.subheadline}
-        heroImageUrl="/hero-booth.jpg"
+        heroImageUrl={settings.heroImageUrl || "/hero-booth.jpg"}
         startingPriceCents={settings.startingPriceCents}
         ctaPrimary={settings.ctaPrimaryLabel}
         ctaSecondary={settings.ctaSecondaryLabel}
