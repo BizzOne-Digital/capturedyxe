@@ -22,7 +22,13 @@ const filters = [
   { id: "general", label: "Styling" },
 ];
 
-export function GalleryGrid({ items }: { items: Item[] }) {
+export function GalleryGrid({
+  items,
+  theme = "light",
+}: {
+  items: Item[];
+  theme?: "light" | "dark";
+}) {
   const [filter, setFilter] = useState("all");
   const [lightbox, setLightbox] = useState<number | null>(null);
   const reduce = useReducedMotion();
@@ -57,8 +63,12 @@ export function GalleryGrid({ items }: { items: Item[] }) {
             onClick={() => setFilter(f.id)}
             className={`rounded-full px-4 py-2 text-sm transition-colors ${
               filter === f.id
-                ? "bg-ink text-porcelain"
-                : "bg-sand/60 text-taupe hover:bg-sand"
+                ? theme === "dark"
+                  ? "bg-porcelain text-ink"
+                  : "bg-ink text-porcelain"
+                : theme === "dark"
+                  ? "border border-porcelain/25 text-porcelain/85 hover:bg-porcelain/10"
+                  : "bg-sand/60 text-taupe hover:bg-sand"
             }`}
           >
             {f.label}
@@ -73,10 +83,9 @@ export function GalleryGrid({ items }: { items: Item[] }) {
             type="button"
             className="group relative aspect-[4/3] w-full overflow-hidden rounded-2xl film-frame focus-visible:outline focus-visible:outline-2 focus-visible:outline-champagne"
             onClick={() => setLightbox(index)}
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: (index % 3) * 0.05 }}
+            initial={reduce ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: Math.min(index * 0.04, 0.2) }}
           >
             <Image
               src={item.imageUrl}

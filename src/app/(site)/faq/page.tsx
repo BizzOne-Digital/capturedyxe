@@ -24,8 +24,8 @@ export default async function FaqPage() {
             </Reveal>
             <div className="relative mt-10 hidden aspect-[3/4] overflow-hidden rounded-3xl film-frame lg:block">
               <Image
-                src={siteImages.photoAlbum}
-                alt="Photo album with celebration memories"
+                src={siteImages.customGuestBook}
+                alt="Personalized wooden guest book keepsake"
                 fill
                 className="object-cover"
                 sizes="35vw"

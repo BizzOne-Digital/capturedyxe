@@ -136,8 +136,8 @@ export default function AboutPage() {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-3xl film-frame sm:row-span-2">
                   <Image
-                    src={siteImages.boothDetail}
-                    alt="Close-up of wooden photo booth camera and screen"
+                    src={siteImages.photoStrips}
+                    alt="Guests holding printed photo strips from the booth"
                     fill
                     className="object-cover"
                     sizes="(max-width: 640px) 100vw, 33vw"

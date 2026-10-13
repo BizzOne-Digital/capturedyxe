@@ -58,7 +58,7 @@ export default async function PricingPage() {
             <h2 className="font-display text-3xl md:text-4xl">Optional upgrades</h2>
             <p className="mt-2 max-w-2xl text-sm text-taupe">
               Acrylic magnetic frame upgrade pairs with Standard; keychain station pairs with Signature.
-              Elite includes dedication template, magnetic sheets, and photo album (2×6 or 4×6) in the
+              Elite includes dedication template, magnetic sheets, and a customized guest book in the
               package price.
             </p>
           </Reveal>
@@ -74,14 +74,26 @@ export default async function PricingPage() {
               showPrices={settings.showPublicPackagePrices}
             />
           </div>
-          <div className="mt-16 grid gap-8 lg:grid-cols-2">
+          <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             <div className="relative min-h-[220px] overflow-hidden rounded-3xl film-frame">
-              <Image src={siteImages.acrylicFrames} alt="Acrylic magnetic photo frame upgrade" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+              <Image src={siteImages.acrylicFrames} alt="Acrylic magnetic photo frame upgrade" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 33vw" />
             </div>
             <div className="relative min-h-[220px] overflow-hidden rounded-3xl film-frame">
-              <Image src={siteImages.keychainStation} alt="Keychain station keepsakes" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+              <Image src={siteImages.keychainStation} alt="Keychain station keepsakes" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 33vw" />
+            </div>
+            <div className="relative min-h-[220px] overflow-hidden rounded-3xl film-frame md:col-span-2 lg:col-span-1">
+              <Image
+                src={siteImages.customGuestBook}
+                alt="Customized wooden guest book included with the Elite package"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 33vw"
+              />
             </div>
           </div>
+          <p className="mt-4 text-center text-sm text-taupe">
+            Elite package — customized guest book with your names and date.
+          </p>
           <div className="mt-10 rounded-3xl bg-sand/40 p-8 text-center">
             <p className="text-sm text-taupe">
               All prices are in CAD and shown before tax. Final quotes are confirmed when you book.

@@ -17,6 +17,7 @@ import {
 import { formatCadWithTaxNote } from "@/lib/money";
 import { getSiteUrl } from "@/lib/site-url";
 import { siteImages } from "@/lib/site-images";
+import { fetchGooglePlaceReviews, getGoogleReviewsPageUrl } from "@/lib/google-place";
 
 export const metadata = {
   title: "Home",
@@ -59,6 +60,20 @@ export default async function HomePage() {
   const gallery = await getPublishedGallery();
   const faqs = await getPublishedFaqs();
   const testimonials = await getPublishedTestimonials();
+  const googleReviews = await fetchGooglePlaceReviews();
+  const kindWords =
+    googleReviews?.reviews?.slice(0, 2).map((r) => ({
+      id: `google-${r.author}-${r.publishTime}`,
+      quote: r.text,
+      reviewerName: r.author,
+      fromGoogle: true,
+    })) ??
+    testimonials.slice(0, 2).map((t) => ({
+      id: t._id,
+      quote: t.quote,
+      reviewerName: t.reviewerName,
+      fromGoogle: false,
+    }));
   const offer = await getVisibleOffer();
   const faqPreview = faqs.slice(0, 4);
 
@@ -111,8 +126,8 @@ export default async function HomePage() {
           <Reveal delay={0.1}>
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl film-frame">
               <Image
-                src={siteImages.boothPrimary}
-                alt="Modern wooden photo booth in an elegant venue"
+                src={siteImages.weddingBanquet}
+                alt="Guests celebrating at a wedding reception photo booth"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -184,7 +199,7 @@ export default async function HomePage() {
             <p className="mt-2 text-porcelain/70 text-sm">Setups, keepsakes, and celebrations across YXE.</p>
           </Reveal>
           <div className="mt-8 [&_button]:border-porcelain/20">
-            <GalleryGrid items={gallery.slice(0, 6)} />
+            <GalleryGrid items={gallery.slice(0, 6)} theme="dark" />
           </div>
           <ButtonLink href="/gallery" variant="ghost" className="mt-8">
             View Full Gallery
@@ -199,7 +214,7 @@ export default async function HomePage() {
           </Reveal>
           <ol className="mt-12 grid gap-8 md:grid-cols-3">
             {[
-              { step: "Enquire", text: "Share your date, venue, and vision — we will confirm availability with you." },
+              { step: "Inquire", text: "Share your date, venue, and vision — we will confirm availability with you." },
               { step: "Personalize", text: "Choose templates, backdrops, and extras that match your celebration." },
               { step: "Celebrate", text: "We handle setup, guest flow, and on-site support while you enjoy the night." },
             ].map((s, i) => (
@@ -219,21 +234,43 @@ export default async function HomePage() {
         <div className="mx-auto max-w-3xl px-4 text-center md:px-8">
           <Reveal>
             <h2 className="font-display text-4xl">Kind words</h2>
-            {testimonials.length === 0 ? (
+            {kindWords.length === 0 ? (
               <p className="mt-6 text-taupe">
-                Published testimonials will appear here once approved reviews are added.{" "}
-                <Link href="/testimonials" className="text-ink underline underline-offset-4">
-                  Visit testimonials
+                Reviews will appear here once Google reviews are synced.{" "}
+                <Link
+                  href={getGoogleReviewsPageUrl()}
+                  className="text-ink underline underline-offset-4"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Read on Google
                 </Link>
               </p>
             ) : (
               <div className="mt-8 space-y-6 text-left">
-                {testimonials.slice(0, 2).map((t) => (
-                  <blockquote key={t._id} className="rounded-2xl border border-ink/10 p-6">
+                {kindWords.map((t) => (
+                  <blockquote key={t.id} className="rounded-2xl border border-ink/10 p-6">
                     <p className="text-ink">&ldquo;{t.quote}&rdquo;</p>
                     <footer className="mt-3 text-sm text-taupe">— {t.reviewerName}</footer>
+                    {t.fromGoogle ? (
+                      <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-champagne/80">
+                        Posted on Google
+                      </p>
+                    ) : null}
                   </blockquote>
                 ))}
+                {googleReviews?.reviews?.length ? (
+                  <p className="text-center text-sm text-taupe">
+                    <Link
+                      href={getGoogleReviewsPageUrl()}
+                      className="text-ink underline underline-offset-4"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Read all on Google
+                    </Link>
+                  </p>
+                ) : null}
               </div>
             )}
           </Reveal>

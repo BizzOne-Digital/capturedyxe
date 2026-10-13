@@ -22,6 +22,7 @@ export const siteImages = {
   archBackdrop: img("arch-backdrop.jpg"),
   moodboard: img("moodboard.jpg"),
   photoAlbum: img("photo-album.jpg"),
+  customGuestBook: img("custom-guest-book.jpg"),
   keychainStation: img("keychain-station.jpg"),
   acrylicFrames: img("acrylic-frames.jpg"),
   outdoorGazebo: img("outdoor-gazebo.jpg"),
@@ -95,9 +96,9 @@ export const galleryImages = [
     category: "general",
   },
   {
-    imageUrl: siteImages.photoAlbum,
-    alt: "Photo album with event memories",
-    caption: "Album keepsakes",
+    imageUrl: siteImages.customGuestBook,
+    alt: "Personalized wooden guest book with engraved names",
+    caption: "Customized guest book — Elite package",
     category: "wedding",
   },
   {

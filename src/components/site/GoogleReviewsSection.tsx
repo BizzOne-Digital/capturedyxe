@@ -18,7 +18,7 @@ function formatReviewDate(iso: string) {
 
 export function GoogleReviewsSection({ data }: { data: GooglePlaceReviewsData | null }) {
   const fallbackUrl = getGoogleReviewsPageUrl();
-  const mapsUrl = data?.googleMapsUri ?? fallbackUrl;
+  const reviewsUrl = data?.googleMapsUri ?? fallbackUrl;
   const rating = data?.rating ?? 0;
   const count = data?.userRatingCount ?? 0;
   const reviews = data?.reviews ?? [];
@@ -51,7 +51,7 @@ export function GoogleReviewsSection({ data }: { data: GooglePlaceReviewsData | 
               )}
             </div>
             <a
-              href={mapsUrl}
+              href={reviewsUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 inline-flex shrink-0 items-center gap-2 rounded-sm border border-ink/15 bg-ivory px-5 py-3 text-sm font-medium text-ink transition-colors hover:border-champagne hover:bg-sand/40 sm:mt-0"

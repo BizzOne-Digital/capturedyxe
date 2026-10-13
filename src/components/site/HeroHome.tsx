@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { formatCadWithTaxNote } from "@/lib/money";
+import { siteImages } from "@/lib/site-images";
 
 type HeroHomeProps = {
   headline: string;
@@ -46,15 +47,24 @@ export function HeroHome({
 
   return (
     <section className="relative flex w-full max-w-full flex-col overflow-hidden bg-ivory md:min-h-[min(88vh,880px)]">
-      <div className="pointer-events-none absolute inset-0">
-        <Image
-          src={imageSrc}
-          alt="Captured.YXE modern wooden photo booth setup"
-          fill
-          className="object-cover object-[72%_42%] md:object-[88%_center]"
-          sizes="100vw"
-          priority
-        />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <motion.div
+          className="absolute inset-0"
+          initial={false}
+          animate={reduce ? undefined : { scale: [1, 1.045, 1] }}
+          transition={
+            reduce ? undefined : { duration: 22, repeat: Infinity, ease: "easeInOut" }
+          }
+        >
+          <Image
+            src={imageSrc}
+            alt="Captured.YXE modern wooden photo booth setup"
+            fill
+            className="object-cover object-[72%_42%] md:object-[88%_center]"
+            sizes="100vw"
+            priority
+          />
+        </motion.div>
         <div
           className="absolute inset-0 bg-gradient-to-r from-ivory from-35% via-ivory/95 via-55% to-ivory/15 md:from-40% md:via-ivory/88 md:to-transparent"
           aria-hidden
@@ -63,6 +73,31 @@ export function HeroHome({
           className="absolute inset-0 bg-gradient-to-t from-ivory/80 via-transparent to-ivory/40 md:to-transparent"
           aria-hidden
         />
+        {!reduce && (
+          <motion.div
+            className="absolute bottom-[28%] right-[6%] hidden h-24 w-[4.5rem] overflow-hidden rounded-sm border border-ink/10 shadow-[0_12px_40px_rgba(25,25,25,0.15)] md:block lg:bottom-[32%] lg:right-[10%] lg:h-28 lg:w-20"
+            initial={{ opacity: 0, y: 12, rotate: -4 }}
+            animate={{
+              opacity: 1,
+              y: [0, -10, 0],
+              rotate: [-3, 3, -3],
+            }}
+            transition={{
+              opacity: { duration: 0.6, delay: 0.35 },
+              y: { duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
+              rotate: { duration: 7, repeat: Infinity, ease: "easeInOut" },
+            }}
+            aria-hidden
+          >
+            <Image
+              src={siteImages.photoStrips}
+              alt=""
+              fill
+              className="object-cover"
+              sizes="80px"
+            />
+          </motion.div>
+        )}
       </div>
 
       <div className="relative mx-auto flex w-full min-w-0 max-w-7xl flex-col justify-start px-4 pb-8 pt-5 md:flex-1 md:justify-center md:px-8 md:pb-32 md:pt-16">
