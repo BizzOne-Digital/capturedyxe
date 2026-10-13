@@ -58,8 +58,8 @@ export default async function PricingPage() {
             <h2 className="font-display text-3xl md:text-4xl">Optional upgrades</h2>
             <p className="mt-2 max-w-2xl text-sm text-taupe">
               Acrylic magnetic frame upgrade pairs with Standard; keychain station pairs with Signature.
-              Elite includes dedication template, magnetic sheets, and a customized guest book in the
-              package price.
+              Elite includes dedication template, magnetic sheets, and a customized guest book with
+              engraved names and date in the package price.
             </p>
           </Reveal>
           <div className="mt-10">
@@ -84,7 +84,7 @@ export default async function PricingPage() {
             <div className="relative min-h-[220px] overflow-hidden rounded-3xl film-frame md:col-span-2 lg:col-span-1">
               <Image
                 src={siteImages.customGuestBook}
-                alt="Customized wooden guest book included with the Elite package"
+                alt="Wooden guest book with engraved names and date — Elite package"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 33vw"
@@ -92,7 +92,7 @@ export default async function PricingPage() {
             </div>
           </div>
           <p className="mt-4 text-center text-sm text-taupe">
-            Elite package — customized guest book with your names and date.
+            Elite package — customized guest book with engraved names and date.
           </p>
           <div className="mt-10 rounded-3xl bg-sand/40 p-8 text-center">
             <p className="text-sm text-taupe">

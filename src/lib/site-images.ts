@@ -97,8 +97,8 @@ export const galleryImages = [
   },
   {
     imageUrl: siteImages.customGuestBook,
-    alt: "Personalized wooden guest book with engraved names",
-    caption: "Customized guest book — Elite package",
+    alt: "Personalized wooden guest book with engraved names and date",
+    caption: "Guest book — engraved names and date (Elite)",
     category: "wedding",
   },
   {

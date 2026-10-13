@@ -25,7 +25,7 @@ export default async function FaqPage() {
             <div className="relative mt-10 hidden aspect-[3/4] overflow-hidden rounded-3xl film-frame lg:block">
               <Image
                 src={siteImages.customGuestBook}
-                alt="Personalized wooden guest book keepsake"
+                alt="Wooden guest book with engraved names and date"
                 fill
                 className="object-cover"
                 sizes="35vw"

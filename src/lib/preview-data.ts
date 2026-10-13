@@ -83,7 +83,7 @@ export const previewPackages = [
     priceCents: 80000,
     durationHours: 4,
     shortDescription:
-      "Four hours with dedication template, magnetic sheets, and a customized guest book.",
+      "Four hours with dedication template, magnetic sheets, and a guest book with engraved names and date.",
     order: 2,
     active: true,
     showPricePublicly: true,
@@ -97,7 +97,7 @@ export const previewPackages = [
       { label: "4 customized templates", publiclyVisible: true },
       { label: "Dedication template", publiclyVisible: true },
       { label: "Magnetic adhesive sheets (2×6 or 4×6)", publiclyVisible: true },
-      { label: "Customized guest book", publiclyVisible: true },
+      { label: "Customized guest book — engraved names and date", publiclyVisible: true },
     ],
   },
 ];
@@ -327,7 +327,7 @@ export const previewFaqs = [
     _id: "faq-3",
     question: "Can guests get physical prints and digital copies?",
     answer:
-      "Yes — packages are designed around tangible keepsakes and digital sharing. Specific print inclusions depend on your selected package; magnetic backing is included on Signature and Elite, and Elite includes a customized guest book.",
+      "Yes — packages are designed around tangible keepsakes and digital sharing. Specific print inclusions depend on your selected package; magnetic backing is included on Signature and Elite, and Elite includes a customized guest book with engraved names and date.",
     category: "prints-keepsakes",
     order: 0,
     status: "published",
