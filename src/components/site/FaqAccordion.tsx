@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 type FaqItem = {
   _id: string;
@@ -55,6 +55,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
                       aria-hidden
                     />
                   </button>
+                  <AnimatePresence initial={false}>
                   {open && (
                     reduce ? (
                       <div className="px-5 pb-4 text-sm leading-relaxed text-taupe">
@@ -62,9 +63,11 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
                       </div>
                     ) : (
                       <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        transition={{ duration: 0.25 }}
+                        key="panel"
+                        initial={{ height: 0, opacity: 0, y: -8 }}
+                        animate={{ height: "auto", opacity: 1, y: 0 }}
+                        exit={{ height: 0, opacity: 0, y: -8 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 32 }}
                         className="overflow-hidden"
                       >
                         <div className="px-5 pb-4 text-sm leading-relaxed text-taupe">
@@ -73,6 +76,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
                       </motion.div>
                     )
                   )}
+                  </AnimatePresence>
                 </li>
               );
             })}

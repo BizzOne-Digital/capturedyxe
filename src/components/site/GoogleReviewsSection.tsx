@@ -78,7 +78,7 @@ export function GoogleReviewsSection({ data }: { data: GooglePlaceReviewsData | 
                       </time>
                     )}
                   </div>
-                  <p className="mt-4 font-display text-xl leading-snug text-ink md:text-2xl">
+                  <p className="mt-4 whitespace-pre-line font-display text-xl leading-snug text-ink md:text-2xl">
                     &ldquo;{review.text}&rdquo;
                   </p>
                   <footer className="mt-4 text-sm text-taupe">— {review.author}</footer>

@@ -83,15 +83,26 @@ export function GalleryGrid({
             type="button"
             className="group relative aspect-[4/3] w-full overflow-hidden rounded-2xl film-frame focus-visible:outline focus-visible:outline-2 focus-visible:outline-champagne"
             onClick={() => setLightbox(index)}
-            initial={reduce ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: Math.min(index * 0.04, 0.2) }}
+            initial={reduce ? false : { opacity: 0, y: 32, scale: 0.88, rotate: index % 2 ? 4 : -4 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            whileHover={
+              reduce
+                ? undefined
+                : { scale: 1.06, rotate: 0, y: -6, transition: { type: "spring", stiffness: 400, damping: 18 } }
+            }
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 22,
+              delay: Math.min(index * 0.06, 0.25),
+            }}
           >
             <Image
               src={item.imageUrl}
               alt={item.alt}
               fill
-              className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+              className="object-cover transition-transform duration-500 group-hover:scale-110"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
             {item.designation === "inspiration" && (

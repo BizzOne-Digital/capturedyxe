@@ -5,9 +5,9 @@ const base =
   "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-wide transition-[transform,background-color,color,box-shadow] duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-champagne";
 
 const variants = {
-  primary: `${base} bg-ink text-porcelain hover:bg-ink/90 hover:-translate-y-0.5`,
-  secondary: `${base} border border-champagne/50 bg-transparent text-ink hover:border-champagne hover:bg-sand/40`,
-  light: `${base} bg-porcelain text-ink hover:bg-white hover:-translate-y-0.5`,
+  primary: `${base} btn-shimmer bg-ink text-porcelain hover:bg-ink/90 hover:-translate-y-1 hover:scale-[1.03] active:scale-95`,
+  secondary: `${base} border border-champagne/50 bg-transparent text-ink hover:border-champagne hover:bg-sand/40 hover:-translate-y-1 hover:scale-[1.02]`,
+  light: `${base} bg-porcelain text-ink hover:bg-white hover:-translate-y-1 hover:scale-[1.03]`,
   ghost: `${base} text-porcelain border border-porcelain/30 hover:bg-porcelain/10`,
 };
 

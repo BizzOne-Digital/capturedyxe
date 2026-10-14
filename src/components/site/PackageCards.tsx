@@ -1,6 +1,8 @@
 import { ButtonLink } from "@/components/ui/Button";
 import { formatCadWithTaxNote } from "@/lib/money";
 import { Reveal } from "@/components/motion/Reveal";
+import { TiltCard } from "@/components/motion/TiltCard";
+import { variantCycle } from "@/components/motion/variants";
 
 type Inclusion = {
   label: string;
@@ -33,9 +35,10 @@ export function PackageCards({
         const visibleInclusions =
           pkg.inclusions?.filter((inc) => inc.publiclyVisible !== false) ?? [];
         return (
-          <Reveal key={pkg._id} delay={i * 0.08}>
+          <Reveal key={pkg._id} delay={i * 0.1} variant={variantCycle[i % variantCycle.length]}>
+            <TiltCard>
             <article
-              className="flex h-full min-w-0 flex-col rounded-3xl border border-ink/10 bg-porcelain p-6 shadow-sm transition-shadow hover:shadow-md"
+              className="flex h-full min-w-0 flex-col rounded-3xl border border-ink/10 bg-porcelain p-6 shadow-sm"
             >
               <p className="text-xs uppercase tracking-[0.2em] text-champagne">
                 {pkg.durationHours} hours
@@ -65,6 +68,7 @@ export function PackageCards({
                 Request a Quote
               </ButtonLink>
             </article>
+            </TiltCard>
           </Reveal>
         );
       })}

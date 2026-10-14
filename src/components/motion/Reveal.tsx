@@ -2,32 +2,47 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
+import {
+  type RevealVariant,
+  revealVariants,
+  springPop,
+  springSoft,
+} from "@/components/motion/variants";
 
 type RevealProps = {
   children: ReactNode;
   className?: string;
   delay?: number;
-  y?: number;
-  /** When true, only animate after scrolling into view (use sparingly). */
-  inView?: boolean;
+  variant?: RevealVariant;
+  /** Animate as soon as the section mounts (above-the-fold). */
+  immediate?: boolean;
 };
 
-export function Reveal({ children, className, delay = 0, y = 16, inView = false }: RevealProps) {
+export function Reveal({
+  children,
+  className,
+  delay = 0,
+  variant = "rise",
+  immediate = false,
+}: RevealProps) {
   const reduce = useReducedMotion();
 
   if (reduce) {
     return <div className={className}>{children}</div>;
   }
 
-  const transition = { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] as const };
+  const transition = {
+    ...springPop,
+    delay,
+  };
 
-  if (inView) {
+  if (immediate) {
     return (
       <motion.div
         className={className}
-        initial={{ opacity: 0, y }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.12 }}
+        variants={revealVariants[variant]}
+        initial="hidden"
+        animate="visible"
         transition={transition}
       >
         {children}
@@ -38,9 +53,62 @@ export function Reveal({ children, className, delay = 0, y = 16, inView = false 
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y }}
-      animate={{ opacity: 1, y: 0 }}
+      variants={revealVariants[variant]}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.15, margin: "0px 0px -8% 0px" }}
       transition={transition}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export function StaggerGroup({
+  children,
+  className,
+  stagger = 0.08,
+}: {
+  children: ReactNode;
+  className?: string;
+  stagger?: number;
+}) {
+  const reduce = useReducedMotion();
+  if (reduce) return <div className={className}>{children}</div>;
+
+  return (
+    <motion.div
+      className={className}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.12 }}
+      variants={{
+        hidden: {},
+        visible: { transition: { staggerChildren: stagger, delayChildren: 0.05 } },
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export function StaggerItem({
+  children,
+  className,
+  variant = "pop",
+}: {
+  children: ReactNode;
+  className?: string;
+  variant?: RevealVariant;
+}) {
+  const reduce = useReducedMotion();
+  if (reduce) return <div className={className}>{children}</div>;
+
+  return (
+    <motion.div
+      className={className}
+      variants={revealVariants[variant]}
+      transition={springSoft}
     >
       {children}
     </motion.div>

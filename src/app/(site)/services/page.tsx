@@ -1,7 +1,9 @@
 import Image from "next/image";
+import { ExperiencePhotoWall } from "@/components/motion/ExperiencePhotoWall";
 import { Reveal } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
 import { getPublishedServices } from "@/lib/data/public";
+import { experienceGalleryShots } from "@/lib/experience-gallery";
 
 export const metadata = {
   title: "Experiences & Services",
@@ -39,6 +41,25 @@ export default async function ServicesPage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-ink section-y text-porcelain">
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(181,150,112,0.2),transparent_50%)]"
+          aria-hidden
+        />
+        <div className="relative mx-auto max-w-7xl px-4 md:px-8">
+          <Reveal variant="zoom">
+            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-champagne">Real celebrations</p>
+            <h2 className="mt-3 font-display text-4xl md:text-5xl">Guests in the booth</h2>
+            <p className="mt-4 max-w-2xl text-porcelain/80">
+              Birthdays, weddings, and nights out — the energy your guests bring is half the experience.
+            </p>
+          </Reveal>
+          <div className="mt-10">
+            <ExperiencePhotoWall shots={experienceGalleryShots} />
+          </div>
         </div>
       </section>
 

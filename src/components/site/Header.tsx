@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { SiteLogo } from "@/components/site/SiteLogo";
 import { usePathname } from "next/navigation";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import type { ExperienceNavLink } from "@/lib/experience-nav";
@@ -114,6 +115,7 @@ export function Header({ siteName, experienceLinks }: HeaderProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [mobileExpOpen, setMobileExpOpen] = useState(false);
+  const reduce = useReducedMotion();
 
   const linkClass = (href: string) => {
     const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -123,8 +125,11 @@ export function Header({ siteName, experienceLinks }: HeaderProps) {
   };
 
   return (
-    <header
+    <motion.header
       key={pathname}
+      initial={reduce ? false : { y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ type: "spring", stiffness: 320, damping: 28 }}
       className="sticky top-0 z-[100] isolate w-full max-w-full overflow-x-clip border-b border-ink/8 bg-ivory/95 backdrop-blur-sm"
     >
       <div className="mx-auto flex w-full min-w-0 max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:gap-3 sm:py-4 md:px-8 lg:grid lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:items-center lg:gap-4">
@@ -174,8 +179,15 @@ export function Header({ siteName, experienceLinks }: HeaderProps) {
         </div>
       </div>
 
+      <AnimatePresence>
       {open && (
-        <div className="max-h-[min(85vh,32rem)] overflow-y-auto border-t border-ink/8 bg-ivory px-4 py-4 lg:hidden">
+        <motion.div
+          initial={reduce ? false : { height: 0, opacity: 0 }}
+          animate={{ height: "auto", opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ type: "spring", stiffness: 380, damping: 32 }}
+          className="max-h-[min(85vh,32rem)] overflow-y-auto border-t border-ink/8 bg-ivory px-4 py-4 lg:hidden"
+        >
           <nav className="flex flex-col gap-1" aria-label="Mobile">
             {nav.map((item) => {
               if (item.type === "experiences") {
@@ -243,8 +255,9 @@ export function Header({ siteName, experienceLinks }: HeaderProps) {
               </Link>
             ))}
           </nav>
-        </div>
+        </motion.div>
       )}
-    </header>
+      </AnimatePresence>
+    </motion.header>
   );
 }

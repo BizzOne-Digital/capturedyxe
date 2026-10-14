@@ -4,7 +4,10 @@ import { HeroHome } from "@/components/site/HeroHome";
 import { PackageCards } from "@/components/site/PackageCards";
 import { GalleryGrid } from "@/components/site/GalleryGrid";
 import { FaqAccordion } from "@/components/site/FaqAccordion";
-import { Reveal } from "@/components/motion/Reveal";
+import { HomeMosaicGrid } from "@/components/motion/HomeMosaicGrid";
+import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/Reveal";
+import { ScrollMarquee } from "@/components/motion/ScrollMarquee";
+import { variantCycle } from "@/components/motion/variants";
 import { ButtonLink } from "@/components/ui/Button";
 import {
   getActivePackages,
@@ -89,27 +92,20 @@ export default async function HomePage() {
         tagline={settings.tagline}
       />
 
-      <section className="bg-ink section-y text-porcelain">
-        <div className="mx-auto max-w-7xl px-4 md:px-8">
-          <Reveal>
+      <section className="relative overflow-hidden bg-ink section-y text-porcelain">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(181,150,112,0.15),transparent_45%)]" aria-hidden />
+        <div className="relative mx-auto max-w-7xl px-4 md:px-8">
+          <Reveal variant="zoom">
             <p className="text-xs uppercase tracking-[0.25em] text-champagne">For every celebration</p>
             <h2 className="mt-3 font-display text-4xl md:text-5xl">Built for the moments that matter</h2>
           </Reveal>
-          <ul className="mt-10 flex flex-wrap gap-3">
-            {audiences.map((a, i) => (
-              <Reveal key={a} delay={i * 0.05}>
-                <li className="rounded-full border border-porcelain/20 px-5 py-2 text-sm text-porcelain/90">
-                  {a}
-                </li>
-              </Reveal>
-            ))}
-          </ul>
+          <ScrollMarquee items={audiences} />
         </div>
       </section>
 
       <section className="section-y">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 md:px-8 lg:grid-cols-2">
-          <Reveal>
+          <Reveal variant="left">
             <h2 className="font-display text-4xl md:text-5xl">Signature wooden-tripod presence</h2>
             <p className="mt-6 text-taupe leading-relaxed">
               Our modern-retro setups blend into your venue while standing out for the right reasons — warm
@@ -123,7 +119,7 @@ export default async function HomePage() {
               Our Story
             </ButtonLink>
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.12} variant="right">
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl film-frame">
               <Image
                 src={siteImages.weddingBanquet}
@@ -138,18 +134,14 @@ export default async function HomePage() {
       </section>
 
       <section className="section-y">
-        <div className="mx-auto grid w-full min-w-0 max-w-7xl grid-cols-2 gap-3 px-4 md:grid-cols-4 md:gap-4 md:px-8">
-          {[
+        <HomeMosaicGrid
+          shots={[
             { src: siteImages.photoStrips, alt: "Printed photo strips" },
             { src: siteImages.archBackdrop, alt: "Arched floral backdrop" },
             { src: siteImages.acrylicFrames, alt: "Acrylic magnetic frames" },
             { src: siteImages.propsFlatlay, alt: "Curated booth props" },
-          ].map((shot) => (
-            <div key={shot.src} className="relative aspect-[4/5] overflow-hidden rounded-2xl film-frame md:aspect-[3/4]">
-              <Image src={shot.src} alt={shot.alt} fill className="object-cover" sizes="25vw" />
-            </div>
-          ))}
-        </div>
+          ]}
+        />
       </section>
 
       <section className="bg-sand/40 section-y">
@@ -157,16 +149,16 @@ export default async function HomePage() {
           <Reveal>
             <h2 className="font-display text-center text-4xl md:text-5xl">The Captured.YXE difference</h2>
           </Reveal>
-          <div className="mt-12 grid gap-8 md:grid-cols-2">
+          <StaggerGroup className="mt-12 grid gap-8 md:grid-cols-2" stagger={0.12}>
             {pillars.map((p, i) => (
-              <Reveal key={p.title} delay={i * 0.08}>
-                <article className="rounded-3xl border border-ink/10 bg-porcelain p-8">
+              <StaggerItem key={p.title} variant={variantCycle[i % variantCycle.length]}>
+                <article className="rounded-3xl border border-ink/10 bg-porcelain p-8 transition-shadow hover:shadow-[0_20px_50px_rgba(25,25,25,0.12)]">
                   <h3 className="font-display text-2xl">{p.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-taupe">{p.body}</p>
                 </article>
-              </Reveal>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerGroup>
         </div>
       </section>
 
@@ -250,7 +242,7 @@ export default async function HomePage() {
               <div className="mt-8 space-y-6 text-left">
                 {kindWords.map((t) => (
                   <blockquote key={t.id} className="rounded-2xl border border-ink/10 p-6">
-                    <p className="text-ink">&ldquo;{t.quote}&rdquo;</p>
+                    <p className="whitespace-pre-line text-ink">&ldquo;{t.quote}&rdquo;</p>
                     <footer className="mt-3 text-sm text-taupe">— {t.reviewerName}</footer>
                     {t.fromGoogle ? (
                       <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-champagne/80">
