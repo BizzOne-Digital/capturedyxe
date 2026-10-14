@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { SiteLogo } from "@/components/site/SiteLogo";
-import { getGoogleReviewsPageUrl } from "@/lib/google-place";
 import { ArrowRight, Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
 
 type FooterProps = {
@@ -31,7 +30,7 @@ const linkGroups: { title: string; links: FooterLink[] }[] = [
     links: [
       { href: "/about", label: "About" },
       { href: "/our-team", label: "Our team" },
-      { href: getGoogleReviewsPageUrl(), label: "Google reviews", external: true },
+      { href: "/testimonials", label: "Testimonials" },
       { href: "/faq", label: "FAQ" },
     ],
   },

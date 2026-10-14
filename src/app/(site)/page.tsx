@@ -19,7 +19,7 @@ import {
 import { formatCadWithTaxNote } from "@/lib/money";
 import { getSiteUrl } from "@/lib/site-url";
 import { siteImages } from "@/lib/site-images";
-import { fetchGooglePlaceReviews, getGoogleReviewsPageUrl } from "@/lib/google-place";
+import { fetchGooglePlaceReviews } from "@/lib/google-place";
 
 export const metadata = {
   title: "Home",
@@ -218,39 +218,22 @@ export default async function HomePage() {
           <Reveal>
             <h2 className="font-display text-4xl">Kind words</h2>
             {kindWords.length === 0 ? (
-              <p className="mt-6 text-taupe">
-                Reviews will appear here once Google reviews are synced.{" "}
-                <Link
-                  href={getGoogleReviewsPageUrl()}
-                  className="text-ink underline underline-offset-4"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Read on Google
-                </Link>
-              </p>
+              <p className="mt-6 text-taupe">Reviews will appear here soon.</p>
             ) : (
               <div className="mt-8 space-y-6 text-left">
                 {kindWords.map((t) => (
                   <blockquote key={t.id} className="rounded-2xl border border-ink/10 p-6">
                     <p className="whitespace-pre-line text-ink">&ldquo;{t.quote}&rdquo;</p>
                     <footer className="mt-3 text-sm text-taupe">— {t.reviewerName}</footer>
-                    {t.fromGoogle ? (
-                      <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-champagne/80">
-                        Posted on Google
-                      </p>
-                    ) : null}
+                    <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-champagne/80">
+                      Posted on Google
+                    </p>
                   </blockquote>
                 ))}
-                {googleReviews?.reviews?.length ? (
+                {(googleReviews?.reviews?.length ?? 0) > 2 ? (
                   <p className="text-center text-sm text-taupe">
-                    <Link
-                      href={getGoogleReviewsPageUrl()}
-                      className="text-ink underline underline-offset-4"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Read all on Google
+                    <Link href="/testimonials" className="text-ink underline underline-offset-4">
+                      See all testimonials
                     </Link>
                   </p>
                 ) : null}

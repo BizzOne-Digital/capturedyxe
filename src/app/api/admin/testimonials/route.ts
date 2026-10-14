@@ -35,6 +35,7 @@ export async function POST(req: Request) {
     const data = { ...parsed.data };
     if (data.eventDate) data.eventDate = new Date(data.eventDate) as unknown as string;
     const doc = await Testimonial.create(data);
+    revalidatePath("/testimonials");
     revalidatePath("/");
     return NextResponse.json(doc.toObject());
   });
