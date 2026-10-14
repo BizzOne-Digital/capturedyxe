@@ -48,14 +48,7 @@ export function HeroHome({
   return (
     <section className="relative flex w-full max-w-full flex-col overflow-hidden bg-ivory md:min-h-[min(88vh,880px)]">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute inset-0"
-          initial={false}
-          animate={reduce ? undefined : { scale: [1, 1.045, 1] }}
-          transition={
-            reduce ? undefined : { duration: 22, repeat: Infinity, ease: "easeInOut" }
-          }
-        >
+        <div className={`absolute inset-[-4%] ${reduce ? "" : "hero-bg-motion"}`}>
           <Image
             src={imageSrc}
             alt="Captured.YXE modern wooden photo booth setup"
@@ -64,7 +57,7 @@ export function HeroHome({
             sizes="100vw"
             priority
           />
-        </motion.div>
+        </div>
         <div
           className="absolute inset-0 bg-gradient-to-r from-ivory from-35% via-ivory/95 via-55% to-ivory/15 md:from-40% md:via-ivory/88 md:to-transparent"
           aria-hidden
@@ -74,19 +67,8 @@ export function HeroHome({
           aria-hidden
         />
         {!reduce && (
-          <motion.div
-            className="absolute bottom-[28%] right-[6%] hidden h-24 w-[4.5rem] overflow-hidden rounded-sm border border-ink/10 shadow-[0_12px_40px_rgba(25,25,25,0.15)] md:block lg:bottom-[32%] lg:right-[10%] lg:h-28 lg:w-20"
-            initial={{ opacity: 0, y: 12, rotate: -4 }}
-            animate={{
-              opacity: 1,
-              y: [0, -10, 0],
-              rotate: [-3, 3, -3],
-            }}
-            transition={{
-              opacity: { duration: 0.6, delay: 0.35 },
-              y: { duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
-              rotate: { duration: 7, repeat: Infinity, ease: "easeInOut" },
-            }}
+          <div
+            className="hero-float-accent absolute bottom-[30%] right-3 h-20 w-14 overflow-hidden rounded-sm border border-ink/10 shadow-[0_12px_40px_rgba(25,25,25,0.18)] sm:right-5 sm:h-24 sm:w-[4.5rem] md:bottom-[28%] md:right-[6%] lg:bottom-[32%] lg:right-[10%] lg:h-28 lg:w-20"
             aria-hidden
           >
             <Image
@@ -96,7 +78,7 @@ export function HeroHome({
               className="object-cover"
               sizes="80px"
             />
-          </motion.div>
+          </div>
         )}
       </div>
 
@@ -171,8 +153,11 @@ export function HeroHome({
         </p>
       </div>
 
-      <div
+      <motion.div
         className="relative w-full border-t border-ink/12 bg-ivory/90 px-3 py-3 text-center text-[9px] font-medium uppercase leading-relaxed tracking-[0.16em] text-taupe backdrop-blur-sm sm:px-4 sm:py-4 sm:text-[10px] sm:tracking-[0.24em] md:tracking-[0.28em]"
+        initial={reduce ? false : { opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
       >
         <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
           <span>Weddings</span>
@@ -181,7 +166,7 @@ export function HeroHome({
           <span className="text-ink/25" aria-hidden>/</span>
           <span>Celebrations</span>
         </p>
-      </div>
+      </motion.div>
     </section>
   );
 }

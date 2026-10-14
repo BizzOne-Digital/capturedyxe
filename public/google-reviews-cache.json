@@ -1,0 +1,27 @@
+{
+  "displayName": "Captured.yxe",
+  "rating": 5,
+  "userRatingCount": 6,
+  "googleMapsUri": "https://www.google.com/maps/search/?api=1&query=Captured.yxe&query_place_id=IWfJaqGJLNiahvcP6duTsAg",
+  "writeReviewUri": "https://www.google.com/maps/place/Captured.yxe/@52.1434,-106.6472,17z/data=!4m6!3m5!1sIWfJaqGJLNiahvcP6duTsAg!8m2!3d52.1434!4d-106.6472",
+  "reviews": [
+    {
+      "author": "Deandra Reid",
+      "rating": 5,
+      "text": "Great business. Beautiful photos. Great owner. Would definitely recommend this service.",
+      "publishTime": "2026-03-10T12:00:00Z"
+    },
+    {
+      "author": "Anne Kristine Maligat-Canete",
+      "rating": 5,
+      "text": "We had such a great experience with Captured YXE! We had limited space for the setup, but they still made it work perfectly.",
+      "publishTime": "2026-03-05T12:00:00Z"
+    },
+    {
+      "author": "Liezel Vicente",
+      "rating": 5,
+      "text": "Affordable and easy to communicate with.",
+      "publishTime": "2026-03-05T12:00:00Z"
+    }
+  ]
+}
