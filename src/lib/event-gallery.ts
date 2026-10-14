@@ -4,6 +4,7 @@
  */
 
 import stagedFiles from "@/data/event-gallery-staged.json";
+import { experienceGalleryShots } from "@/lib/experience-gallery";
 
 export type EventGalleryImage = {
   imageUrl: string;
@@ -74,16 +75,30 @@ function buildImages(slug: string, title: string, files: string[]): EventGallery
   });
 }
 
-export const eventGalleryAlbums: EventGalleryAlbum[] = Object.entries(albumMeta).map(
-  ([slug, meta]) => {
-    const files = (stagedFiles as Record<string, string[]>)[slug] ?? [];
-    return {
-      slug,
-      ...meta,
-      images: buildImages(slug, meta.title, files),
-    };
-  }
-);
+const stagedAlbums: EventGalleryAlbum[] = Object.entries(albumMeta).map(([slug, meta]) => {
+  const files = (stagedFiles as Record<string, string[]>)[slug] ?? [];
+  return {
+    slug,
+    ...meta,
+    images: buildImages(slug, meta.title, files),
+  };
+});
+
+/** Same guest shots as the Experiences page — shown first on /gallery. */
+const guestMomentsAlbum: EventGalleryAlbum = {
+  slug: "guest-moments",
+  title: "Guests in the booth",
+  category: "general",
+  description:
+    "Birthdays, weddings, and nights out — real guests having fun with Captured.YXE across Saskatoon.",
+  images: experienceGalleryShots.map((shot) => ({
+    imageUrl: shot.imageUrl,
+    alt: shot.alt,
+    caption: shot.caption,
+  })),
+};
+
+export const eventGalleryAlbums: EventGalleryAlbum[] = [guestMomentsAlbum, ...stagedAlbums];
 
 export function getPublishedEventAlbums(): EventGalleryAlbum[] {
   return eventGalleryAlbums.filter((a) => a.images.length > 0);
