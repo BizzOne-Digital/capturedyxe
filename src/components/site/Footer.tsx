@@ -31,7 +31,6 @@ const linkGroups: { title: string; links: FooterLink[] }[] = [
     links: [
       { href: "/about", label: "About" },
       { href: "/our-team", label: "Our team" },
-      { href: "/testimonials", label: "Testimonials" },
       { href: getGoogleReviewsPageUrl(), label: "Google reviews", external: true },
       { href: "/faq", label: "FAQ" },
     ],

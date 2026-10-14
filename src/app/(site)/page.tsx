@@ -13,7 +13,6 @@ import {
   getActivePackages,
   getPublishedFaqs,
   getPublishedGallery,
-  getPublishedTestimonials,
   getSiteSettings,
   getVisibleOffer,
 } from "@/lib/data/public";
@@ -62,21 +61,13 @@ export default async function HomePage() {
   const packages = await getActivePackages();
   const gallery = await getPublishedGallery();
   const faqs = await getPublishedFaqs();
-  const testimonials = await getPublishedTestimonials();
   const googleReviews = await fetchGooglePlaceReviews();
-  const kindWords =
-    googleReviews?.reviews?.slice(0, 2).map((r) => ({
-      id: `google-${r.author}-${r.publishTime}`,
-      quote: r.text,
-      reviewerName: r.author,
-      fromGoogle: true,
-    })) ??
-    testimonials.slice(0, 2).map((t) => ({
-      id: t._id,
-      quote: t.quote,
-      reviewerName: t.reviewerName,
-      fromGoogle: false,
-    }));
+  const kindWords = (googleReviews?.reviews ?? []).slice(0, 2).map((r) => ({
+    id: `google-${r.author}-${r.publishTime}`,
+    quote: r.text,
+    reviewerName: r.author,
+    fromGoogle: true,
+  }));
   const offer = await getVisibleOffer();
   const faqPreview = faqs.slice(0, 4);
 

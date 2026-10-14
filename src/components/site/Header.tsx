@@ -20,7 +20,6 @@ const nav = [
 const footerNav = [
   { href: "/contact", label: "Contact" },
   { href: "/booking", label: "Booking" },
-  { href: "/testimonials", label: "Testimonials" },
   { href: "/faq", label: "FAQ" },
   { href: "/our-team", label: "Our Team" },
 ];

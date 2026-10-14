@@ -26,7 +26,7 @@ export async function PATCH(req: Request, { params }: Params) {
     await connectDB();
     const doc = await Testimonial.findByIdAndUpdate(id, { $set: parsed.data }, { new: true });
     if (!doc) return NextResponse.json({ error: "Not found" }, { status: 404 });
-    revalidatePath("/testimonials");
+    revalidatePath("/");
     return NextResponse.json(doc.toObject());
   });
 }
@@ -37,7 +37,7 @@ export async function DELETE(_req: Request, { params }: Params) {
     const { id } = await params;
     await connectDB();
     await Testimonial.findByIdAndDelete(id);
-    revalidatePath("/testimonials");
+    revalidatePath("/");
     return NextResponse.json({ ok: true });
   });
 }

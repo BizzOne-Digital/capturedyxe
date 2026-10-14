@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import type { GooglePlaceReviewsData } from "@/lib/google-place";
 import { getGoogleReviewsPageUrl } from "@/lib/google-place";
@@ -96,12 +95,6 @@ export function GoogleReviewsSection({ data }: { data: GooglePlaceReviewsData | 
               <code className="text-ink">npm run fetch-google-reviews</code>. You can always read the
               latest on Google using the button above.
             </p>
-            <Link
-              href="/testimonials"
-              className="mt-4 inline-block text-sm text-ink underline underline-offset-4"
-            >
-              See featured testimonials below
-            </Link>
           </div>
         )}
       </div>
