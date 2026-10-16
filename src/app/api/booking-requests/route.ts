@@ -8,6 +8,11 @@ import { sendAdminNotification } from "@/lib/email";
 import { BookingRequest } from "@/models/BookingRequest";
 import { Package } from "@/models/Package";
 import { AddOn } from "@/models/AddOn";
+import { computeBookingCheckoutCents, isStripeConfigured } from "@/lib/stripe";
+import {
+  createBookingCheckoutSession,
+  resumeBookingCheckoutSession,
+} from "@/lib/stripe-booking";
 
 
 export async function POST(req: Request) {
@@ -47,7 +52,43 @@ export async function POST(req: Request) {
     idempotencyKey: parsed.data.idempotencyKey,
   });
   if (existing) {
-    return NextResponse.json({ ok: true, id: existing._id.toString() });
+    const payload: Record<string, unknown> = { ok: true, id: existing._id.toString() };
+    if (existing.paymentStatus === "unpaid" && isStripeConfigured()) {
+      try {
+        const snap = existing.packageSnapshot;
+        const resume = await resumeBookingCheckoutSession(
+          existing._id.toString(),
+          existing.email,
+          existing.stripeCheckoutSessionId,
+          {
+            packageHelp: existing.packageHelp,
+            packageSnapshot: snap
+              ? {
+                  name: snap.name,
+                  priceCents: snap.priceCents,
+                }
+              : undefined,
+            addOnSnapshots: (existing.addOnSnapshots ?? []).map(
+              (a: { name: string; priceCents: number }) => ({
+                name: a.name,
+                priceCents: a.priceCents,
+              })
+            ),
+          }
+        );
+        if (resume) {
+          if (resume.sessionId !== existing.stripeCheckoutSessionId) {
+            existing.stripeCheckoutSessionId = resume.sessionId;
+            await existing.save();
+          }
+          payload.checkoutUrl = resume.url;
+          payload.paymentRequired = true;
+        }
+      } catch (err) {
+        console.error("Stripe checkout resume failed:", err);
+      }
+    }
+    return NextResponse.json(payload);
   }
 
   let packageSnapshot;
@@ -80,6 +121,17 @@ export async function POST(req: Request) {
     parsed.data.eventTimeLocal
   );
 
+  const amountDueCents = computeBookingCheckoutCents({
+    packageHelp: parsed.data.packageHelp,
+    packageSnapshot: packageSnapshot
+      ? { name: packageSnapshot.name, priceCents: packageSnapshot.priceCents }
+      : undefined,
+    addOnSnapshots: addOnSnapshots.map((a) => ({
+      name: a.name,
+      priceCents: a.priceCents,
+    })),
+  });
+
   const doc = await BookingRequest.create({
     eventType: parsed.data.eventType,
     eventDate,
@@ -97,6 +149,8 @@ export async function POST(req: Request) {
     notes: parsed.data.notes ?? "",
     sourcePage: parsed.data.sourcePage ?? "/booking",
     idempotencyKey: parsed.data.idempotencyKey,
+    paymentStatus: amountDueCents ? "unpaid" : "not_required",
+    amountDueCents: amountDueCents ?? undefined,
   });
 
   const sent = await sendAdminNotification(
@@ -109,5 +163,38 @@ export async function POST(req: Request) {
   }
 
   revalidatePath("/admin/bookings");
-  return NextResponse.json({ ok: true, id: doc._id.toString() });
+
+  let checkoutUrl: string | undefined;
+  if (isStripeConfigured() && amountDueCents) {
+    try {
+      const checkout = await createBookingCheckoutSession(
+        doc._id.toString(),
+        parsed.data.email,
+        {
+          packageHelp: parsed.data.packageHelp,
+          packageSnapshot: packageSnapshot
+            ? { name: packageSnapshot.name, priceCents: packageSnapshot.priceCents }
+            : undefined,
+          addOnSnapshots: addOnSnapshots.map((a) => ({
+            name: a.name,
+            priceCents: a.priceCents,
+          })),
+        }
+      );
+      if (checkout) {
+        doc.stripeCheckoutSessionId = checkout.sessionId;
+        await doc.save();
+        checkoutUrl = checkout.url;
+      }
+    } catch (err) {
+      console.error("Stripe checkout session failed:", err);
+    }
+  }
+
+  return NextResponse.json({
+    ok: true,
+    id: doc._id.toString(),
+    checkoutUrl,
+    paymentRequired: Boolean(checkoutUrl),
+  });
 }

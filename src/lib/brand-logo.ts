@@ -14,6 +14,7 @@ export const BRAND_LOGO_HEIGHT = 320;
 
 export type BrandLogoVariant = "header" | "footer";
 
-export function getBrandLogoSrc(_variant: BrandLogoVariant): string {
+export function getBrandLogoSrc(variant: BrandLogoVariant): string {
+  void variant;
   return BRAND_LOGO_LOCKUP;
 }

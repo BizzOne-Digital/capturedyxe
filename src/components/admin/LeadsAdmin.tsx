@@ -66,6 +66,11 @@ export function LeadsAdmin({ title, listUrl, statusOptions }: Props) {
                   {String(item.name ?? item.email)}
                 </span>
                 <span className="ml-2 text-taupe">{String(item.status)}</span>
+                {item.paymentStatus && item.paymentStatus !== "not_required" ? (
+                  <span className="ml-2 text-xs text-champagne">
+                    {String(item.paymentStatus)}
+                  </span>
+                ) : null}
               </button>
             </li>
           ))}

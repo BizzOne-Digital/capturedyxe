@@ -212,19 +212,27 @@ svg {
   outline-offset: 3px;
 }
 
-/* Tighter vertical rhythm on small screens */
+/* Vertical rhythm between page sections */
 @utility section-y {
-  padding-block: 3rem;
+  padding-block: 4rem;
 
   @media (width >= 48rem) {
-    padding-block: 5rem;
+    padding-block: 6.5rem;
   }
 }
 
 @utility section-y-lg {
-  padding-block: 3.5rem;
+  padding-block: 4.75rem;
 
   @media (width >= 48rem) {
-    padding-block: 6rem;
+    padding-block: 7.5rem;
+  }
+}
+
+main section + section {
+  margin-top: 0.75rem;
+
+  @media (width >= 48rem) {
+    margin-top: 1.25rem;
   }
 }

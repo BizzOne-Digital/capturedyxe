@@ -52,6 +52,15 @@ const BookingRequestSchema = new Schema(
     sourcePage: { type: String, default: "/booking" },
     idempotencyKey: { type: String, unique: true, sparse: true },
     notificationSent: { type: Boolean, default: false },
+    paymentStatus: {
+      type: String,
+      enum: ["not_required", "unpaid", "paid"],
+      default: "not_required",
+    },
+    amountDueCents: { type: Number },
+    amountPaidCents: { type: Number },
+    stripeCheckoutSessionId: { type: String },
+    paidAt: { type: Date },
   },
   { timestamps: true }
 );

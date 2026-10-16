@@ -2,22 +2,50 @@
 
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { formatCad } from "@/lib/money";
+import type { StripeBookingConfig } from "@/lib/stripe";
 
-type Pkg = { _id: string; name: string; slug: string };
-type AddOn = { _id: string; name: string };
+type Pkg = { _id: string; name: string; slug: string; priceCents: number };
+type AddOn = { _id: string; name: string; priceCents: number };
 
 function newIdempotencyKey() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
+}
+
+function estimateCheckoutCents(
+  stripe: StripeBookingConfig,
+  form: {
+    packageId: string;
+    packageHelp: boolean;
+    addOnIds: string[];
+  },
+  packages: Pkg[],
+  addOns: AddOn[]
+): number | null {
+  if (!stripe.enabled) return null;
+  if (stripe.mode === "full" && form.packageId && !form.packageHelp) {
+    const pkg = packages.find((p) => p._id === form.packageId);
+    if (!pkg) return stripe.depositCents;
+    let total = pkg.priceCents;
+    for (const id of form.addOnIds) {
+      const a = addOns.find((x) => x._id === id);
+      if (a) total += a.priceCents;
+    }
+    return total;
+  }
+  return stripe.depositCents;
 }
 
 export function BookingForm({
   packages,
   addOns,
   defaultEventType = "",
+  stripeConfig = { enabled: false },
 }: {
   packages: Pkg[];
   addOns: AddOn[];
   defaultEventType?: string;
+  stripeConfig?: StripeBookingConfig;
 }) {
   const [step, setStep] = useState(1);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -50,6 +78,11 @@ export function BookingForm({
     [packages, form.packageId]
   );
 
+  const checkoutEstimate = useMemo(
+    () => estimateCheckoutCents(stripeConfig, form, packages, addOns),
+    [stripeConfig, form, packages, addOns]
+  );
+
   async function submit() {
     setStatus("loading");
     setError("");
@@ -68,6 +101,10 @@ export function BookingForm({
     if (!res.ok) {
       setStatus("error");
       setError(json.error ?? "Unable to submit. Please try again.");
+      return;
+    }
+    if (json.checkoutUrl) {
+      window.location.href = json.checkoutUrl as string;
       return;
     }
     setStatus("success");
@@ -304,12 +341,27 @@ export function BookingForm({
             <div><dt className="text-ink font-medium">Package</dt><dd>{form.packageHelp ? "Help me choose" : selectedPackage?.name ?? "—"}</dd></div>
             <div><dt className="text-ink font-medium">Contact</dt><dd>{form.name}, {form.email}, {form.phone}</dd></div>
           </dl>
-          <p className="text-xs">Submitting requests availability — it does not reserve your date or process payment.</p>
+          {stripeConfig.enabled && checkoutEstimate ? (
+            <p className="rounded-xl border border-champagne/30 bg-sand/30 px-4 py-3 text-xs text-taupe">
+              After you submit, you&apos;ll be redirected to <strong className="text-ink">Stripe</strong>{" "}
+              to pay {formatCad(checkoutEstimate)} CAD
+              {stripeConfig.mode === "deposit" ? " (booking deposit)" : " (package total, before tax)"}.
+              Your request is saved either way.
+            </p>
+          ) : (
+            <p className="text-xs">
+              Submitting requests availability — our team will contact you to confirm details and payment.
+            </p>
+          )}
           {error && <p className="text-red-700" role="alert">{error}</p>}
           <div className="flex gap-3">
             <Button type="button" variant="secondary" onClick={() => setStep(3)}>Back</Button>
             <Button type="button" onClick={submit} disabled={status === "loading"}>
-              {status === "loading" ? "Submitting…" : "Submit Request"}
+              {status === "loading"
+                ? "Submitting…"
+                : stripeConfig.enabled && checkoutEstimate
+                  ? "Continue to Stripe"
+                  : "Submit Request"}
             </Button>
           </div>
         </div>

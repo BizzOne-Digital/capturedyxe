@@ -125,11 +125,7 @@ export function Header({ siteName, experienceLinks }: HeaderProps) {
   };
 
   return (
-    <motion.header
-      key={pathname}
-      initial={reduce ? false : { y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ type: "spring", stiffness: 320, damping: 28 }}
+    <header
       className="sticky top-0 z-[100] isolate w-full max-w-full overflow-x-clip border-b border-ink/8 bg-ivory/95 backdrop-blur-sm"
     >
       <div className="mx-auto flex w-full min-w-0 max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:gap-3 sm:py-4 md:px-8 lg:grid lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:items-center lg:gap-4">
@@ -258,6 +254,6 @@ export function Header({ siteName, experienceLinks }: HeaderProps) {
         </motion.div>
       )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 }

@@ -16,8 +16,8 @@ export const springSoft: Transition = {
 
 export const revealVariants: Record<string, Variants> = {
   rise: {
-    hidden: { opacity: 0, y: 56, scale: 0.94, filter: "blur(10px)" },
-    visible: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+    hidden: { opacity: 0, y: 36, scale: 0.97 },
+    visible: { opacity: 1, y: 0, scale: 1 },
   },
   pop: {
     hidden: { opacity: 0, scale: 0.65, rotate: -10, filter: "blur(8px)" },
