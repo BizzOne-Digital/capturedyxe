@@ -27,7 +27,7 @@ export function SiteLogo({ siteName, variant, priority }: SiteLogoProps) {
       alt={siteName}
       width={BRAND_LOGO_WIDTH}
       height={BRAND_LOGO_HEIGHT}
-      className={`${logoImageClass} ${onDarkFooter ? "" : "mix-blend-multiply"}`}
+      className={logoImageClass}
       priority={priority ?? variant === "header"}
       sizes="(max-width: 640px) 240px, 320px"
     />

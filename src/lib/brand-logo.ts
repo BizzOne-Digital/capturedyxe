@@ -14,7 +14,7 @@ export const BRAND_LOGO_HEIGHT = 320;
 
 export type BrandLogoVariant = "header" | "footer";
 
+/** Header: transparent SVG. Footer: lockup PNG (shown on ivory chip). */
 export function getBrandLogoSrc(variant: BrandLogoVariant): string {
-  void variant;
-  return BRAND_LOGO_LOCKUP;
+  return variant === "header" ? BRAND_LOGO_DARK : BRAND_LOGO_LOCKUP;
 }
