@@ -1,5 +1,7 @@
 import Image from "next/image";
 import {
+  BRAND_LOGO_HEADER_HEIGHT,
+  BRAND_LOGO_HEADER_WIDTH,
   BRAND_LOGO_HEIGHT,
   BRAND_LOGO_PATH,
   BRAND_LOGO_WIDTH,
@@ -21,12 +23,15 @@ export function SiteLogo({ siteName, variant, priority }: SiteLogoProps) {
   const src = getBrandLogoSrc(variant);
   const onDarkFooter = variant === "footer";
 
+  const width = variant === "header" ? BRAND_LOGO_HEADER_WIDTH : BRAND_LOGO_WIDTH;
+  const height = variant === "header" ? BRAND_LOGO_HEADER_HEIGHT : BRAND_LOGO_HEIGHT;
+
   const image = (
     <Image
       src={src}
       alt={siteName}
-      width={BRAND_LOGO_WIDTH}
-      height={BRAND_LOGO_HEIGHT}
+      width={width}
+      height={height}
       className={logoImageClass}
       priority={priority ?? variant === "header"}
       sizes="(max-width: 640px) 240px, 320px"
