@@ -39,8 +39,7 @@ html {
     scroll-behavior: auto;
   }
 
-  .hero-bg-motion,
-  .hero-float-accent {
+  .hero-bg-motion {
     animation: none !important;
   }
 }
@@ -59,16 +58,6 @@ html {
   }
 }
 
-@keyframes hero-float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(-4deg);
-  }
-  50% {
-    transform: translate3d(0, -12px, 0) rotate(4deg);
-  }
-}
-
 .hero-bg-motion {
   animation: hero-drift 14s ease-in-out infinite;
   transform-origin: 72% 42%;
@@ -79,11 +68,6 @@ html {
   .hero-bg-motion {
     transform-origin: 88% center;
   }
-}
-
-.hero-float-accent {
-  animation: hero-float 5s ease-in-out infinite;
-  will-change: transform;
 }
 
 @keyframes marquee-scroll {

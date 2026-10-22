@@ -5,7 +5,6 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { formatCadWithTaxNote } from "@/lib/money";
-import { siteImages } from "@/lib/site-images";
 
 type HeroHomeProps = {
   headline: string;
@@ -66,20 +65,6 @@ export function HeroHome({
           className="absolute inset-0 bg-gradient-to-t from-ivory/80 via-transparent to-ivory/40 md:to-transparent"
           aria-hidden
         />
-        {!reduce && (
-          <div
-            className="hero-float-accent absolute bottom-[30%] right-3 h-20 w-14 overflow-hidden rounded-sm border border-ink/10 shadow-[0_12px_40px_rgba(25,25,25,0.18)] sm:right-5 sm:h-24 sm:w-[4.5rem] md:bottom-[28%] md:right-[6%] lg:bottom-[32%] lg:right-[10%] lg:h-28 lg:w-20"
-            aria-hidden
-          >
-            <Image
-              src={siteImages.photoStrips}
-              alt=""
-              fill
-              className="object-cover"
-              sizes="80px"
-            />
-          </div>
-        )}
       </div>
 
       <div className="relative mx-auto flex w-full min-w-0 max-w-7xl flex-col justify-start px-4 pb-8 pt-5 md:flex-1 md:justify-center md:px-8 md:pb-32 md:pt-16">
