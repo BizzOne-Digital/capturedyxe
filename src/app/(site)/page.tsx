@@ -80,7 +80,6 @@ export default async function HomePage() {
         startingPriceCents={settings.startingPriceCents}
         ctaPrimary={settings.ctaPrimaryLabel}
         ctaSecondary={settings.ctaSecondaryLabel}
-        tagline={settings.tagline}
       />
 
       <section className="relative overflow-hidden bg-ink section-y text-porcelain">

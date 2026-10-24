@@ -26,8 +26,8 @@ export type StripeBookingPaymentMode = "deposit" | "full" | "off";
 export function getStripeBookingPaymentMode(): StripeBookingPaymentMode {
   const raw = process.env.STRIPE_BOOKING_PAYMENT_MODE?.trim().toLowerCase();
   if (raw === "off" || raw === "false" || raw === "0") return "off";
-  if (raw === "full") return "full";
-  return "deposit";
+  if (raw === "deposit") return "deposit";
+  return "full";
 }
 
 export function getStripeDepositCents(): number {
@@ -69,7 +69,10 @@ export function computeBookingCheckoutCents(input: BookingAmountInput): number |
 
   const mode = getStripeBookingPaymentMode();
 
-  if (mode === "full" && input.packageSnapshot && !input.packageHelp) {
+  if (mode === "full") {
+    if (input.packageHelp || !input.packageSnapshot) {
+      return null;
+    }
     let total = input.packageSnapshot.priceCents;
     for (const a of input.addOnSnapshots ?? []) {
       total += a.priceCents;

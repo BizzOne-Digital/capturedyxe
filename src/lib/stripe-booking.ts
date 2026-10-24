@@ -1,4 +1,5 @@
 import { getSiteUrl } from "@/lib/site-url";
+import type Stripe from "stripe";
 import {
   computeBookingCheckoutCents,
   getStripe,
@@ -6,6 +7,74 @@ import {
   isStripeConfigured,
   type BookingAmountInput,
 } from "@/lib/stripe";
+
+function buildCheckoutLineItems(
+  amountInput: BookingAmountInput,
+  amountCents: number,
+  isDeposit: boolean
+): Stripe.Checkout.SessionCreateParams.LineItem[] {
+  if (isDeposit) {
+    return [
+      {
+        quantity: 1,
+        price_data: {
+          currency: "cad",
+          unit_amount: amountCents,
+          product_data: {
+            name: "Captured.YXE — booking deposit",
+          },
+        },
+      },
+    ];
+  }
+
+  const items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
+  if (amountInput.packageSnapshot) {
+    items.push({
+      quantity: 1,
+      price_data: {
+        currency: "cad",
+        unit_amount: amountInput.packageSnapshot.priceCents,
+        product_data: {
+          name: amountInput.packageSnapshot.name,
+        },
+      },
+    });
+  }
+  for (const addOn of amountInput.addOnSnapshots ?? []) {
+    items.push({
+      quantity: 1,
+      price_data: {
+        currency: "cad",
+        unit_amount: addOn.priceCents,
+        product_data: {
+          name: addOn.name,
+        },
+      },
+    });
+  }
+
+  const sum = items.reduce(
+    (n, item) => n + (item.price_data?.unit_amount ?? 0) * (item.quantity ?? 1),
+    0
+  );
+  if (items.length === 0 || sum !== amountCents) {
+    return [
+      {
+        quantity: 1,
+        price_data: {
+          currency: "cad",
+          unit_amount: amountCents,
+          product_data: {
+            name: `Captured.YXE — ${amountInput.packageSnapshot?.name ?? "package"}`,
+          },
+        },
+      },
+    ];
+  }
+
+  return items;
+}
 
 export async function createBookingCheckoutSession(
   bookingId: string,
@@ -18,36 +87,17 @@ export async function createBookingCheckoutSession(
   if (!amountCents || amountCents < 50) return null;
 
   const mode = getStripeBookingPaymentMode();
-  const pkgName = amountInput.packageSnapshot?.name;
   const isDeposit = mode === "deposit" || amountInput.packageHelp || !amountInput.packageSnapshot;
-
-  const productName = isDeposit
-    ? "Captured.YXE — booking deposit"
-    : `Captured.YXE — ${pkgName ?? "package"}`;
-
-  const description = isDeposit
-    ? "Refundable per your booking agreement. Remaining balance confirmed with our team."
-    : "Package booking payment (CAD, before tax). Final quote confirmed with our team.";
 
   const stripe = getStripe();
   const base = getSiteUrl();
 
+  const line_items = buildCheckoutLineItems(amountInput, amountCents, isDeposit);
+
   const session = await stripe.checkout.sessions.create({
     mode: "payment",
     customer_email: email,
-    line_items: [
-      {
-        quantity: 1,
-        price_data: {
-          currency: "cad",
-          unit_amount: amountCents,
-          product_data: {
-            name: productName,
-            description,
-          },
-        },
-      },
-    ],
+    line_items,
     metadata: {
       bookingRequestId: bookingId,
       paymentKind: isDeposit ? "deposit" : "full",

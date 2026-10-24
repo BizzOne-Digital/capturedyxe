@@ -23,9 +23,9 @@ export default async function BookingPage({ searchParams }: Props) {
         <Reveal>
           <h1 className="font-display text-5xl">Check availability</h1>
           <p className="mt-4 text-taupe">
-            Complete the steps below to request your date. When Stripe is enabled, you&apos;ll pay a
-            booking deposit (or package total) securely after submitting — our team still confirms
-            availability and final details with you.
+            Complete the steps below to request your date. When you choose a package, you&apos;ll pay the
+            package total securely on Stripe after submitting — our team still confirms availability
+            and final details with you.
           </p>
           {cancelled && (
             <p className="mt-4 rounded-xl border border-champagne/40 bg-sand/40 px-4 py-3 text-sm text-taupe">

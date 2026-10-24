@@ -13,7 +13,6 @@ type HeroHomeProps = {
   startingPriceCents: number;
   ctaPrimary: string;
   ctaSecondary: string;
-  tagline: string;
 };
 
 function splitHeadline(headline: string) {
@@ -34,15 +33,10 @@ export function HeroHome({
   startingPriceCents,
   ctaPrimary,
   ctaSecondary,
-  tagline,
 }: HeroHomeProps) {
   const reduce = useReducedMotion();
   const { lead, accent } = splitHeadline(headline);
   const imageSrc = heroImageUrl || "/hero-booth.jpg";
-  const imageTagline = tagline
-    .toLowerCase()
-    .replace(/,\s*/g, ". ")
-    .replace(/^\w/, (c) => c.toUpperCase());
 
   return (
     <section className="relative flex w-full max-w-full flex-col overflow-hidden bg-ivory md:min-h-[min(88vh,880px)]">
@@ -131,11 +125,6 @@ export function HeroHome({
           Starting from {formatCadWithTaxNote(startingPriceCents)}
         </motion.p>
 
-        <p
-          className="pointer-events-none absolute bottom-36 right-4 hidden max-w-[12rem] text-right font-display text-sm italic leading-snug text-ink/75 md:bottom-40 md:right-12 md:block lg:text-base"
-        >
-          {imageTagline}
-        </p>
       </div>
 
       <motion.div

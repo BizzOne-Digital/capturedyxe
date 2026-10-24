@@ -23,17 +23,20 @@ function estimateCheckoutCents(
   addOns: AddOn[]
 ): number | null {
   if (!stripe.enabled) return null;
-  if (stripe.mode === "full" && form.packageId && !form.packageHelp) {
-    const pkg = packages.find((p) => p._id === form.packageId);
-    if (!pkg) return stripe.depositCents;
-    let total = pkg.priceCents;
-    for (const id of form.addOnIds) {
-      const a = addOns.find((x) => x._id === id);
-      if (a) total += a.priceCents;
-    }
-    return total;
+  if (stripe.mode === "deposit") {
+    return stripe.depositCents;
   }
-  return stripe.depositCents;
+  if (form.packageHelp || !form.packageId) {
+    return null;
+  }
+  const pkg = packages.find((p) => p._id === form.packageId);
+  if (!pkg) return null;
+  let total = pkg.priceCents;
+  for (const id of form.addOnIds) {
+    const a = addOns.find((x) => x._id === id);
+    if (a) total += a.priceCents;
+  }
+  return total > 0 ? total : null;
 }
 
 export function BookingForm({
@@ -344,9 +347,8 @@ export function BookingForm({
           {stripeConfig.enabled && checkoutEstimate ? (
             <p className="rounded-xl border border-champagne/30 bg-sand/30 px-4 py-3 text-xs text-taupe">
               After you submit, you&apos;ll be redirected to <strong className="text-ink">Stripe</strong>{" "}
-              to pay {formatCad(checkoutEstimate)} CAD
-              {stripeConfig.mode === "deposit" ? " (booking deposit)" : " (package total, before tax)"}.
-              Your request is saved either way.
+              to pay {formatCad(checkoutEstimate)} for your selected package
+              {form.addOnIds.length > 0 ? " and add-ons" : ""} (+ tax at checkout).
             </p>
           ) : (
             <p className="text-xs">
