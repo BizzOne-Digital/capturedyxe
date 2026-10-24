@@ -2,9 +2,10 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
+import { useHomeMotion } from "@/components/motion/MotionScope";
 import {
   type RevealVariant,
-  revealVariants,
+  homeRevealVariants,
   springPop,
   springSoft,
 } from "@/components/motion/variants";
@@ -26,11 +27,13 @@ export function Reveal({
   immediate = false,
 }: RevealProps) {
   const reduce = useReducedMotion();
+  const homeMotion = useHomeMotion();
 
-  if (reduce) {
+  if (reduce || !homeMotion) {
     return <div className={className}>{children}</div>;
   }
 
+  const variants = homeRevealVariants;
   const transition = {
     ...springPop,
     delay,
@@ -40,7 +43,7 @@ export function Reveal({
     return (
       <motion.div
         className={className}
-        variants={revealVariants[variant]}
+        variants={variants[variant]}
         initial="hidden"
         animate="visible"
         transition={transition}
@@ -53,10 +56,10 @@ export function Reveal({
   return (
     <motion.div
       className={className}
-      variants={revealVariants[variant]}
+      variants={variants[variant]}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.12, margin: "0px 0px -4% 0px" }}
+      viewport={{ once: true, amount: 0.1, margin: "0px 0px -6% 0px" }}
       transition={transition}
     >
       {children}
@@ -74,14 +77,15 @@ export function StaggerGroup({
   stagger?: number;
 }) {
   const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
+  const homeMotion = useHomeMotion();
+  if (reduce || !homeMotion) return <div className={className}>{children}</div>;
 
   return (
     <motion.div
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.12 }}
+      viewport={{ once: true, amount: 0.1 }}
       variants={{
         hidden: {},
         visible: { transition: { staggerChildren: stagger, delayChildren: 0.05 } },
@@ -102,12 +106,13 @@ export function StaggerItem({
   variant?: RevealVariant;
 }) {
   const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
+  const homeMotion = useHomeMotion();
+  if (reduce || !homeMotion) return <div className={className}>{children}</div>;
 
   return (
     <motion.div
       className={className}
-      variants={revealVariants[variant]}
+      variants={homeRevealVariants[variant]}
       transition={springSoft}
     >
       {children}

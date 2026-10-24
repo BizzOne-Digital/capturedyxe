@@ -1,4 +1,3 @@
-import { SiteMotionShell } from "@/components/motion/SiteMotionShell";
 import { Footer } from "@/components/site/Footer";
 import { Header } from "@/components/site/Header";
 import { PreviewBanner } from "@/components/site/PreviewBanner";
@@ -21,9 +20,7 @@ export default async function SiteLayout({
       <StructuredData />
       <PreviewBanner />
       <Header siteName={settings.siteName} experienceLinks={experienceLinks} />
-      <main className="relative w-full min-w-0 flex-1 overflow-x-clip">
-        <SiteMotionShell>{children}</SiteMotionShell>
-      </main>
+      <main className="relative w-full min-w-0 flex-1 overflow-x-clip">{children}</main>
       <Footer
         siteName={settings.siteName}
         email={settings.email}

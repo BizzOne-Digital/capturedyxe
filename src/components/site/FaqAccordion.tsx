@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { useHomeMotion } from "@/components/motion/MotionScope";
 
 type FaqItem = {
   _id: string;
@@ -21,6 +22,8 @@ const categoryLabels: Record<string, string> = {
 export function FaqAccordion({ items }: { items: FaqItem[] }) {
   const [openId, setOpenId] = useState<string | null>(null);
   const reduce = useReducedMotion();
+  const homeMotion = useHomeMotion();
+  const animatePanels = homeMotion && !reduce;
 
   const grouped = items.reduce<Record<string, FaqItem[]>>((acc, item) => {
     acc[item.category] = acc[item.category] ?? [];
@@ -57,7 +60,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
                   </button>
                   <AnimatePresence initial={false}>
                   {open && (
-                    reduce ? (
+                    !animatePanels ? (
                       <div className="px-5 pb-4 text-sm leading-relaxed text-taupe">
                         {faq.answer}
                       </div>

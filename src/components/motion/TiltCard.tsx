@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
+import { useHomeMotion } from "@/components/motion/MotionScope";
 
 export function TiltCard({
   children,
@@ -11,8 +12,9 @@ export function TiltCard({
   className?: string;
 }) {
   const reduce = useReducedMotion();
+  const homeMotion = useHomeMotion();
 
-  if (reduce) {
+  if (reduce || !homeMotion) {
     return <div className={className}>{children}</div>;
   }
 

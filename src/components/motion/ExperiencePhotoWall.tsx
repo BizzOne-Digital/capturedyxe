@@ -2,10 +2,12 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
+import { useHomeMotion } from "@/components/motion/MotionScope";
 import type { ExperienceGalleryShot } from "@/lib/experience-gallery";
 
 export function ExperiencePhotoWall({ shots }: { shots: ExperienceGalleryShot[] }) {
   const reduce = useReducedMotion();
+  const homeMotion = useHomeMotion();
 
   return (
     <div className="columns-2 gap-3 md:columns-3 md:gap-4 lg:columns-4 lg:gap-5">
@@ -13,7 +15,7 @@ export function ExperiencePhotoWall({ shots }: { shots: ExperienceGalleryShot[] 
         const tall = i % 3 === 0;
         const rotate = i % 2 === 0 ? -4 : 4;
 
-        if (reduce) {
+        if (reduce || !homeMotion) {
           return (
             <div
               key={shot.imageUrl}

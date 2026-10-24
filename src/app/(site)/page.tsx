@@ -4,6 +4,7 @@ import { HeroHome } from "@/components/site/HeroHome";
 import { PackageCards } from "@/components/site/PackageCards";
 import { GalleryGrid } from "@/components/site/GalleryGrid";
 import { FaqAccordion } from "@/components/site/FaqAccordion";
+import { HomeMotionShell } from "@/components/motion/HomeMotionShell";
 import { HomeMosaicGrid } from "@/components/motion/HomeMosaicGrid";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/Reveal";
 import { ScrollMarquee } from "@/components/motion/ScrollMarquee";
@@ -72,7 +73,7 @@ export default async function HomePage() {
   const faqPreview = faqs.slice(0, 4);
 
   return (
-    <>
+    <HomeMotionShell>
       <HeroHome
         headline={settings.headline}
         subheadline={settings.subheadline}
@@ -294,6 +295,6 @@ export default async function HomePage() {
           </Reveal>
         </div>
       </section>
-    </>
+    </HomeMotionShell>
   );
 }

@@ -1,12 +1,14 @@
 "use client";
 
 import { useReducedMotion } from "motion/react";
+import { useHomeMotion } from "@/components/motion/MotionScope";
 
 export function ScrollMarquee({ items }: { items: string[] }) {
   const reduce = useReducedMotion();
+  const homeMotion = useHomeMotion();
   const doubled = [...items, ...items];
 
-  if (reduce) {
+  if (reduce || !homeMotion) {
     return (
       <ul className="mt-10 flex flex-wrap gap-3">
         {items.map((a) => (

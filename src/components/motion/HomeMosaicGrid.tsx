@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
+import { useHomeMotion } from "@/components/motion/MotionScope";
 
 type Shot = { src: string; alt: string };
 
 export function HomeMosaicGrid({ shots }: { shots: Shot[] }) {
   const reduce = useReducedMotion();
+  const homeMotion = useHomeMotion();
 
   return (
     <div className="mx-auto grid w-full min-w-0 max-w-7xl grid-cols-2 gap-3 px-4 md:grid-cols-4 md:gap-4 md:px-8">
@@ -14,7 +16,7 @@ export function HomeMosaicGrid({ shots }: { shots: Shot[] }) {
         const rotate = i % 2 === 0 ? -5 : 5;
         const y = i % 2 === 0 ? 12 : 0;
 
-        if (reduce) {
+        if (reduce || !homeMotion) {
           return (
             <div
               key={shot.src}
