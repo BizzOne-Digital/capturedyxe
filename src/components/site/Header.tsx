@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { SiteLogo } from "@/components/site/SiteLogo";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import type { ExperienceNavLink } from "@/lib/experience-nav";
@@ -115,8 +114,6 @@ export function Header({ siteName, experienceLinks }: HeaderProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [mobileExpOpen, setMobileExpOpen] = useState(false);
-  const reduce = useReducedMotion();
-
   const linkClass = (href: string) => {
     const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
     return `text-sm font-medium text-ink/85 transition-colors hover:text-ink ${
@@ -175,15 +172,8 @@ export function Header({ siteName, experienceLinks }: HeaderProps) {
         </div>
       </div>
 
-      <AnimatePresence>
       {open && (
-        <motion.div
-          initial={reduce ? false : { height: 0, opacity: 0 }}
-          animate={{ height: "auto", opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          transition={{ type: "spring", stiffness: 380, damping: 32 }}
-          className="max-h-[min(85vh,32rem)] overflow-y-auto border-t border-ink/8 bg-ivory px-4 py-4 lg:hidden"
-        >
+        <div className="max-h-[min(85vh,32rem)] overflow-y-auto border-t border-ink/8 bg-ivory px-4 py-4 lg:hidden">
           <nav className="flex flex-col gap-1" aria-label="Mobile">
             {nav.map((item) => {
               if (item.type === "experiences") {
@@ -251,9 +241,8 @@ export function Header({ siteName, experienceLinks }: HeaderProps) {
               </Link>
             ))}
           </nav>
-        </motion.div>
+        </div>
       )}
-      </AnimatePresence>
     </header>
   );
 }

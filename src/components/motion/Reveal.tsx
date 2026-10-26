@@ -5,9 +5,8 @@ import type { ReactNode } from "react";
 import { useHomeMotion } from "@/components/motion/MotionScope";
 import {
   type RevealVariant,
+  homeRevealTransition,
   homeRevealVariants,
-  springPop,
-  springSoft,
 } from "@/components/motion/variants";
 
 type RevealProps = {
@@ -15,7 +14,6 @@ type RevealProps = {
   className?: string;
   delay?: number;
   variant?: RevealVariant;
-  /** Animate as soon as the section mounts (above-the-fold). */
   immediate?: boolean;
 };
 
@@ -24,7 +22,6 @@ export function Reveal({
   className,
   delay = 0,
   variant = "rise",
-  immediate = false,
 }: RevealProps) {
   const reduce = useReducedMotion();
   const homeMotion = useHomeMotion();
@@ -33,33 +30,15 @@ export function Reveal({
     return <div className={className}>{children}</div>;
   }
 
-  const variants = homeRevealVariants;
-  const transition = {
-    ...springPop,
-    delay,
-  };
-
-  if (immediate) {
-    return (
-      <motion.div
-        className={className}
-        variants={variants[variant]}
-        initial="hidden"
-        animate="visible"
-        transition={transition}
-      >
-        {children}
-      </motion.div>
-    );
-  }
+  const transition = { ...homeRevealTransition, delay };
 
   return (
     <motion.div
       className={className}
-      variants={variants[variant]}
+      variants={homeRevealVariants[variant]}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.1, margin: "0px 0px -6% 0px" }}
+      viewport={{ once: true, amount: 0.08, margin: "0px 0px -2% 0px" }}
       transition={transition}
     >
       {children}
@@ -70,7 +49,7 @@ export function Reveal({
 export function StaggerGroup({
   children,
   className,
-  stagger = 0.08,
+  stagger = 0.06,
 }: {
   children: ReactNode;
   className?: string;
@@ -85,10 +64,10 @@ export function StaggerGroup({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
+      viewport={{ once: true, amount: 0.06 }}
       variants={{
         hidden: {},
-        visible: { transition: { staggerChildren: stagger, delayChildren: 0.05 } },
+        visible: { transition: { staggerChildren: stagger, delayChildren: 0.04 } },
       }}
     >
       {children}
@@ -99,7 +78,7 @@ export function StaggerGroup({
 export function StaggerItem({
   children,
   className,
-  variant = "pop",
+  variant = "rise",
 }: {
   children: ReactNode;
   className?: string;
@@ -113,7 +92,7 @@ export function StaggerItem({
     <motion.div
       className={className}
       variants={homeRevealVariants[variant]}
-      transition={springSoft}
+      transition={homeRevealTransition}
     >
       {children}
     </motion.div>

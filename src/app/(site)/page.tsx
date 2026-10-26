@@ -7,7 +7,6 @@ import { FaqAccordion } from "@/components/site/FaqAccordion";
 import { HomeMotionShell } from "@/components/motion/HomeMotionShell";
 import { HomeMosaicGrid } from "@/components/motion/HomeMosaicGrid";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/Reveal";
-import { Parallax } from "@/components/motion/Parallax";
 import { ScrollMarquee } from "@/components/motion/ScrollMarquee";
 import { variantCycle } from "@/components/motion/variants";
 import { ButtonLink } from "@/components/ui/Button";
@@ -113,17 +112,13 @@ export default async function HomePage() {
           </Reveal>
           <Reveal delay={0.12} variant="right">
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl film-frame">
-              <Parallax className="absolute inset-[-8%]" distance={28}>
-                <div className="relative h-full w-full">
-                  <Image
-                    src={siteImages.weddingBanquet}
-                    alt="Guests celebrating at a wedding reception photo booth"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
-                </div>
-              </Parallax>
+              <Image
+                src={siteImages.weddingBanquet}
+                alt="Guests celebrating at a wedding reception photo booth"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
             </div>
           </Reveal>
         </div>

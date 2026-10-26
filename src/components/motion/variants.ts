@@ -43,32 +43,24 @@ export const revealVariants: Record<string, Variants> = {
 
 export type RevealVariant = keyof typeof revealVariants;
 
-/** Bolder reveals — home page only (via MotionScope). */
+const subtleFade: Variants = {
+  hidden: { opacity: 0, y: 14 },
+  visible: { opacity: 1, y: 0 },
+};
+
+/** Light home-only scroll fades (all variants map to the same motion). */
 export const homeRevealVariants: Record<string, Variants> = {
-  rise: {
-    hidden: { opacity: 0, y: 72, scale: 0.88, filter: "blur(10px)" },
-    visible: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
-  },
-  pop: {
-    hidden: { opacity: 0, scale: 0.55, rotate: -14, filter: "blur(10px)" },
-    visible: { opacity: 1, scale: 1, rotate: 0, filter: "blur(0px)" },
-  },
-  tilt: {
-    hidden: { opacity: 0, y: 56, rotate: 12, skewX: 6 },
-    visible: { opacity: 1, y: 0, rotate: 0, skewX: 0 },
-  },
-  left: {
-    hidden: { opacity: 0, x: -120, rotate: -6 },
-    visible: { opacity: 1, x: 0, rotate: 0 },
-  },
-  right: {
-    hidden: { opacity: 0, x: 120, rotate: 6 },
-    visible: { opacity: 1, x: 0, rotate: 0 },
-  },
-  zoom: {
-    hidden: { opacity: 0, scale: 1.35 },
-    visible: { opacity: 1, scale: 1 },
-  },
+  rise: subtleFade,
+  pop: subtleFade,
+  tilt: subtleFade,
+  left: subtleFade,
+  right: subtleFade,
+  zoom: subtleFade,
+};
+
+export const homeRevealTransition: Transition = {
+  duration: 0.45,
+  ease: [0.22, 1, 0.36, 1],
 };
 
 export const variantCycle: RevealVariant[] = ["rise", "pop", "tilt", "left", "right", "zoom"];

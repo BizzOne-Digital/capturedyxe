@@ -3,8 +3,6 @@
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { motion, useReducedMotion } from "motion/react";
-import { useHomeMotion } from "@/components/motion/MotionScope";
 
 type Item = {
   _id: string;
@@ -32,10 +30,6 @@ export function GalleryGrid({
 }) {
   const [filter, setFilter] = useState("all");
   const [lightbox, setLightbox] = useState<number | null>(null);
-  const reduce = useReducedMotion();
-  const homeMotion = useHomeMotion();
-  const animateItems = homeMotion && !reduce;
-
   const filtered =
     filter === "all" ? items : items.filter((i) => i.category === filter);
 
@@ -81,31 +75,11 @@ export function GalleryGrid({
 
       <div className="mt-8 grid w-full min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((item, index) => (
-          <motion.button
+          <button
             key={item._id}
             type="button"
             className="group relative aspect-[4/3] w-full overflow-hidden rounded-2xl film-frame focus-visible:outline focus-visible:outline-2 focus-visible:outline-champagne"
             onClick={() => setLightbox(index)}
-            initial={
-              animateItems
-                ? { opacity: 0, y: 32, scale: 0.88, rotate: index % 2 ? 4 : -4 }
-                : false
-            }
-            whileInView={
-              animateItems ? { opacity: 1, y: 0, scale: 1, rotate: 0 } : undefined
-            }
-            viewport={animateItems ? { once: true, amount: 0.15 } : undefined}
-            whileHover={
-              animateItems
-                ? { scale: 1.06, rotate: 0, y: -6, transition: { type: "spring", stiffness: 400, damping: 18 } }
-                : undefined
-            }
-            transition={{
-              type: "spring",
-              stiffness: 260,
-              damping: 22,
-              delay: Math.min(index * 0.06, 0.25),
-            }}
           >
             <Image
               src={item.imageUrl}
@@ -117,7 +91,7 @@ export function GalleryGrid({
             {item.designation === "inspiration" && (
               <span className="sr-only">Event inspiration imagery</span>
             )}
-          </motion.button>
+          </button>
         ))}
       </div>
 
