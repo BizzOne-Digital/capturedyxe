@@ -24,7 +24,7 @@ function splitHeadline(headline: string) {
 }
 
 const heroBtnBase =
-  "inline-flex w-full items-center justify-center gap-2 rounded-sm px-6 py-3.5 text-sm font-medium tracking-wide transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-champagne sm:w-auto";
+  "inline-flex w-full items-center justify-center gap-2 rounded-sm px-6 py-3.5 text-sm font-medium tracking-wide transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-champagne sm:w-auto";
 
 export function HeroHome({
   headline,
@@ -37,6 +37,10 @@ export function HeroHome({
   const reduce = useReducedMotion();
   const { lead, accent } = splitHeadline(headline);
   const imageSrc = heroImageUrl || "/hero-booth.jpg";
+  const words = [
+    ...lead.split(/\s+/).filter(Boolean).map((text) => ({ text, accent: false })),
+    ...(accent ? [{ text: accent, accent: true }] : []),
+  ];
 
   return (
     <section className="relative flex w-full max-w-full flex-col overflow-hidden bg-ivory md:min-h-[min(88vh,880px)]">
@@ -59,6 +63,7 @@ export function HeroHome({
           className="absolute inset-0 bg-gradient-to-t from-ivory/80 via-transparent to-ivory/40 md:to-transparent"
           aria-hidden
         />
+        {reduce ? null : <div className="hero-flash absolute inset-0" aria-hidden />}
       </div>
 
       <div className="relative mx-auto flex w-full min-w-0 max-w-7xl flex-col justify-start px-4 pb-8 pt-5 md:flex-1 md:justify-center md:px-8 md:pb-32 md:pt-16">
@@ -71,20 +76,21 @@ export function HeroHome({
           Saskatoon photo booth experiences
         </motion.p>
 
-        <motion.h1
-          className="mt-3 max-w-full font-display text-[clamp(1.85rem,7.5vw,4.25rem)] leading-[1.08] text-ink md:mt-6 md:max-w-2xl"
-          initial={reduce ? false : { opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.06 }}
-        >
-          {lead}
-          {accent ? (
-            <>
-              {" "}
-              <span className="italic text-hero-gold">{accent}</span>
-            </>
-          ) : null}
-        </motion.h1>
+        <h1 className="mt-3 max-w-full font-display text-[clamp(1.85rem,7.5vw,4.25rem)] leading-[1.08] text-ink md:mt-6 md:max-w-2xl">
+          {words.map((w, i) => (
+            <span key={`${w.text}-${i}`} className="inline-block overflow-hidden pb-[0.12em] align-bottom">
+              <motion.span
+                className={`inline-block ${w.accent ? "italic text-hero-gold" : ""}`}
+                initial={reduce ? false : { y: "110%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 140, damping: 18, delay: 0.1 + i * 0.09 }}
+              >
+                {w.text}
+              </motion.span>
+              {i < words.length - 1 ? " " : null}
+            </span>
+          ))}
+        </h1>
 
         <motion.p
           className="mt-5 max-w-md text-base leading-relaxed text-taupe md:mt-6 md:text-lg md:leading-relaxed"
@@ -103,14 +109,14 @@ export function HeroHome({
         >
           <Link
             href="/booking"
-            className={`${heroBtnBase} bg-ink text-porcelain hover:bg-ink/90`}
+            className={`${heroBtnBase} group bg-ink text-porcelain hover:-translate-y-0.5 hover:bg-ink/90 hover:shadow-[0_12px_28px_rgba(25,25,25,0.25)] active:translate-y-0 ${reduce ? "" : "hero-cta-pulse"}`}
           >
             {ctaPrimary}
-            <ArrowRight className="h-4 w-4" aria-hidden />
+            <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" aria-hidden />
           </Link>
           <Link
             href="/services"
-            className={`${heroBtnBase} border border-ink bg-transparent text-ink hover:bg-ink/5`}
+            className={`${heroBtnBase} border border-ink bg-transparent text-ink hover:-translate-y-0.5 hover:bg-ink/5 active:translate-y-0`}
           >
             {ctaSecondary}
           </Link>

@@ -7,6 +7,7 @@ import { FaqAccordion } from "@/components/site/FaqAccordion";
 import { HomeMotionShell } from "@/components/motion/HomeMotionShell";
 import { HomeMosaicGrid } from "@/components/motion/HomeMosaicGrid";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/motion/Reveal";
+import { Parallax } from "@/components/motion/Parallax";
 import { ScrollMarquee } from "@/components/motion/ScrollMarquee";
 import { variantCycle } from "@/components/motion/variants";
 import { ButtonLink } from "@/components/ui/Button";
@@ -112,13 +113,17 @@ export default async function HomePage() {
           </Reveal>
           <Reveal delay={0.12} variant="right">
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl film-frame">
-              <Image
-                src={siteImages.weddingBanquet}
-                alt="Guests celebrating at a wedding reception photo booth"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
+              <Parallax className="absolute inset-[-8%]" distance={28}>
+                <div className="relative h-full w-full">
+                  <Image
+                    src={siteImages.weddingBanquet}
+                    alt="Guests celebrating at a wedding reception photo booth"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
+              </Parallax>
             </div>
           </Reveal>
         </div>
@@ -143,7 +148,7 @@ export default async function HomePage() {
           <StaggerGroup className="mt-12 grid gap-8 md:grid-cols-2" stagger={0.12}>
             {pillars.map((p, i) => (
               <StaggerItem key={p.title} variant={variantCycle[i % variantCycle.length]}>
-                <article className="rounded-3xl border border-ink/10 bg-porcelain p-8 transition-shadow hover:shadow-[0_20px_50px_rgba(25,25,25,0.12)]">
+                <article className="lift-card rounded-3xl border border-ink/10 bg-porcelain p-8 transition-shadow hover:shadow-[0_20px_50px_rgba(25,25,25,0.12)]">
                   <h3 className="font-display text-2xl">{p.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-taupe">{p.body}</p>
                 </article>
@@ -203,7 +208,7 @@ export default async function HomePage() {
             ].map((s, i) => (
               <Reveal key={s.step} delay={i * 0.1}>
                 <li className="text-center">
-                  <span className="font-display text-5xl text-champagne">{i + 1}</span>
+                  <span className="step-number font-display text-5xl text-champagne" style={{ animationDelay: `${i * 0.4}s` }}>{i + 1}</span>
                   <h3 className="mt-4 font-display text-2xl">{s.step}</h3>
                   <p className="mt-2 text-sm text-taupe">{s.text}</p>
                 </li>
