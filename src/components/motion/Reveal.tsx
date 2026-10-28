@@ -5,10 +5,9 @@ import type { ReactNode } from "react";
 import { useHomeMotion } from "@/components/motion/MotionScope";
 import {
   type RevealVariant,
-  homeMobileRevealTransition,
-  homeMobileRevealVariants,
+  homeRevealTransition,
+  homeRevealVariants,
 } from "@/components/motion/variants";
-import { useIsMobile } from "@/hooks/use-is-mobile";
 
 type RevealProps = {
   children: ReactNode;
@@ -25,21 +24,20 @@ export function Reveal({
 }: RevealProps) {
   const reduce = useReducedMotion();
   const homeMotion = useHomeMotion();
-  const isMobile = useIsMobile();
 
-  if (reduce || !homeMotion || !isMobile) {
+  if (reduce || !homeMotion) {
     return <div className={className}>{children}</div>;
   }
 
-  const transition = { ...homeMobileRevealTransition, delay };
+  const transition = { ...homeRevealTransition, delay };
 
   return (
     <motion.div
       className={className}
-      variants={homeMobileRevealVariants[variant]}
+      variants={homeRevealVariants[variant]}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.12, margin: "0px 0px -4% 0px" }}
+      viewport={{ once: true, amount: 0.1, margin: "0px 0px -5% 0px" }}
       transition={transition}
     >
       {children}
@@ -50,7 +48,7 @@ export function Reveal({
 export function StaggerGroup({
   children,
   className,
-  stagger = 0.07,
+  stagger = 0.09,
 }: {
   children: ReactNode;
   className?: string;
@@ -58,18 +56,17 @@ export function StaggerGroup({
 }) {
   const reduce = useReducedMotion();
   const homeMotion = useHomeMotion();
-  const isMobile = useIsMobile();
-  if (reduce || !homeMotion || !isMobile) return <div className={className}>{children}</div>;
+  if (reduce || !homeMotion) return <div className={className}>{children}</div>;
 
   return (
     <motion.div
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
+      viewport={{ once: true, amount: 0.08 }}
       variants={{
         hidden: {},
-        visible: { transition: { staggerChildren: stagger, delayChildren: 0.05 } },
+        visible: { transition: { staggerChildren: stagger, delayChildren: 0.06 } },
       }}
     >
       {children}
@@ -88,14 +85,13 @@ export function StaggerItem({
 }) {
   const reduce = useReducedMotion();
   const homeMotion = useHomeMotion();
-  const isMobile = useIsMobile();
-  if (reduce || !homeMotion || !isMobile) return <div className={className}>{children}</div>;
+  if (reduce || !homeMotion) return <div className={className}>{children}</div>;
 
   return (
     <motion.div
       className={className}
-      variants={homeMobileRevealVariants[variant]}
-      transition={homeMobileRevealTransition}
+      variants={homeRevealVariants[variant]}
+      transition={homeRevealTransition}
     >
       {children}
     </motion.div>

@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { useHomeMotion } from "@/components/motion/MotionScope";
 
 type Item = {
   _id: string;
@@ -30,6 +32,10 @@ export function GalleryGrid({
 }) {
   const [filter, setFilter] = useState("all");
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const reduce = useReducedMotion();
+  const homeMotion = useHomeMotion();
+  const animateItems = homeMotion && !reduce;
+
   const filtered =
     filter === "all" ? items : items.filter((i) => i.category === filter);
 
@@ -74,25 +80,58 @@ export function GalleryGrid({
       </div>
 
       <div className="mt-8 grid w-full min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {filtered.map((item, index) => (
-          <button
-            key={item._id}
-            type="button"
-            className="group relative aspect-[4/3] w-full overflow-hidden rounded-2xl film-frame focus-visible:outline focus-visible:outline-2 focus-visible:outline-champagne"
-            onClick={() => setLightbox(index)}
-          >
-            <Image
-              src={item.imageUrl}
-              alt={item.alt}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            />
-            {item.designation === "inspiration" && (
-              <span className="sr-only">Event inspiration imagery</span>
-            )}
-          </button>
-        ))}
+        {filtered.map((item, index) => {
+          const tileClass =
+            "group relative aspect-[4/3] w-full overflow-hidden rounded-2xl film-frame focus-visible:outline focus-visible:outline-2 focus-visible:outline-champagne";
+          const content = (
+            <>
+              <Image
+                src={item.imageUrl}
+                alt={item.alt}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              />
+              {item.designation === "inspiration" && (
+                <span className="sr-only">Event inspiration imagery</span>
+              )}
+            </>
+          );
+
+          if (!animateItems) {
+            return (
+              <button
+                key={item._id}
+                type="button"
+                className={tileClass}
+                onClick={() => setLightbox(index)}
+              >
+                {content}
+              </button>
+            );
+          }
+
+          return (
+            <motion.button
+              key={item._id}
+              type="button"
+              className={tileClass}
+              onClick={() => setLightbox(index)}
+              initial={{ opacity: 0, y: 28, scale: 0.94, rotate: index % 2 ? 3 : -3 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+              viewport={{ once: true, amount: 0.12 }}
+              whileHover={{ scale: 1.03, y: -4 }}
+              transition={{
+                type: "spring",
+                stiffness: 220,
+                damping: 22,
+                delay: Math.min(index * 0.07, 0.28),
+              }}
+            >
+              {content}
+            </motion.button>
+          );
+        })}
       </div>
 
       {lightbox !== null && filtered[lightbox] && (
