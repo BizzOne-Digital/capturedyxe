@@ -39,7 +39,7 @@ export function HeroHome({
   return (
     <section className="relative flex w-full max-w-full flex-col overflow-hidden bg-ivory md:min-h-[min(88vh,880px)]">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute inset-[-4%] hero-bg-motion">
+        <div className="absolute inset-[-4%]">
           <Image
             src={imageSrc}
             alt="Captured.YXE modern wooden photo booth setup"
