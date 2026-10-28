@@ -125,14 +125,16 @@ export default async function HomePage() {
       </section>
 
       <section className="section-y">
-        <HomeMosaicGrid
-          shots={[
-            { src: siteImages.photoStrips, alt: "Printed photo strips" },
-            { src: siteImages.archBackdrop, alt: "Arched floral backdrop" },
-            { src: siteImages.acrylicFrames, alt: "Acrylic magnetic frames" },
-            { src: siteImages.propsFlatlay, alt: "Curated booth props" },
-          ]}
-        />
+        <Reveal>
+          <HomeMosaicGrid
+            shots={[
+              { src: siteImages.photoStrips, alt: "Printed photo strips" },
+              { src: siteImages.archBackdrop, alt: "Arched floral backdrop" },
+              { src: siteImages.acrylicFrames, alt: "Acrylic magnetic frames" },
+              { src: siteImages.propsFlatlay, alt: "Curated booth props" },
+            ]}
+          />
+        </Reveal>
       </section>
 
       <section className="bg-sand/40 section-y">

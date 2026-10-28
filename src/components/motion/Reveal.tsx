@@ -5,16 +5,16 @@ import type { ReactNode } from "react";
 import { useHomeMotion } from "@/components/motion/MotionScope";
 import {
   type RevealVariant,
-  homeRevealTransition,
-  homeRevealVariants,
+  homeMobileRevealTransition,
+  homeMobileRevealVariants,
 } from "@/components/motion/variants";
+import { useIsMobile } from "@/hooks/use-is-mobile";
 
 type RevealProps = {
   children: ReactNode;
   className?: string;
   delay?: number;
   variant?: RevealVariant;
-  immediate?: boolean;
 };
 
 export function Reveal({
@@ -25,20 +25,21 @@ export function Reveal({
 }: RevealProps) {
   const reduce = useReducedMotion();
   const homeMotion = useHomeMotion();
+  const isMobile = useIsMobile();
 
-  if (reduce || !homeMotion) {
+  if (reduce || !homeMotion || !isMobile) {
     return <div className={className}>{children}</div>;
   }
 
-  const transition = { ...homeRevealTransition, delay };
+  const transition = { ...homeMobileRevealTransition, delay };
 
   return (
     <motion.div
       className={className}
-      variants={homeRevealVariants[variant]}
+      variants={homeMobileRevealVariants[variant]}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.08, margin: "0px 0px -2% 0px" }}
+      viewport={{ once: true, amount: 0.12, margin: "0px 0px -4% 0px" }}
       transition={transition}
     >
       {children}
@@ -49,7 +50,7 @@ export function Reveal({
 export function StaggerGroup({
   children,
   className,
-  stagger = 0.06,
+  stagger = 0.07,
 }: {
   children: ReactNode;
   className?: string;
@@ -57,17 +58,18 @@ export function StaggerGroup({
 }) {
   const reduce = useReducedMotion();
   const homeMotion = useHomeMotion();
-  if (reduce || !homeMotion) return <div className={className}>{children}</div>;
+  const isMobile = useIsMobile();
+  if (reduce || !homeMotion || !isMobile) return <div className={className}>{children}</div>;
 
   return (
     <motion.div
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.06 }}
+      viewport={{ once: true, amount: 0.1 }}
       variants={{
         hidden: {},
-        visible: { transition: { staggerChildren: stagger, delayChildren: 0.04 } },
+        visible: { transition: { staggerChildren: stagger, delayChildren: 0.05 } },
       }}
     >
       {children}
@@ -86,13 +88,14 @@ export function StaggerItem({
 }) {
   const reduce = useReducedMotion();
   const homeMotion = useHomeMotion();
-  if (reduce || !homeMotion) return <div className={className}>{children}</div>;
+  const isMobile = useIsMobile();
+  if (reduce || !homeMotion || !isMobile) return <div className={className}>{children}</div>;
 
   return (
     <motion.div
       className={className}
-      variants={homeRevealVariants[variant]}
-      transition={homeRevealTransition}
+      variants={homeMobileRevealVariants[variant]}
+      transition={homeMobileRevealTransition}
     >
       {children}
     </motion.div>

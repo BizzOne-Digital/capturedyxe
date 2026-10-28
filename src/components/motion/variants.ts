@@ -63,4 +63,19 @@ export const homeRevealTransition: Transition = {
   ease: [0.22, 1, 0.36, 1],
 };
 
+/** Slightly more movement — home on phone only. */
+export const homeMobileRevealVariants: Record<string, Variants> = {
+  rise: { hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0 } },
+  pop: { hidden: { opacity: 0, y: 18, scale: 0.98 }, visible: { opacity: 1, y: 0, scale: 1 } },
+  tilt: { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } },
+  left: { hidden: { opacity: 0, x: -20, y: 10 }, visible: { opacity: 1, x: 0, y: 0 } },
+  right: { hidden: { opacity: 0, x: 20, y: 10 }, visible: { opacity: 1, x: 0, y: 0 } },
+  zoom: { hidden: { opacity: 0, scale: 0.97, y: 12 }, visible: { opacity: 1, scale: 1, y: 0 } },
+};
+
+export const homeMobileRevealTransition: Transition = {
+  duration: 0.52,
+  ease: [0.22, 1, 0.36, 1],
+};
+
 export const variantCycle: RevealVariant[] = ["rise", "pop", "tilt", "left", "right", "zoom"];

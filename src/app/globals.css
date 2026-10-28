@@ -132,12 +132,57 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .hero-flash,
   .hero-cta-pulse,
-  .step-number {
+  .step-number,
+  .home-phone-in {
     animation: none !important;
   }
 
   .lift-card:hover {
     transform: none;
+  }
+}
+
+/* Home hero — gentle entrance on phone only */
+@keyframes home-phone-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .home-phone-in {
+    animation: home-phone-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .home-phone-in-1 {
+    animation-delay: 0.06s;
+  }
+
+  .home-phone-in-2 {
+    animation-delay: 0.14s;
+  }
+
+  .home-phone-in-3 {
+    animation-delay: 0.22s;
+  }
+
+  .home-phone-in-4 {
+    animation-delay: 0.3s;
+  }
+
+  .home-phone-in-5 {
+    animation-delay: 0.38s;
+  }
+}
+
+@media (min-width: 48rem) {
+  .home-phone-in {
+    animation: none;
   }
 }
 
