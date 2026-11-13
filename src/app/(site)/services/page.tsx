@@ -1,3 +1,4 @@
+import { safeImageSrc } from "@/lib/image-src";
 import Image from "next/image";
 import { ExperiencePhotoWall } from "@/components/motion/ExperiencePhotoWall";
 import { Reveal } from "@/components/motion/Reveal";
@@ -92,7 +93,7 @@ export default async function ServicesPage() {
                 <div className={`lg:col-span-7 relative aspect-[16/10] rounded-3xl overflow-hidden film-frame ${i % 2 === 1 ? "lg:order-1" : ""}`}>
                   {svc.imageUrl && (
                     <Image
-                      src={svc.imageUrl}
+                      src={safeImageSrc(svc.imageUrl)}
                       alt={svc.imageAlt || svc.title}
                       fill
                       className="object-cover"

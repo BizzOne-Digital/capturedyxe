@@ -1,5 +1,5 @@
-import { OffersAdmin } from "@/components/admin/OffersAdmin";
+import { OffersManager } from "@/components/admin/managers";
 
-export default function AdminOffersPage() {
-  return <OffersAdmin />;
+export default function Page() {
+  return <OffersManager />;
 }

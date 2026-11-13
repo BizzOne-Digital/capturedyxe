@@ -1,3 +1,4 @@
+import { safeImageSrc } from "@/lib/image-src";
 import Image from "next/image";
 import { Reveal } from "@/components/motion/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
@@ -69,7 +70,7 @@ export default async function OurTeamPage() {
               <article key={member._id} className="rounded-2xl bg-porcelain/5 p-6">
                 {member.imageUrl && (
                   <div className="relative aspect-square rounded-xl overflow-hidden mb-4">
-                    <Image src={member.imageUrl} alt={member.name} fill className="object-cover" />
+                    <Image src={safeImageSrc(member.imageUrl)} alt={member.name} fill className="object-cover" />
                   </div>
                 )}
                 <h3 className="font-display text-2xl">{member.name}</h3>

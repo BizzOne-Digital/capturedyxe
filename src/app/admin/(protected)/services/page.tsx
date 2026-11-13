@@ -1,11 +1,5 @@
-import { JsonCrudPanel } from "@/components/admin/JsonCrudPanel";
+import { ServicesManager } from "@/components/admin/managers";
 
-export default function AdminServicesPage() {
-  return (
-    <JsonCrudPanel
-      title="Services"
-      listUrl="/api/admin/services"
-      createUrl="/api/admin/services"
-    />
-  );
+export default function Page() {
+  return <ServicesManager />;
 }

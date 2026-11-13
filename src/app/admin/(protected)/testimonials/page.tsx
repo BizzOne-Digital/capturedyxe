@@ -1,11 +1,5 @@
-import { JsonCrudPanel } from "@/components/admin/JsonCrudPanel";
+import { TestimonialsManager } from "@/components/admin/managers";
 
-export default function AdminTestimonialsPage() {
-  return (
-    <JsonCrudPanel
-      title="Testimonials"
-      listUrl="/api/admin/testimonials"
-      createUrl="/api/admin/testimonials"
-    />
-  );
+export default function Page() {
+  return <TestimonialsManager />;
 }

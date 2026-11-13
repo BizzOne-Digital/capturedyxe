@@ -1,11 +1,5 @@
-import { JsonCrudPanel } from "@/components/admin/JsonCrudPanel";
+import { GalleryManager } from "@/components/admin/managers";
 
-export default function AdminGalleryPage() {
-  return (
-    <JsonCrudPanel
-      title="Gallery"
-      listUrl="/api/admin/gallery"
-      createUrl="/api/admin/gallery"
-    />
-  );
+export default function Page() {
+  return <GalleryManager />;
 }

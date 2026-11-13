@@ -1,5 +1,6 @@
 "use client";
 
+import { safeImageSrc } from "@/lib/image-src";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
@@ -86,7 +87,7 @@ export function GalleryGrid({
           const content = (
             <>
               <Image
-                src={item.imageUrl}
+                src={safeImageSrc(item.imageUrl)}
                 alt={item.alt}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -161,7 +162,7 @@ export function GalleryGrid({
           </button>
           <div className="max-h-[85vh] max-w-4xl">
             <Image
-              src={filtered[lightbox].imageUrl}
+              src={safeImageSrc(filtered[lightbox].imageUrl)}
               alt={filtered[lightbox].alt}
               width={1200}
               height={900}

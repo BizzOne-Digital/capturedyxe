@@ -4,13 +4,13 @@ import { z } from "zod";
 import { connectDB, isDatabaseConfigured } from "@/lib/db";
 import { withAdmin } from "@/lib/admin/guard-api";
 import { Service } from "@/models/Service";
-
+import { uniqueSlug } from "@/lib/slug";
 
 const serviceSchema = z.object({
-  title: z.string().min(1),
-  slug: z.string().min(1),
-  summary: z.string().min(1),
-  description: z.string().min(1),
+  title: z.string().trim().min(1),
+  slug: z.string().optional(),
+  summary: z.string().trim().min(1),
+  description: z.string().trim().min(1),
   features: z.array(z.string()).optional(),
   audience: z.string().optional(),
   imageUrl: z.string().optional(),
@@ -39,10 +39,14 @@ export async function POST(req: Request) {
     const body = await req.json().catch(() => null);
     const parsed = serviceSchema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json({ error: "Invalid data" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Please fill in the title, short summary and description." },
+        { status: 400 }
+      );
     }
     await connectDB();
-    const doc = await Service.create(parsed.data);
+    const slug = await uniqueSlug(Service, parsed.data.title, parsed.data.slug);
+    const doc = await Service.create({ ...parsed.data, slug });
     revalidatePath("/services");
     return NextResponse.json(doc.toObject());
   });

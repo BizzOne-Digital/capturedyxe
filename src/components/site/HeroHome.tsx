@@ -1,5 +1,6 @@
 "use client";
 
+import { safeImageSrc } from "@/lib/image-src";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -34,7 +35,7 @@ export function HeroHome({
   ctaSecondary,
 }: HeroHomeProps) {
   const { lead, accent } = splitHeadline(headline);
-  const imageSrc = heroImageUrl || "/hero-booth.jpg";
+  const imageSrc = safeImageSrc(heroImageUrl, "/hero-booth.jpg");
 
   return (
     <section className="relative flex w-full max-w-full flex-col overflow-hidden bg-ivory md:min-h-[min(88vh,880px)]">

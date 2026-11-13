@@ -1,7 +1,5 @@
-import { JsonCrudPanel } from "@/components/admin/JsonCrudPanel";
+import { TeamManager } from "@/components/admin/managers";
 
-export default function AdminTeamPage() {
-  return (
-    <JsonCrudPanel title="Team" listUrl="/api/admin/team" createUrl="/api/admin/team" />
-  );
+export default function Page() {
+  return <TeamManager />;
 }

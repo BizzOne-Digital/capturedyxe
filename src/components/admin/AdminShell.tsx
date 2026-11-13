@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import { ToastProvider } from "@/components/admin/Toast";
 import {
   LayoutDashboard,
   Layers,
@@ -22,7 +23,7 @@ import {
 const links = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/services", label: "Services", icon: Layers },
-  { href: "/admin/packages", label: "Packages", icon: Tag },
+  { href: "/admin/packages", label: "Packages and add-ons", icon: Tag },
   { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquare },
   { href: "/admin/faqs", label: "FAQs", icon: HelpCircle },
   { href: "/admin/gallery", label: "Gallery", icon: ImageIcon },
@@ -105,7 +106,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             View website
           </Link>
         </header>
-        <main className="flex-1 p-4 lg:p-8">{children}</main>
+        <main className="flex-1 p-4 lg:p-8"><ToastProvider>{children}</ToastProvider></main>
       </div>
     </div>
   );

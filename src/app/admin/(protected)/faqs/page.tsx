@@ -1,7 +1,5 @@
-import { JsonCrudPanel } from "@/components/admin/JsonCrudPanel";
+import { FaqsManager } from "@/components/admin/managers";
 
-export default function AdminFaqsPage() {
-  return (
-    <JsonCrudPanel title="FAQs" listUrl="/api/admin/faqs" createUrl="/api/admin/faqs" />
-  );
+export default function Page() {
+  return <FaqsManager />;
 }

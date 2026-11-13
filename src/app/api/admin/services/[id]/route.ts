@@ -4,12 +4,12 @@ import { z } from "zod";
 import { connectDB, isDatabaseConfigured } from "@/lib/db";
 import { withAdmin } from "@/lib/admin/guard-api";
 import { Service } from "@/models/Service";
+import { deleteReplacedUpload, deleteUploadByUrl } from "@/lib/uploads";
 
 const serviceSchema = z.object({
-  title: z.string().min(1).optional(),
-  slug: z.string().min(1).optional(),
-  summary: z.string().min(1).optional(),
-  description: z.string().min(1).optional(),
+  title: z.string().trim().min(1).optional(),
+  summary: z.string().trim().min(1).optional(),
+  description: z.string().trim().min(1).optional(),
   features: z.array(z.string()).optional(),
   audience: z.string().optional(),
   imageUrl: z.string().optional(),
@@ -27,14 +27,17 @@ export async function PATCH(req: Request, { params }: Params) {
       return NextResponse.json({ error: "Database not configured" }, { status: 503 });
     }
     const { id } = await params;
-    const body = await req.json().catch(() => null);
-    const parsed = serviceSchema.safeParse(body);
+    const parsed = serviceSchema.safeParse(await req.json().catch(() => null));
     if (!parsed.success) {
-      return NextResponse.json({ error: "Invalid data" }, { status: 400 });
+      return NextResponse.json({ error: "Please check the form fields." }, { status: 400 });
     }
     await connectDB();
+    const before = await Service.findById(id).select("imageUrl").lean<{ imageUrl?: string }>();
     const doc = await Service.findByIdAndUpdate(id, { $set: parsed.data }, { new: true });
     if (!doc) return NextResponse.json({ error: "Not found" }, { status: 404 });
+    if (parsed.data.imageUrl !== undefined) {
+      await deleteReplacedUpload(before?.imageUrl, parsed.data.imageUrl);
+    }
     revalidatePath("/services");
     return NextResponse.json(doc.toObject());
   });
@@ -47,7 +50,8 @@ export async function DELETE(_req: Request, { params }: Params) {
     }
     const { id } = await params;
     await connectDB();
-    await Service.findByIdAndDelete(id);
+    const doc = await Service.findByIdAndDelete(id);
+    await deleteUploadByUrl(doc?.imageUrl);
     revalidatePath("/services");
     return NextResponse.json({ ok: true });
   });

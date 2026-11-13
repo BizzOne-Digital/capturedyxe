@@ -4,7 +4,7 @@ import { z } from "zod";
 import { connectDB, isDatabaseConfigured } from "@/lib/db";
 import { withAdmin } from "@/lib/admin/guard-api";
 import { SiteSettings } from "@/models/SiteSettings";
-
+import { deleteReplacedUpload } from "@/lib/uploads";
 
 const patchSchema = z.object({
   email: z.string().email().optional(),
@@ -18,8 +18,6 @@ const patchSchema = z.object({
   startingPriceCents: z.number().int().min(0).optional(),
   showPublicPackagePrices: z.boolean().optional(),
   siteName: z.string().max(120).optional(),
-  defaultSeoTitle: z.string().max(200).optional(),
-  defaultSeoDescription: z.string().max(500).optional(),
   headline: z.string().max(300).optional(),
   subheadline: z.string().max(500).optional(),
   heroImageUrl: z.string().max(500).optional(),
@@ -47,14 +45,26 @@ export async function PATCH(req: Request) {
     const body = await req.json().catch(() => null);
     const parsed = patchSchema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json({ error: "Invalid data" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Please check the email and phone number, then try again." },
+        { status: 400 }
+      );
     }
     await connectDB();
+    const before = await SiteSettings.findOne({ singletonKey: "main" })
+      .select("heroImageUrl logoUrl")
+      .lean<{ heroImageUrl?: string; logoUrl?: string }>();
     const doc = await SiteSettings.findOneAndUpdate(
       { singletonKey: "main" },
       { $set: parsed.data },
       { new: true, upsert: true }
     );
+    if (parsed.data.heroImageUrl !== undefined) {
+      await deleteReplacedUpload(before?.heroImageUrl, parsed.data.heroImageUrl);
+    }
+    if (parsed.data.logoUrl !== undefined) {
+      await deleteReplacedUpload(before?.logoUrl, parsed.data.logoUrl);
+    }
     revalidatePath("/", "layout");
     return NextResponse.json(doc?.toObject());
   });

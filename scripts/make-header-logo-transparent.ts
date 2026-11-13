@@ -2,7 +2,7 @@
  * One-off: remove solid beige background from header lockup PNG.
  * Run: npx tsx scripts/make-header-logo-transparent.ts [input.png]
  */
-import { readFileSync, writeFileSync } from "node:fs";
+import { writeFileSync } from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 
