@@ -30,6 +30,7 @@ const linkGroups: { title: string; links: FooterLink[] }[] = [
     links: [
       { href: "/about", label: "About" },
       { href: "/our-team", label: "Our team" },
+      { href: "/brands", label: "Brands we worked with" },
       { href: "/testimonials", label: "Testimonials" },
       { href: "/faq", label: "FAQ" },
     ],

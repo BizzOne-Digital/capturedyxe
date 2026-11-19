@@ -15,10 +15,11 @@ import {
   getPublishedFaqs,
   getPublishedGallery,
   getSiteSettings,
-  getVisibleOffer,
+  getVisibleBrands,
 } from "@/lib/data/public";
 import { formatCadWithTaxNote } from "@/lib/money";
 import { getSiteUrl } from "@/lib/site-url";
+import { safeImageSrc } from "@/lib/image-src";
 import { siteImages } from "@/lib/site-images";
 import { fetchGooglePlaceReviews } from "@/lib/google-place";
 
@@ -69,7 +70,7 @@ export default async function HomePage() {
     reviewerName: r.author,
     fromGoogle: true,
   }));
-  const offer = await getVisibleOffer();
+  const brands = await getVisibleBrands({ featuredOnly: true });
   const faqPreview = faqs.slice(0, 4);
 
   return (
@@ -257,27 +258,38 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {offer && (
-        <section className="relative w-full max-w-full overflow-hidden py-12 md:py-16">
-          <Image
-            src={siteImages.christmasParty}
-            alt=""
-            fill
-            className="object-cover"
-            sizes="100vw"
-            aria-hidden
-          />
-          <div className="absolute inset-0 bg-ivory/88" aria-hidden />
-          <div className="relative mx-auto w-[calc(100%-2rem)] max-w-4xl rounded-3xl border border-champagne/30 bg-porcelain/95 px-5 py-10 text-center sm:w-full sm:px-6 md:px-12">
+      {brands.length > 0 && (
+        <section className="border-t border-ink/8 bg-ivory py-12 md:py-16">
+          <div className="mx-auto max-w-5xl px-4 text-center md:px-8">
             <Reveal>
-              <p className="text-xs uppercase tracking-[0.2em] text-champagne">Seasonal offer</p>
-              <h2 className="mt-3 font-display text-3xl">{offer.title}</h2>
-              <p className="mt-3 text-taupe">{offer.description}</p>
-              {offer.eligibility && (
-                <p className="mt-2 text-xs text-taupe">{offer.eligibility}</p>
-              )}
-              <ButtonLink href="/booking" className="mt-6">Check Availability</ButtonLink>
+              <p className="text-xs uppercase tracking-[0.2em] text-champagne">Trusted by</p>
+              <h2 className="mt-3 font-display text-3xl">Brands we worked with</h2>
             </Reveal>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+              {brands.map((brand) => (
+                <div
+                  key={brand._id}
+                  className="flex h-20 w-36 items-center justify-center rounded-2xl border border-ink/10 bg-white p-3"
+                >
+                  {brand.logoUrl ? (
+                    <div className="relative h-full w-full">
+                      <Image
+                        src={safeImageSrc(brand.logoUrl)}
+                        alt={brand.name}
+                        fill
+                        sizes="144px"
+                        className="object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <span className="text-sm font-medium">{brand.name}</span>
+                  )}
+                </div>
+              ))}
+            </div>
+            <ButtonLink href="/brands" variant="secondary" className="mt-8">
+              See all brands
+            </ButtonLink>
           </div>
         </section>
       )}

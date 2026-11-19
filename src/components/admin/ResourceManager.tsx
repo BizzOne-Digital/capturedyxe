@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ImageUploadField, type UploadFolderName } from "@/components/admin/ImageUploadField";
+import { MultiImageUploadField } from "@/components/admin/MultiImageUploadField";
 import { useToast } from "@/components/admin/Toast";
 import { safeImageSrc } from "@/lib/image-src";
 
@@ -15,6 +16,7 @@ export type FieldType =
   | "select"
   | "checkbox"
   | "image"
+  | "images"
   | "lines"
   | "date";
 
@@ -98,7 +100,7 @@ function initialValues(fields: Field[], defaults: Values = {}): Values {
   for (const f of fields) {
     if (f.key in defaults) v[f.key] = defaults[f.key];
     else if (f.type === "checkbox") v[f.key] = false;
-    else if (f.type === "lines") v[f.key] = [];
+    else if (f.type === "lines" || f.type === "images") v[f.key] = [];
     else if (f.type === "number" || f.type === "money") v[f.key] = "";
     else v[f.key] = "";
   }
@@ -111,7 +113,7 @@ function defaultToForm(fields: Field[], item: Item): Values {
     const raw = item[f.key];
     if (f.type === "money") v[f.key] = raw == null ? "" : String(Number(raw) / 100);
     else if (f.type === "date") v[f.key] = raw ? String(raw).slice(0, 10) : "";
-    else if (f.type === "lines") v[f.key] = Array.isArray(raw) ? raw.map(String) : [];
+    else if (f.type === "lines" || f.type === "images") v[f.key] = Array.isArray(raw) ? raw.map(String) : [];
     else if (f.type === "checkbox") v[f.key] = Boolean(raw);
     else if (f.type === "number") v[f.key] = raw == null ? "" : String(raw);
     else v[f.key] = raw == null ? "" : String(raw);
@@ -135,6 +137,9 @@ function defaultToPayload(fields: Field[], values: Values): Values {
         if (Number.isFinite(n)) p[f.key] = n;
         break;
       }
+      case "images":
+        p[f.key] = (Array.isArray(raw) ? raw : []).map(String).filter(Boolean);
+        break;
       case "lines":
         p[f.key] = (Array.isArray(raw) ? raw : [])
           .map((s) => String(s).trim())
@@ -447,6 +452,16 @@ function FieldInput({
           help={f.help}
           folder={f.folder}
           value={String(value ?? "")}
+          onChange={onChange}
+        />
+      );
+    case "images":
+      return (
+        <MultiImageUploadField
+          label={f.label}
+          help={f.help}
+          folder={f.folder}
+          value={Array.isArray(value) ? value.map(String) : []}
           onChange={onChange}
         />
       );

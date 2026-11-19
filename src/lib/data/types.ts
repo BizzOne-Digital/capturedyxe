@@ -74,14 +74,19 @@ export type PublicGalleryItem = {
   status?: string;
 };
 
-export type PublicOffer = {
+export type PublicBrand = {
   _id: string;
-  title: string;
+  name: string;
   slug: string;
-  description: string;
-  percentageOff?: number;
-  eligibility?: string;
-  notes?: string;
+  logoUrl?: string;
+  industry?: string;
+  eventType?: string;
+  location?: string;
+  eventDate?: string;
+  description?: string;
+  websiteUrl?: string;
+  photos?: string[];
+  featured?: boolean;
   visible?: boolean;
-  active?: boolean;
+  order?: number;
 };

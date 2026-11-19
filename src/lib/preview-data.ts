@@ -375,15 +375,3 @@ const eventGallery = eventGalleryToPreviewItems().map((item, index) => ({
 }));
 
 export const previewGallery = [...eventGallery, ...inspirationGallery];
-
-export const previewOffer = {
-  _id: "offer-christmas",
-  title: "Christmas Party Offer",
-  slug: "christmas-party",
-  description: "10% off Christmas party package bookings.",
-  percentageOff: 10,
-  eligibility: "Christmas party events — eligibility and dates subject to confirmation.",
-  notes: "Discount is applied manually after eligibility is confirmed.",
-  visible: true,
-  active: true,
-};

@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/booking",
     "/our-team",
     "/gallery",
+    "/brands",
     "/faq",
     "/weddings",
     "/corporate-events",

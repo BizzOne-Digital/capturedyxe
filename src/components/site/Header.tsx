@@ -13,6 +13,7 @@ const nav = [
   { href: "/about", label: "About" },
   { type: "experiences" as const, label: "Experiences" },
   { href: "/gallery", label: "Gallery" },
+  { href: "/brands", label: "Brands" },
   { href: "/pricing", label: "Pricing" },
 ];
 

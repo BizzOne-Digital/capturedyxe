@@ -380,50 +380,59 @@ export function AddOnsManager() {
   );
 }
 
-/* ----------------------------------- Offers ---------------------------------- */
+/* ----------------------------------- Brands ---------------------------------- */
 
-export function OffersManager() {
+export function BrandsManager() {
   return (
     <ResourceManager
-      title="Offers"
-      noun="offer"
-      intro="Special deals shown on the homepage."
-      apiUrl="/api/admin/offers"
-      itemTitle={(i) => str(i.title)}
+      title="Brands we worked with"
+      noun="brand"
+      intro="Brands and clients we have worked with. Visible brands appear on the Brands page; featured brands also appear on the homepage."
+      apiUrl="/api/admin/brands"
+      thumbKey="logoUrl"
+      itemTitle={(i) => str(i.name)}
       itemSubtitle={(i) =>
-        `${str(i.percentageOff)}% off${i.active ? "" : " · inactive"}${i.visible ? "" : " · hidden"}`
+        [str(i.industry), str(i.eventType)].filter(Boolean).join(" · ") + (i.visible ? "" : " (hidden)")
       }
-      defaults={{ percentageOff: 10, visible: true, active: true }}
+      defaults={{ visible: true, featured: false, order: 1 }}
       fields={[
-        { key: "title", label: "Offer title", type: "text", required: true },
-        { key: "description", label: "Description", type: "textarea", required: true, rows: 3 },
+        { key: "name", label: "Brand name", type: "text", required: true, half: true },
+        { key: "industry", label: "Industry", type: "text", half: true, placeholder: "Example: Retail, Education" },
+        { key: "logoUrl", label: "Brand logo", type: "image", folder: "pages" },
+        { key: "eventType", label: "Event or project", type: "text", half: true, placeholder: "Example: Product launch" },
+        { key: "location", label: "Location", type: "text", half: true },
+        { key: "eventDate", label: "Date or year", type: "text", half: true, placeholder: "Example: June 2025" },
+        { key: "websiteUrl", label: "Website link (optional)", type: "text", half: true, placeholder: "https://" },
         {
-          key: "percentageOff",
-          label: "Discount (%)",
-          type: "number",
-          half: true,
+          key: "description",
+          label: "What we did for them",
+          type: "textarea",
+          rows: 4,
+          help: "A short summary of the work, shown on the Brands page.",
         },
-        { key: "eligibility", label: "Who can use it", type: "text", half: true },
-        { key: "notes", label: "Extra notes", type: "textarea", rows: 2 },
-        { key: "startsAt", label: "Starts on (optional)", type: "date", half: true },
-        { key: "endsAt", label: "Ends on (optional)", type: "date", half: true },
+        {
+          key: "photos",
+          label: "Event photos",
+          type: "images",
+          folder: "pages",
+          help: "Photos from the work with this brand. Select several at once.",
+        },
+        ORDER_FIELD,
         {
           key: "visible",
           label: "Visible",
           type: "checkbox",
-          checkboxLabel: "Show on homepage",
+          checkboxLabel: "Show on the website",
           half: true,
         },
         {
-          key: "active",
-          label: "Active",
+          key: "featured",
+          label: "Featured",
           type: "checkbox",
-          checkboxLabel: "Offer is currently running",
+          checkboxLabel: "Show on the homepage",
           half: true,
         },
       ]}
-      updateUrl={() => "/api/admin/offers"}
-      updateBody={(payload, id) => ({ ...payload, id })}
     />
   );
 }

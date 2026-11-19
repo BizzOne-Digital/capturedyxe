@@ -5,7 +5,6 @@ import {
   previewAddOns,
   previewFaqs,
   previewGallery,
-  previewOffer,
   previewPackages,
   previewServices,
   previewTestimonials,
@@ -19,12 +18,12 @@ import { FAQ } from "@/models/FAQ";
 import { Testimonial } from "@/models/Testimonial";
 import { GalleryItem } from "@/models/GalleryItem";
 import { TeamMember } from "@/models/TeamMember";
-import { Offer } from "@/models/Offer";
+import { Brand } from "@/models/Brand";
 import { PageContent } from "@/models/PageContent";
 import type {
   PublicFaq,
   PublicGalleryItem,
-  PublicOffer,
+  PublicBrand,
   PublicPackage,
   PublicService,
   SiteSettingsRecord,
@@ -140,13 +139,15 @@ export async function getVisibleTeam(): Promise<PublicTeamMember[]> {
   return toPlain(docs) as unknown as PublicTeamMember[];
 }
 
-export async function getVisibleOffer(): Promise<PublicOffer | null> {
+export async function getVisibleBrands(opts: { featuredOnly?: boolean } = {}): Promise<PublicBrand[]> {
   if (!isDatabaseConfigured()) {
-    return previewOffer as PublicOffer;
+    return [];
   }
   await connectDB();
-  const doc = await Offer.findOne({ slug: "christmas-party", visible: true, active: true }).lean();
-  return doc ? (toPlain(doc) as unknown as PublicOffer) : null;
+  const docs = await Brand.find({ visible: true, ...(opts.featuredOnly ? { featured: true } : {}) })
+    .sort({ order: 1, createdAt: -1 })
+    .lean();
+  return toPlain(docs) as unknown as PublicBrand[];
 }
 
 export async function getPageContent(pageKey: string) {

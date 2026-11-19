@@ -4,7 +4,6 @@ import {
   previewAddOns,
   previewFaqs,
   previewGallery,
-  previewOffer,
   previewPackages,
   previewServices,
   previewSettings,
@@ -17,7 +16,6 @@ import { Package } from "../src/models/Package";
 import { AddOn } from "../src/models/AddOn";
 import { FAQ } from "../src/models/FAQ";
 import { GalleryItem } from "../src/models/GalleryItem";
-import { Offer } from "../src/models/Offer";
 
 function withoutId<T extends { _id?: string }>(row: T) {
   const { _id, ...rest } = row;
@@ -114,12 +112,6 @@ async function main() {
       { upsert: true }
     );
   }
-
-  await Offer.findOneAndUpdate(
-    { slug: previewOffer.slug },
-    { $setOnInsert: withoutId(previewOffer) },
-    { upsert: true }
-  );
 
   for (const testimonial of previewTestimonials) {
     await Testimonial.findOneAndUpdate(
