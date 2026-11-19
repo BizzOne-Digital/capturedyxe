@@ -6,6 +6,7 @@ const AddOnSchema = new Schema(
     slug: { type: String, required: true, unique: true },
     priceCents: { type: Number, required: true },
     description: { type: String, default: "" },
+    imageUrl: { type: String, default: "" },
     needsClientConfirmation: { type: Boolean, default: true },
     active: { type: Boolean, default: true },
     showPricePublicly: { type: Boolean, default: false },

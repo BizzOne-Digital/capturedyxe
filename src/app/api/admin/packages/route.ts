@@ -32,6 +32,7 @@ const addOnSchema = z.object({
   slug: z.string().optional(),
   priceCents: z.number().int().min(0),
   description: z.string().optional(),
+  imageUrl: z.string().optional(),
   needsClientConfirmation: z.boolean().optional(),
   active: z.boolean().optional(),
   showPricePublicly: z.boolean().optional(),

@@ -347,6 +347,7 @@ export function AddOnsManager() {
       intro="Extra options clients can add to a package."
       apiUrl="/api/admin/packages"
       listKey="addOns"
+      thumbKey="imageUrl"
       itemTitle={(i) => str(i.name)}
       itemSubtitle={(i) =>
         `$${(Number(i.priceCents ?? 0) / 100).toLocaleString()}${i.active ? "" : " · inactive"}`
@@ -355,6 +356,7 @@ export function AddOnsManager() {
       fields={[
         { key: "name", label: "Add-on name", type: "text", required: true },
         { key: "description", label: "Description", type: "textarea", rows: 3 },
+        { key: "imageUrl", label: "Add-on photo", type: "image", folder: "products" },
         { key: "priceCents", label: "Price", type: "money", half: true, required: true },
         ORDER_FIELD,
         { key: "active", label: "Active", type: "checkbox", checkboxLabel: "Available for booking", half: true },

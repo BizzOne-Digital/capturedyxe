@@ -5,6 +5,7 @@ import { connectDB, isDatabaseConfigured } from "@/lib/db";
 import { withAdmin } from "@/lib/admin/guard-api";
 import { Package } from "@/models/Package";
 import { AddOn } from "@/models/AddOn";
+import { deleteReplacedUpload, deleteUploadByUrl } from "@/lib/uploads";
 
 const inclusionSchema = z.object({
   label: z.string(),
@@ -29,6 +30,7 @@ const addOnPatch = z.object({
   name: z.string().trim().min(1).optional(),
   priceCents: z.number().int().min(0).optional(),
   description: z.string().optional(),
+  imageUrl: z.string().optional(),
   needsClientConfirmation: z.boolean().optional(),
   active: z.boolean().optional(),
   showPricePublicly: z.boolean().optional(),
@@ -46,8 +48,10 @@ export async function PATCH(req: Request, { params }: Params) {
     if (body?.resource === "addon") {
       const parsed = addOnPatch.safeParse(body.data);
       if (!parsed.success) return NextResponse.json({ error: "Please check the form fields." }, { status: 400 });
+      const before = await AddOn.findById(id).select("imageUrl").lean<{ imageUrl?: string }>();
       const doc = await AddOn.findByIdAndUpdate(id, { $set: parsed.data }, { new: true });
       if (!doc) return NextResponse.json({ error: "Not found" }, { status: 404 });
+      if (parsed.data.imageUrl !== undefined) await deleteReplacedUpload(before?.imageUrl, parsed.data.imageUrl);
       revalidatePath("/pricing");
       return NextResponse.json(doc.toObject());
     }
@@ -67,7 +71,8 @@ export async function DELETE(req: Request, { params }: Params) {
     const resource = new URL(req.url).searchParams.get("resource");
     await connectDB();
     if (resource === "addon") {
-      await AddOn.findByIdAndDelete(id);
+      const removed = await AddOn.findByIdAndDelete(id);
+      await deleteUploadByUrl(removed?.imageUrl);
     } else {
       await Package.findByIdAndDelete(id);
     }
